@@ -84,7 +84,7 @@ margin-right: 5px;
 
         .SCBcards {
             width: 500px;
-            height: 400px;
+            height: 420px;
             position: absolute;
     z-index: 400;
     background-color: white;

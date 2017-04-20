@@ -4,7 +4,9 @@ submitArea.addEventListener("focus", function () {
     document.getElementById("controlBar").style.display = "flex";
     document.getElementById("commentArea").style.display = "none";
     document.getElementById("sortingArea").style.display = "none";
-    submitArea.style.height = "300px";
+    document.getElementById("pollBar").style.display = "none";
+    document.getElementById("pollAnswerBar").style.display = "none";
+    submitArea.style.height = "340px";
     submitArea.removeAttribute("rows");
 });
 submitArea.addEventListener("focusout", function () {
@@ -13,6 +15,8 @@ submitArea.addEventListener("focusout", function () {
         document.getElementById("controlBar").style.display = "none";
         document.getElementById("commentArea").style.display = "";
         document.getElementById("sortingArea").style.display = "";
+        document.getElementById("pollBar").style.display = "";
+        document.getElementById("pollAnswerBar").style.display = "";
         submitArea.style.height = "30px";
         submitArea.setAttribute("rows", "1");
     }
@@ -105,6 +109,27 @@ cancelPostButton.addEventListener("click", function () {
     document.getElementById("controlBar").style.display = "none";
     document.getElementById("commentArea").style.display = "";
     document.getElementById("sortingArea").style.display = "";
+    document.getElementById("pollBar").style.display = "";
+    document.getElementById("pollAnswerBar").style.display = "";
     submitArea.style.height = "30px";
     submitArea.setAttribute("rows", "1");
+});
+
+var pollButtonYes = document.getElementById("pollButtonYes")
+var pollButtonNo = document.getElementById("pollButtonNo")
+
+pollButtonYes.addEventListener("click", function () {
+    document.getElementById("pollButtonArea").style.display = "none";
+    document.getElementById("pollQuestion").style.display = "none";
+    document.getElementById("pollAnswerYes").style.display = "unset";
+    document.getElementById("pollAnswerNo").style.display = "unset";
+    document.getElementById("pollBar").value = 10;
+});
+
+pollButtonNo.addEventListener("click", function () {
+    document.getElementById("pollButtonArea").style.display = "none";
+    document.getElementById("pollQuestion").style.display = "none";
+    document.getElementById("pollAnswerYes").style.display = "unset";
+    document.getElementById("pollAnswerNo").style.display = "unset";
+    document.getElementById("pollBar").value = 10;
 });

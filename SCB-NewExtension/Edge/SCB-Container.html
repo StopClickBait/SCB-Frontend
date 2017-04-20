@@ -52,6 +52,7 @@
 
         #submitArea {
             margin: 5px;
+            margin-right: 20px;
         }
 
         .commentLeft {
@@ -62,14 +63,15 @@
         #sortingArea {
             text-align: right;
             font-size: 9pt;
+            margin-right: 15px;
         }
 
         #commentArea {
             font-size: 12pt;
             margin-bottom: 5px;
-            bottom: 390px;
+            bottom: 345px;
             overflow: auto;
-            max-height: 335px;
+            max-height: 285px;
             margin-top: 5px;
         }
 
@@ -134,9 +136,9 @@
             padding-top: 7px;
         }
 
-        .userArea a, .userArea span {
-            color: #a4a4a4;
-        }
+            .userArea a, .userArea span {
+                color: #a4a4a4;
+            }
 
         a {
             color: #828282;
@@ -157,7 +159,6 @@
             justify-content: center;
             align-items: center;
             font-size: 12pt;
-            
         }
 
         .deleteIcon {
@@ -173,7 +174,6 @@
             border: 0;
             font-family: stopclickbait;
         }
-
 
         .deleteButtons {
             position: absolute;
@@ -225,6 +225,57 @@
             .cancelButton:hover {
                 background-color: #707070;
             }
+
+
+        #pollBar {
+            border-radius: 3px;
+            border: 0;
+            margin: 5px;
+            height: 10px;
+            width: 95%;
+            margin-right: 15px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+            #pollBar[value] {
+                color: #2ecc71;
+                background-color: #d56969;
+            }
+
+            #pollBar:not([value]) {
+                color: #e4ae48;
+                background-color: #e4ae48;
+            }
+
+        #pollAnswerYes {
+            font-size: 9pt;
+            display: none;
+        }
+
+        #pollAnswerBar {
+            margin-left: 5px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+            #pollAnswerBar button {
+                border: 0;
+                background-color: transparent;
+                cursor: pointer;
+            }
+
+        #pollAnswerNo {
+            font-size: 9pt;
+            display: none;
+        }
+
+        #pollQuestion {
+        }
+
+        #pollButtonArea {
+        }
 
         #pictureBar {
             display: none;
@@ -325,7 +376,7 @@
 
                 <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
             </div>
-            <!--<div class="commentBox">
+            <div class="commentBox">
                 <div class="commentLeft">
                     <div class="commentText">
                         <p>efnlweiokhjfweoihfoiwehfio</p>
@@ -420,8 +471,19 @@
                     <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
                     <span class="upvotes">2</span>
                 </div>
-            </div>-->
+            </div>
 
+        </div>
+        <progress id="pollBar" max="100"></progress>
+        <div id="pollAnswerBar">
+            <span id="pollAnswerYes">Yes:  10%</span>
+            <span id="pollQuestion">Is this clickbait?</span>
+            <span id="pollButtonArea">
+                <button id="pollButtonYes">YES</button>
+                <span class="separator">|</span>
+                <button id="pollButtonNo">NO</button>
+            </span>
+            <span id="pollAnswerNo">No:  90%</span>
         </div>
         <div id="pictureBar">
             <canvas class="pictureBox"></canvas>
@@ -434,7 +496,7 @@
                 <button id="btnEmoji">&#x1F642;</button>
             </div>
             <div id="rightBar">
-                <button id="btnClose">Cancel</button> <!-- <img alt="close" src="cross.svg" /> -->
+                <button id="btnClose">Cancel</button>
                 <button id="btnSubmit" type="submit">Submit</button>
             </div>
         </div>
