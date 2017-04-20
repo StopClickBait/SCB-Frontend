@@ -94,7 +94,7 @@ for (i = 0; i < cancelDeleteButtons.length; i++) {
                 targ.parentNode.parentNode.style.pointerEvents = "";
                 targ.parentNode.parentNode.classList.add("clickedCommentBox");
                 targ.parentNode.parentNode.classList.remove("blockedCommentBox");
-                deleteButtons[i].style.display = "none";
+                deleteButtons.style.display = "none";
     };
 }
 
