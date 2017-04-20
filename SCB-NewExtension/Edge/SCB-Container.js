@@ -102,6 +102,21 @@ for (i = 0; i < cancelDeleteButtons.length; i++) {
     };
 }
 
+var cancelDeleteButtons = document.getElementsByClassName("deleteButton");
+for (i = 0; i < cancelDeleteButtons.length; i++) {
+    cancelDeleteButtons[i].onclick = function (e) {
+        var targ;
+        if (!e) e = window.event;
+        if (e.target) targ = e.target;
+        else if (e.srcElement) targ = e.srcElement;
+        if (targ.nodeType == 3) // defeat Safari bug
+            targ = targ.parentNode;
+        console.log(targ);
+        var deleteButtons = targ.parentNode;
+        deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute;">Post deleted.</span>';
+    };
+}
+
 var cancelPostButton = document.getElementById('btnClose');
 cancelPostButton.addEventListener("click", function () {
     var submitArea = document.getElementById("submitCB");

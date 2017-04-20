@@ -89,7 +89,7 @@ margin-right: 5px;
     z-index: 400;
     background-color: white;
             border: 1px solid #cfcfcf;
-    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.5), 0px 0px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.5), 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
             overflow: hidden;
     }
 
