@@ -94,7 +94,7 @@ margin-right: 5px;
     }
 
     svg {
-        transform: translate(0, 4px);
+        transform: translate(0, 2px);
 }
 `;
     document.head.appendChild(css);
@@ -197,8 +197,6 @@ function displaySCBContainer(e) {
     }
     console.log(targ);
     var link = targ.getAttribute('data-url');
-    var posx = document.getElementById('contentArea').getBoundingClientRect().left - targ.getBoundingClientRect().left;
-    var posy = "55px";
     var cardDiv = document.createElement('div');
     cardDiv.classList.add('SCBcards');
     cardDiv.style.top = "70px";

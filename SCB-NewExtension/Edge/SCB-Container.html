@@ -81,7 +81,7 @@
             margin: 0 5px 5px 5px;
             border-radius: 3px;
             display: flex;
-            padding-left: 15px;
+            padding-left: 25px;
             position: relative;
         }
 
@@ -240,18 +240,22 @@
         }
 
             #pollBar[value] {
-                color: #2ecc71;
-                background-color: #d56969;
+                background-color: #2ecc71;
+                color: #d56969;
             }
 
-                #pollBar[value]::-webkit-progress-bar {
-                    color: #2ecc71;
-                    background-color: #d56969;
+                #pollBar[value]::-webkit-progress-inner-element {
+                    color: #d56969;
+                }
+
+
+                #pollBar[value]::-webkit-progress-value {
+                    color: #d56969;
                 }
 
                 #pollBar[value]::-moz-progress-bar {
-                    color: #2ecc71;
-                    background-color: #d56969;
+                    background-color: #2ecc71;
+                    color: #d56969;
                 }
 
             #pollBar:not([value]) {
@@ -279,12 +283,14 @@
             margin-right: 20px;
             display: flex;
             justify-content: space-between;
+            color: #828282;
         }
 
             #pollAnswerBar button {
                 border: 0;
                 background-color: transparent;
                 cursor: pointer;
+                color: #828282;
             }
 
         #pollAnswerNo {
@@ -309,7 +315,6 @@
             height: 40px;
             padding: 0;
             background-color: #eeeeee;
-            border-top: 1px solid #828282;
         }
 
         #leftBar {
