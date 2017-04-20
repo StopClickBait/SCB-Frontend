@@ -20,12 +20,12 @@
                 "https://*.facebook.com/*"
             ],
             "js": [
-                "stopclickbait2.js"
+                "stopclickbait.js"
             ]
         }
     ],
     "web_accessible_resources": [
-        "SCB-Container2.html"
+        "SCB-Container.html"
     ],
     "-ms-preload": {
         "backgroundScript": "backgroundScriptsAPIBridge.js",

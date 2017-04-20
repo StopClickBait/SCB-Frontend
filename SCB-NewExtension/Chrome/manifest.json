@@ -13,9 +13,9 @@
 	"permissions": [ "https://*.stopclickbait.com/*" ],
 	"content_scripts": [ {
 		"matches": [ "https://*.facebook.com/*" ],
-		"js": [ "stopclickbait2.js" ]
+		"js": [ "stopclickbait.js" ]
 	} ],
 	"web_accessible_resources": [
-	"SCB-Container2.html"
+	"SCB-Container.html"
 	]
 }
