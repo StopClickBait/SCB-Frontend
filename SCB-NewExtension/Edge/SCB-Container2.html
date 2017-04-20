@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <meta charset="utf-8">
+    <link href="styles.css" rel="stylesheet" />
+    <style type="text/css">
+        @font-face {
+            font-family: "stopclickbait";
+            src: url("fonts/stopclickbait.eot");
+            src: url("fonts/stopclickbait.eot?#iefix") format("embedded-opentype"), url("fonts/stopclickbait.woff") format("woff"), url("fonts/stopclickbait.ttf") format("truetype"), url("fonts/stopclickbait.svg#stopclickbait") format("svg");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        #card {
+            padding: 10px;
+            background-color: #e9ebee;
+            font-family: Helvetica,Arial,sans-serif;
+            /*border: 1px solid #cfcfcf;
+            box-shadow: 2px 2px 0 0 #cfcfcf, 0 0 1px 1px #cfcfcf inset; */
+            width: 480px;
+            max-height: 400px;
+            color: #828282;
+        }
+
+        #submitCB {
+            background-color: white;
+            border: 0;
+            border-radius: 4px;
+            height: 30px;
+            width: 98%;
+            padding-left: 15px;
+            padding-top: 8px;
+            font-family: Helvetica,Arial,sans-serif;
+            font-size: 12pt;
+        }
+
+            #submitCB::-webkit-input-placeholder {
+                color: #bbb;
+            }
+
+            #submitCB::-moz-placeholder {
+                color: #bbb;
+            }
+
+            #submitCB:-ms-input-placeholder {
+                color: #bbb;
+            }
+
+        #submitArea {
+            margin: 5px;
+        }
+
+        .commentLeft {
+            width: 85%;
+            max-width: 85%;
+        }
+
+        #sortingArea {
+            text-align: right;
+            font-size: 9pt;
+        }
+
+        #commentArea {
+            font-size: 12pt;
+            margin-bottom: 5px;
+            bottom: 390px;
+            overflow: auto;
+            max-height: 335px;
+            margin-top: 5px;
+        }
+
+        .commentBox {
+            background-color: white;
+            margin: 0 5px 5px 5px;
+            border-radius: 3px;
+            display: flex;
+            padding-left: 15px;
+            position: relative;
+        }
+
+            .commentBox:hover {
+                background-color: #3b5998;
+                margin: 0px 5px 5px 5px;
+                border-radius: 3px;
+                display: flex;
+                padding-left: 15px;
+                position: relative;
+            }
+
+                .commentBox:hover * {
+                    color: white !important;
+                }
+
+        .blockedCommentBox:hover {
+            background-color: white;
+            margin: 0 5px 5px 5px;
+            border-radius: 3px;
+            display: flex;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .clickedCommentBox {
+            background-color: #3b5998;
+            margin: 0px 5px 5px 5px;
+            border-radius: 3px;
+            display: flex;
+            padding-left: 15px;
+        }
+
+            .clickedCommentBox * {
+                color: white !important;
+            }
+
+        .commentText {
+            margin-top: 5px;
+            color: #828282;
+            padding-left: 4px;
+            padding-top: 2px;
+            margin-bottom: 8px;
+        }
+
+            .commentText p {
+                margin: 0;
+            }
+
+        .userArea {
+            font-size: 9pt;
+            padding-bottom: 15px;
+            padding-top: 7px;
+        }
+
+        .userArea a, .userArea span {
+            color: #a4a4a4;
+        }
+
+        a {
+            color: #828282;
+            text-decoration: none;
+            padding-left: 4px;
+            padding-top: 2px;
+            padding-right: 3px;
+        }
+
+        .voteArea {
+            width: 20%;
+            float: right;
+            text-align: right;
+            padding-right: 4px;
+            color: #828282;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 12pt;
+            
+        }
+
+        .deleteIcon {
+            right: 0%;
+            color: #bbb;
+            top: 1%;
+            position: absolute;
+            margin-right: 0px;
+            margin-top: 0px;
+            cursor: pointer;
+            height: 20px;
+            background-color: transparent;
+            border: 0;
+            font-family: stopclickbait;
+        }
+
+
+        .deleteButtons {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 402;
+            height: 100%;
+            width: 100%;
+            display: none;
+            border-radius: 3px;
+        }
+
+        .deleteButton {
+            background-color: #3b5998;
+            color: white;
+            border: 0;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            top: 40%;
+            left: 31%;
+            position: absolute;
+            width: 80px;
+            pointer-events: auto;
+            font-size: 12pt;
+        }
+
+            .deleteButton:hover {
+                background-color: #2a4887;
+            }
+
+        .cancelButton {
+            background-color: #828282;
+            color: white;
+            border: 0;
+            height: 40px;
+            border-radius: 3px;
+            top: 40%;
+            left: 51%;
+            cursor: pointer;
+            position: absolute;
+            width: 80px;
+            pointer-events: auto;
+            font-size: 12pt;
+        }
+
+            .cancelButton:hover {
+                background-color: #707070;
+            }
+
+        #pictureBar {
+            display: none;
+        }
+
+        #controlBar {
+            display: none;
+            margin: 0;
+            /*display: flex; */
+            height: 40px;
+            padding: 0;
+            background-color: #eeeeee;
+            border-top: 1px solid #555555;
+        }
+
+        #leftBar {
+            width: 50%;
+            height: 100%;
+            display: flex; /*  */
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        #rightBar {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        #btnClose, #btnEmoji, #btnPhoto {
+            background-color: transparent;
+            border: 0;
+            font-size: 18pt;
+            cursor: pointer;
+            font-family: "stopclickbait";
+        }
+
+        #btnEmoji, #btnPhoto {
+            display: none;
+        }
+
+        #btnSubmit {
+            background-color: darkslategray;
+            color: white;
+            font-weight: bold;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin: 5px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="margin: 0px;">
+    <div id="card">
+        <div id="submitArea">
+            <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="1"></textarea>
+        </div>
+        <div id="sortingArea">
+            <a href="#">top</a>
+            <span class="separator">|</span>
+            <a href="#">new</a>
+        </div>
+        <div id="commentArea">
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>
+                            Nach Berechnungen von Astronomen passierte der 650-Meter-Brocken mit der Bezeichnung 2014 JO25 die Erde um 14.24 Uhr Mitteleuropäischer Sommerzeit, wie aus vorab veröffentlichten Daten der US-Raumfahrtbehörde Nasa hervorging. Dabei kam der Asteroid der Erde auf bis zu 1,8 Millionen Kilometer nahe - für einen Asteroiden dieser Größenklasse eine "sehr dichte Annäherung", wie das Jet Propulsion Laboratory (JPL) der Nasa in Pasadena im US-Bundesstaat Kalifornien im Vorfeld mitteilte.
+                        </p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <button class="deleteIcon">c</button>
+                    <span class="upvoteStar"><em class="scb-star"></em></span>
+                    <span class="upvotes">12</span>
+                </div>
+
+                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>efnlweiokhjfweoihfoiwehfio</p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <span class="upvoteStar"><em class="scb-star"></em></span>
+                    <span class="upvotes">12</span>
+                </div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>efnlweiokhjfweoihfoiwehfio</p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
+                    <span class="upvotes">12</span>
+                </div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>efnlweiokhjfweoihfoiwehfio</p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
+                    <span class="upvotes">12</span>
+                </div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>efnlweiokhjfweoihfoiwehfio</p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
+                    <span class="upvotes">12</span>
+                </div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>Lorem Ipsum dolor sit amet. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude3</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
+                    <span class="upvotes">9</span>
+                </div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>Lorem Ipsum dolor sit amet. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude123</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
+                    <span class="upvotes">2</span>
+                </div>
+            </div>
+
+        </div>
+        <div id="pictureBar">
+            <canvas class="pictureBox"></canvas>
+            <canvas class="pictureBox"></canvas>
+            <canvas class="pictureBox"></canvas>
+        </div>
+        <div id="controlBar">
+            <div id="leftBar">
+                <button id="btnPhoto">&#x1F4F7;</button>
+                <button id="btnEmoji">&#x1F642;</button>
+            </div>
+            <div id="rightBar">
+                <button id="btnClose">c</button> <!-- <img alt="close" src="cross.svg" /> -->
+                <button id="btnSubmit" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+    <script src="SCB-Container2.js"></script>
+</body>
+</html>

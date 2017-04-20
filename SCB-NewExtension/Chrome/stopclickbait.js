@@ -1,0 +1,233 @@
+// ==UserScript==
+// @name         Stop Clickbait
+// @namespace    http://www.stopclickbait.com/
+// @version      0.1
+// @description  Prevents you from being clickbaited!
+// @author       You
+// @match        https://*.facebook.com/*
+// @match        http://*.facebook.com/*
+// @grant        none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+    var myID = chrome.runtime.id
+
+
+    function isElementVisible(elem) {
+        return elem.offsetParent !== null;
+    }
+
+    function isHeadline(elem) {
+        if (elem.childElementCount === 0 && elem.innerText.length > 0) {
+            var parent = elem.parentNode.parentNode;
+            var siblings = Array.prototype.filter.call(parent.parentNode.children, function (child) {
+                return child !== parent;
+            });
+            for (var sibling of siblings) {
+                if (sibling.tagName === "A") {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function openWebModal(event) {
+        event.preventDefault();
+        var link = event.currentTarget;
+        picoModal(`
+<iframe height="640" width="900" src="${event.currentTarget.href}"></iframe>
+`).afterClose((modal) => {
+    modal.destroy();
+    console.log(link.getAttribute('data-realurl'));
+    console.log(link.getAttribute('data-answernode-id'));
+}).show();
+        return false;
+    }
+
+    function prepare() {
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = '.__clickbait_link {  } ';
+        css.innerHTML += `.__clickbait_button {
+cursor: pointer;
+height: 1.8rem;
+letter-spacing: .1rem;
+line-height: 1.8rem;
+text-decoration: none;
+text-transform: uppercase;
+white-space: nowrap;
+display: inline-block;
+
+background-color: #f6f7f9;
+color: #4b4f56;
+
+border: 1px solid;
+border-radius: 2px;
+box-sizing: content-box;
+font-family: helvetica, arial, sans-serif;
+font-size: 12px;
+font-weight: bold;
+padding: 0 8px;
+position: relative;
+text-align: center;
+text-shadow: none;
+vertical-align: middle;
+border-color: #bbb;
+} `;
+        css.innerHTML += `.__clickbait_text {
+display: inline-block;
+margin-left: 1em;
+}
+
+._42nr > span::before {
+content: "" !important;
+}
+
+._4x9_, ._a7s ._524d a, ._a7s ._50u4, ._1ysv {
+padding: 0px !important;
+}
+
+.__clickbait_btn {
+margin-right: 5px;
+}
+
+._zw3 {
+    padding: 8px 4px 4px 0 !important;
+}
+
+._3m9g {
+    padding-left: 0 !important;
+}
+
+
+.st0 {
+
+        }
+
+        .SCBcards {
+            width: 500px;
+            height: 400px;
+            position: absolute;
+    z-index: 400;
+    background-color: white;
+            border: 1px solid #cfcfcf;
+    box-shadow: 2px 2px 0px 0px #cfcfcf, inset 0px 0px 1px 1px #cfcfcf;
+            overflow: hidden;
+        }
+`;
+        document.head.appendChild(css);
+    }
+
+    // counter that increments to generate a new ID
+    var uniqueIds = 0;
+
+    function loop() {
+        var allLinks = document.querySelectorAll('a[onmouseover^="LinkshimAsyncLink"]');
+        var qualifyingLinks = [];
+
+        for (var i = 0; i < allLinks.length; i++) {
+            var node = allLinks.item(i);
+            if (isElementVisible(node) && isHeadline(node) && !node.classList.contains("__clickbait_link")) {
+                node.classList.add("__clickbait_link");
+                var realUrl = decodeURIComponent(node.href);
+                if (realUrl.indexOf('l.php?u=') != -1) {
+                    realUrl = realUrl.substring(realUrl.indexOf('l.php?u=') + 'l.php?u='.length);
+                    realUrl = realUrl.substring(0, realUrl.indexOf('&h='));
+                }
+
+                var spanContainer2 = node;
+                while (!spanContainer2.classList.contains('fbUserContent')) {
+                    spanContainer2 = spanContainer2.parentNode;
+                }
+                var actionBar = spanContainer2.childNodes[1].childNodes[0].childNodes[3].childNodes[0].childNodes[0].childNodes[0];
+                for (var j = 0; j < actionBar.childNodes.length; j++) {
+                    if (actionBar.childNodes[j].classList.contains('clearfix')) {
+                        actionBar = actionBar.childNodes[j];
+                    }
+                }
+                for (j = 0; j < actionBar.childNodes.length; j++) {
+                    if (actionBar.childNodes[j].classList.contains('_524d')) {
+                        actionBar = actionBar.childNodes[j];
+                    }
+                }
+
+                actionBar = actionBar.childNodes[0];
+                var CBButtonSpan = document.createElement('span');
+                CBButtonSpan.appendChild(document.createElement('a'));
+                var CBButtonLink = CBButtonSpan.childNodes[0];
+
+                CBButtonLink.classList.add('__clickbait_btn');
+                CBButtonLink.href = '#';
+                CBButtonLink.setAttribute('data-url', realUrl);
+                CBButtonLink.innerHTML = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 72 72" style="enable-background:new 0 0 72 72;" xml:space="preserve"><style type="text/css">.st0{fill:#AFB4BD;} svg{width="16px"; height="16px";}</style><g id="loading"><g><path class="st0" d="M20.5,4c-1.1,0.1-1.9,1-1.8,2.1l0.5,7.6c0.1,1.1,1,1.9,2.1,1.8c1.1-0.1,1.9-1,1.8-2.1l-0.5-7.6C22.5,4.7,21.6,3.9,20.5,4z"/><path class="st0" d="M11.6,8.9c-0.7-0.8-2-1-2.8-0.2s-0.9,2-0.2,2.8l4.9,5.8c0.4,0.5,1.1,0.7,1.7,0.7c0.4,0,0.8-0.2,1.1-0.5c0.8-0.7,1-2,0.2-2.8L11.6,8.9z"/><path class="st0" d="M3.6,21.7l7.4,1.8c0.2,0.1,0.4,0.1,0.6,0.1c0.8-0.1,1.6-0.6,1.8-1.5c0.3-1.1-0.4-2.1-1.4-2.4l-7.4-1.8c-1.1-0.3-2.1,0.4-2.4,1.5C1.9,20.4,2.6,21.5,3.6,21.7z"/><path class="st0" d="M13.8,27.5c-0.4-1-1.6-1.5-2.6-1.1l-7.1,2.9c-1,0.4-1.5,1.6-1.1,2.6c0.3,0.8,1.2,1.3,2,1.2c0.2,0,0.4-0.1,0.6-0.1l7.1-2.9C13.7,29.7,14.2,28.5,13.8,27.5z"/><path class="st0" d="M26.5,16.8c0.4,0.2,0.8,0.3,1.2,0.3c0.6,0,1.2-0.4,1.6-0.9l4-6.5c0.6-0.9,0.3-2.2-0.6-2.8c-0.9-0.6-2.2-0.3-2.8,0.6l-4,6.5C25.3,15,25.6,16.3,26.5,16.8z"/></g></g><g id="arrow_cursor"><g id="_x35_0-arrrow-cursor.png"><g><path class="st0" d="M50.3,40.5L65,31.6c0,0,0.3-0.2,0.4-0.3c0.9-0.9,0.9-2.3,0-3.1c-0.3-0.3-0.7-0.5-1.1-0.6l0,0c-4.2-1-43.7-8.2-43.7-8.2l0,0c-0.7-0.2-1.5,0.1-2,0.6c-0.6,0.6-0.8,1.3-0.6,2l0,0L24.6,53l3.1,12.1c0.1,0.4,0.3,0.9,0.6,1.2c0.9,0.9,2.3,0.9,3.1,0c0.1-0.2,0.4-0.5,0.4-0.5c0,0,9.2-15.9,9.2-15.9L60.1,69l9.4-9.4L50.3,40.5z"/></g></g></g></svg>';
+
+                CBButtonLink.id = `__clickbait_btn_${(uniqueIds)}`;
+                CBButtonLink.addEventListener('click', function (e) { displaySCBContainer(e); })
+                CBButtonLink.style.float = "right";
+                actionBar.appendChild(CBButtonSpan);
+
+                var FBPageLink = spanContainer2.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].href;
+            }
+        }
+    }
+
+    function init() {
+        prepare();
+        document.onscroll = loop;
+        loop();
+    }
+
+    function moveTopComment(e) {
+        var targ;
+        if (!e) e = window.event;
+        if (e.target) targ = e.target;
+        else if (e.srcElement) targ = e.srcElement;
+        if (targ.nodeType == 3) // defeat Safari bug
+            targ = targ.parentNode;
+        var TopComment = targ.parentNode.parentNode.parentNode.parentNode.parentNode;
+        //console.log(TopComment.classList);
+        window.setTimeout(function () {
+            if (TopComment.childNodes[0].classList.contains('_3m9g')) {
+                TopComment = TopComment.childNodes[0];
+                var temp = TopComment.parentNode;
+                temp.removeChild(TopComment);
+                temp.appendChild(TopComment);
+            }
+        }, 1000);
+    }
+
+    function displaySCBContainer(e) {
+        var targ;
+        if (!e) e = window.event;
+        if (e.target) targ = e.target;
+        else if (e.srcElement) targ = e.srcElement;
+        if (targ.nodeType == 3) // defeat Safari bug
+            targ = targ.parentNode;
+
+        while (!targ.classList.contains('__clickbait_btn')) {
+            targ = targ.parentNode;
+        }
+        console.log(targ);
+        var link = targ.getAttribute('data-url');
+        var posx = document.getElementById('contentArea').getBoundingClientRect().left - targ.getBoundingClientRect().left;
+        var posy = "55px";
+        var card = document.createElement('iframe');
+        card.style.top = posy;
+        card.classList.add("SCBcards");
+        card.style.left = "0px";
+        card.setAttribute('scrolling', 'no');
+        card.src = chrome.runtime.getURL('SCB-Container2.html') + '?url=' + encodeURIComponent(link);
+        targ.parentNode.appendChild(card);
+
+    }
+
+    function getURLParameter(name) {
+        var value = decodeURIComponent((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, ""])[1]);
+        return (value !== 'null') ? value : false;
+    }
+
+    init();
+})();

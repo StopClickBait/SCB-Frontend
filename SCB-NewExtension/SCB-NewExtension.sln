@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Chrome", "Chrome\", "{60999A89-07D6-4D33-887B-F2EA4E20DDCC}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61373"
+		Debug.AspNetCompiler.PhysicalPath = "Chrome\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61373\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61373"
+		Release.AspNetCompiler.PhysicalPath = "Chrome\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61373\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "61373"
+		SlnRelativePath = "Chrome\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Edge", "Edge\", "{0DDE9DE7-68EE-4BFA-95FE-5511943E1917}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61382"
+		Debug.AspNetCompiler.PhysicalPath = "Edge\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61382\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61382"
+		Release.AspNetCompiler.PhysicalPath = "Edge\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61382\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "61382"
+		SlnRelativePath = "Edge\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60999A89-07D6-4D33-887B-F2EA4E20DDCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60999A89-07D6-4D33-887B-F2EA4E20DDCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDE9DE7-68EE-4BFA-95FE-5511943E1917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DDE9DE7-68EE-4BFA-95FE-5511943E1917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        #card {
+            font-family: Helvetica,Arial,sans-serif;
+            border: 1px solid #cfcfcf;
+            box-shadow: 2px 2px 0 0 #cfcfcf, 0 0 1px 1px #cfcfcf inset;
+            width: 300px;
+            max-height: 400px;
+        }
+
+        #submitCB {
+            background-color: #eeeeee;
+            border: 0;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            height: 25px;
+            width: 98%;
+            padding-left: 5px;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12pt;
+        }
+
+        #submitArea {
+            margin: 5px;
+        }
+
+        #commentArea {
+            background-color: #dddddd;
+            border-top: 1px solid #555555;
+            font-size: 10pt;
+            margin-bottom: 0;
+            border-bottom: 1px solid #cfcfcf;
+        }
+
+        .commentBox {
+            background-color: white;
+            margin: 5px 5px 5px 5px;
+            border: 1px solid #cccccc;
+        }
+
+        .commentText {
+            color: #565656;
+            border-bottom: 1px solid #555555;
+            padding-left: 4px;
+            padding-top: 2px;
+        }
+
+            .commentText p {
+                margin: 0;
+            }
+
+        .userArea {
+            font-size: 9pt;
+            padding-bottom: 5px;
+        }
+
+        .userName a {
+            color: black;
+            text-decoration: none;
+            padding-left: 4px;
+            padding-top: 2px;
+        }
+
+        .upvotes {
+            width: auto;
+            float: right;
+            text-align: right;
+            padding-right: 4px;
+            color: goldenrod;
+            font-weight: bold;
+        }
+
+        #controlBar {
+            display: none;
+            margin: 0;
+            /*display: flex; */
+            height: 40px;
+            padding: 0;
+            background-color: #eeeeee;
+            border-top: 1px solid #555555;
+        }
+
+        #leftBar {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        #rightBar {
+            width:50%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        #btnClose, #btnEmoji, #btnPhoto {
+            background-color: transparent;
+            border: 0;
+            font-size: 18pt;
+            cursor: pointer;
+        }
+
+        #btnSubmit {
+            background-color: darkslategray;
+            color: white;
+            font-weight: bold;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin: 5px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="margin: 0px;">
+    <div id="card">
+        <div id="submitArea">
+            <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="1"></textarea>
+        </div>
+        <div id="commentArea">
+            <div class="commentBox">
+                <div class="commentText">
+                    <p>Lorem Ipsum dolor sit amet. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</p>
+                </div>
+                <div class="userArea">
+                    <span class="userName"><a href="#">FrenchDude</a></span>
+                    <span class="upvotes">⭐ 12</span>
+                </div>
+            </div>
+            <div class="commentBox">
+                <div class="commentText">
+                    <p>Lorem Ipsum dolor sit amet. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</p>
+                </div>
+                <div class="userArea">
+                    <span class="userName"><a href="#">FrenchDude2</a></span>
+                    <span class="upvotes">⭐ 7</span>
+                </div>
+            </div>
+        </div>
+        <div id="controlBar">
+            <div id="leftBar">
+                <button id="btnPhoto">&#x1F4F7;</button>
+                <button id="btnEmoji">&#x1F642;</button>
+            </div>
+            <div id="rightBar">
+                <button id="btnClose">&#x274C;</button> <!-- <img alt="close" src="cross.svg" /> -->
+                <button id="btnSubmit" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var submitArea = document.getElementById("submitCB");
+        submitArea.addEventListener("focus", function (e) {
+            document.getElementById("controlBar").style.display = "flex";
+            document.getElementById("commentArea").style.display = "none";
+            e.target.style.height = "300px";
+            e.target.removeAttribute("rows");
+        });
+        submitArea.addEventListener("blur", function (e) {
+            document.getElementById("controlBar").style.display = "none";
+            document.getElementById("commentArea").style.display = "unset";
+            e.target.style.height = "25px";
+            e.target.setAttribute("rows", "1");
+        });
+    </script>
+</body>
+</html>
