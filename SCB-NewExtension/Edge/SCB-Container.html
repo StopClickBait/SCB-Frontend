@@ -21,7 +21,7 @@
             /*border: 1px solid #cfcfcf;
             box-shadow: 2px 2px 0 0 #cfcfcf, 0 0 1px 1px #cfcfcf inset; */
             width: 480px;
-            max-height: 400px;
+            height: 400px;
             color: #828282;
         }
 
@@ -35,6 +35,7 @@
             padding-top: 8px;
             font-family: Helvetica,Arial,sans-serif;
             font-size: 12pt;
+            color: #828282;
         }
 
             #submitCB::-webkit-input-placeholder {
@@ -236,7 +237,7 @@
             height: 40px;
             padding: 0;
             background-color: #eeeeee;
-            border-top: 1px solid #555555;
+            border-top: 1px solid #828282;
         }
 
         #leftBar {
@@ -255,7 +256,7 @@
             align-items: center;
         }
 
-        #btnClose, #btnEmoji, #btnPhoto {
+        #btnEmoji, #btnPhoto {
             background-color: transparent;
             border: 0;
             font-size: 18pt;
@@ -267,15 +268,28 @@
             display: none;
         }
 
-        #btnSubmit {
-            background-color: darkslategray;
+        #btnClose {
+            background-color: #828282;
             color: white;
-            font-weight: bold;
-            border: 1px solid black;
-            border-radius: 4px;
-            margin: 5px;
-            height: 20px;
+            border: 0;
+            height: 35px;
+            border-radius: 3px;
             cursor: pointer;
+            width: 80px;
+            font-size: 12pt;
+        }
+
+        #btnSubmit {
+            background-color: #3b5998;
+            color: white;
+            border: 0;
+            height: 35px;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 80px;
+            font-size: 12pt;
         }
     </style>
 </head>
@@ -294,7 +308,7 @@
                 <div class="commentLeft">
                     <div class="commentText">
                         <p>
-                            Nach Berechnungen von Astronomen passierte der 650-Meter-Brocken mit der Bezeichnung 2014 JO25 die Erde um 14.24 Uhr Mitteleuropäischer Sommerzeit, wie aus vorab veröffentlichten Daten der US-Raumfahrtbehörde Nasa hervorging. Dabei kam der Asteroid der Erde auf bis zu 1,8 Millionen Kilometer nahe - für einen Asteroiden dieser Größenklasse eine "sehr dichte Annäherung", wie das Jet Propulsion Laboratory (JPL) der Nasa in Pasadena im US-Bundesstaat Kalifornien im Vorfeld mitteilte.
+                            Hello!
                         </p>
                     </div>
                     <div class="userArea">
@@ -311,7 +325,7 @@
 
                 <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
             </div>
-            <div class="commentBox">
+            <!--<div class="commentBox">
                 <div class="commentLeft">
                     <div class="commentText">
                         <p>efnlweiokhjfweoihfoiwehfio</p>
@@ -406,7 +420,7 @@
                     <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
                     <span class="upvotes">2</span>
                 </div>
-            </div>
+            </div>-->
 
         </div>
         <div id="pictureBar">
@@ -420,7 +434,7 @@
                 <button id="btnEmoji">&#x1F642;</button>
             </div>
             <div id="rightBar">
-                <button id="btnClose">c</button> <!-- <img alt="close" src="cross.svg" /> -->
+                <button id="btnClose">Cancel</button> <!-- <img alt="close" src="cross.svg" /> -->
                 <button id="btnSubmit" type="submit">Submit</button>
             </div>
         </div>
