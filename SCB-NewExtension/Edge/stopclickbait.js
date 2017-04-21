@@ -4,33 +4,7 @@ var myID = chrome.runtime.id
 function prepare() {
     var css = document.createElement("style");
     css.type = "text/css";
-    css.innerHTML = `.__clickbait_button {
-cursor: pointer;
-height: 1.8rem;
-letter-spacing: .1rem;
-line-height: 1.8rem;
-text-decoration: none;
-text-transform: uppercase;
-white-space: nowrap;
-display: inline-block;
-
-background-color: #f6f7f9;
-color: #4b4f56;
-
-border: 1px solid;
-border-radius: 2px;
-box-sizing: content-box;
-font-family: helvetica, arial, sans-serif;
-font-size: 12px;
-font-weight: bold;
-padding: 0 8px;
-position: relative;
-text-align: center;
-text-shadow: none;
-vertical-align: middle;
-border-color: #bbb;
-} `;
-    css.innerHTML += `.__clickbait_text {
+    css.innerHTML = `.__clickbait_text {
 display: inline-block;
 margin-left: 1em;
 }
@@ -60,7 +34,7 @@ margin-right: 5px;
         fill: #AFB4BD;
         }
 
-        .SCBcards {
+.SCBcards {
             width: 500px;
             height: 420px;
             position: absolute;
@@ -152,7 +126,6 @@ function moveTopComment(e) {
     if (targ.nodeType == 3) // defeat Safari bug
         targ = targ.parentNode;
     var TopComment = targ.parentNode.parentNode.parentNode.parentNode.parentNode;
-    //console.log(TopComment.classList);
     window.setTimeout(function () {
         if (TopComment.childNodes[0].classList.contains('_3m9g')) {
             TopComment = TopComment.childNodes[0];
@@ -180,7 +153,6 @@ function displaySCBContainer(e) {
         }
         return;
     }
-    console.log(targ);
     var link = targ.getAttribute('data-url');
     var cardDiv = document.createElement('div');
     cardDiv.classList.add('SCBcards');

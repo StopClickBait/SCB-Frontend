@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title></title>
     <meta charset="utf-8">
-    <link href="styles.css" rel="stylesheet" />
     <style type="text/css">
         @font-face {
             font-family: "stopclickbait";
@@ -90,7 +89,6 @@
                 margin: 0px 5px 5px 5px;
                 border-radius: 3px;
                 display: flex;
-                padding-left: 15px;
                 position: relative;
             }
 
@@ -103,7 +101,6 @@
             margin: 0 5px 5px 5px;
             border-radius: 3px;
             display: flex;
-            padding-left: 15px;
             position: relative;
         }
 
@@ -112,7 +109,6 @@
             margin: 0px 5px 5px 5px;
             border-radius: 3px;
             display: flex;
-            padding-left: 15px;
         }
 
             .clickedCommentBox * {
@@ -174,6 +170,11 @@
             background-color: transparent;
             border: 0;
             font-family: stopclickbait;
+        }
+
+        .upvoteStar {
+            font-family: stopclickbait;
+            margin-bottom: 5px;
         }
 
         .deleteButtons {
@@ -396,7 +397,7 @@
                 </div>
                 <div class="voteArea">
                     <button class="deleteIcon">c</button>
-                    <span class="upvoteStar"><em class="scb-star"></em></span>
+                    <span class="upvoteStar">a</span>
                     <span class="upvotes">12</span>
                 </div>
 
@@ -405,7 +406,9 @@
             <div class="commentBox">
                 <div class="commentLeft">
                     <div class="commentText">
-                        <p>efnlweiokhjfweoihfoiwehfio</p>
+                        <p>
+                            Hello!
+                        </p>
                     </div>
                     <div class="userArea">
                         <span class="userName"><a href="#">FrenchDude</a></span>
@@ -414,91 +417,55 @@
                     </div>
                 </div>
                 <div class="voteArea">
-                    <span class="upvoteStar"><em class="scb-star"></em></span>
+                    <button class="deleteIcon">c</button>
+                    <span class="upvoteStar">a</span>
                     <span class="upvotes">12</span>
                 </div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>efnlweiokhjfweoihfoiwehfio</p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
-                    <span class="upvotes">12</span>
-                </div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>efnlweiokhjfweoihfoiwehfio</p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
-                    <span class="upvotes">12</span>
-                </div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>efnlweiokhjfweoihfoiwehfio</p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
-                    <span class="upvotes">12</span>
-                </div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>Lorem Ipsum dolor sit amet. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude3</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
-                    <span class="upvotes">9</span>
-                </div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>Lorem Ipsum dolor sit amet. Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.</p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude123</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <span class="upvoteStar"><em class="icon-star icon-star"></em></span>
-                    <span class="upvotes">2</span>
-                </div>
-            </div>
 
+                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>
+                            Hello!
+                        </p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <button class="deleteIcon">c</button>
+                    <span class="upvoteStar">a</span>
+                    <span class="upvotes">12</span>
+                </div>
+
+                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
+            </div>
+            <div class="commentBox">
+                <div class="commentLeft">
+                    <div class="commentText">
+                        <p>
+                            Hello!
+                        </p>
+                    </div>
+                    <div class="userArea">
+                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="separator">|</span>
+                        <span class="reportLink"><a href="#">report</a></span>
+                    </div>
+                </div>
+                <div class="voteArea">
+                    <button class="deleteIcon">c</button>
+                    <span class="upvoteStar">a</span>
+                    <span class="upvotes">12</span>
+                </div>
+
+                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
+            </div>
         </div>
         <progress id="pollBar" max="100"></progress>
         <div id="pollAnswerBar">

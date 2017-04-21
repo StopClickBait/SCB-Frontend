@@ -1,34 +1,41 @@
 {
-    "manifest_version": 2,
-    "name": "Stop Clickbait!",
-    "description": "Helps you from being clickbaited!",
-    "version": "0.1",
-    "author": "Stop Clickbait team",
-    "browser_action": {
-        "default_icon": {
-            "96": "icon.png"
-        },
-        "default_popup": "popup.html",
-        "default_title": "Stop Clickbait!"
-    },
-    "permissions": [
-        "https://*.stopclickbait.com/*"
-    ],
-    "content_scripts": [
-        {
-            "matches": [
-                "https://*.facebook.com/*"
-            ],
-            "js": [
-                "stopclickbait.js"
-            ]
-        }
-    ],
-    "web_accessible_resources": [
-        "SCB-Container.html"
-    ],
-    "-ms-preload": {
-        "backgroundScript": "backgroundScriptsAPIBridge.js",
-        "contentScript": "contentScriptsAPIBridge.js"
+  "manifest_version": 2,
+  "name": "Stop Clickbait!",
+  "description": "Helps you from being clickbaited!",
+  "version": "0.1",
+  "author": "Stop Clickbait team",
+  "icons": [
+    {
+      "96": "icon.png",
+      "48": "icon.png"
     }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "96": "icon.png",
+      "48": "icon.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "Stop Clickbait!"
+  },
+  "permissions": [
+    "https://*.stopclickbait.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.facebook.com/*"
+      ],
+      "js": [
+        "stopclickbait.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "SCB-Container.html"
+  ],
+  "-ms-preload": {
+    "backgroundScript": "backgroundScriptsAPIBridge.js",
+    "contentScript": "contentScriptsAPIBridge.js"
+  }
 }
