@@ -1,32 +1,10 @@
 'use strict';
 var myID = chrome.runtime.id
 
-
-function isElementVisible(elem) {
-    return elem.offsetParent !== null;
-}
-
-function isHeadline(elem) {
-    if (elem.childElementCount === 0 && elem.innerText.length > 0) {
-        var parent = elem.parentNode.parentNode;
-        var siblings = Array.prototype.filter.call(parent.parentNode.children, function (child) {
-            return child !== parent;
-        });
-        for (var sibling of siblings) {
-            if (sibling.tagName === "A") {
-                return true;
-            }
-        }
-    } else {
-        return false;
-    }
-}
-
 function prepare() {
     var css = document.createElement("style");
     css.type = "text/css";
-    css.innerHTML = '.__clickbait_link {  } ';
-    css.innerHTML += `.__clickbait_button {
+    css.innerHTML = `.__clickbait_button {
 cursor: pointer;
 height: 1.8rem;
 letter-spacing: .1rem;
@@ -104,12 +82,12 @@ margin-right: 5px;
 var uniqueIds = 0;
 
 function loop() {
-    var allLinks = document.querySelectorAll('a[onmouseover^="LinkshimAsyncLink"]');
+    var allLinks = document.querySelectorAll('a._52c6');
     var qualifyingLinks = [];
 
     for (var i = 0; i < allLinks.length; i++) {
         var node = allLinks.item(i);
-        if (isElementVisible(node) && isHeadline(node) && !node.classList.contains("__clickbait_link")) {
+        if (!node.classList.contains("__clickbait_link")) {
             node.classList.add("__clickbait_link");
             var realUrl = decodeURIComponent(node.href);
             if (realUrl.indexOf('l.php?u=') != -1) {
@@ -121,7 +99,14 @@ function loop() {
             while (!spanContainer2.classList.contains('fbUserContent')) {
                 spanContainer2 = spanContainer2.parentNode;
             }
-            var actionBar = spanContainer2.childNodes[1].childNodes[0].childNodes[3].childNodes[0].childNodes[0].childNodes[0];
+            var actionBar = spanContainer2.childNodes[1].childNodes[0].childNodes[3];
+            for (var j = 0; j < actionBar.childNodes.length; j++) {
+                if (actionBar.childNodes[j].classList.contains('_37uu')) {
+                    actionBar = actionBar.childNodes[j];
+                }
+            }
+
+             actionBar = actionBar.childNodes[0].childNodes[0];
             for (var j = 0; j < actionBar.childNodes.length; j++) {
                 if (actionBar.childNodes[j].classList.contains('clearfix')) {
                     actionBar = actionBar.childNodes[j];
