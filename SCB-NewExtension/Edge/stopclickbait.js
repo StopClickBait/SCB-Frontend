@@ -39,7 +39,7 @@ margin-right: 5px;
             width: 500px;
             height: 420px;
             position: absolute;
-    z-index: 5;
+    z-index: 400;
     background-color: white;
             border: 1px solid #cfcfcf;
     box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.5), 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
@@ -53,7 +53,6 @@ margin-right: 5px;
     .__clickbait_reveal_line {
         padding: 2px;
     margin-top: 11px;
-    padding-left: 3px;
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.4);
     }
 
@@ -161,6 +160,12 @@ function displaySCBContainer(e) {
         targ = targ.parentNode;
     }
     if (document.getElementById("SCBinterface")) {
+        for (var i = 0; i < targ.parentNode.childNodes.length; i++) {
+            if (targ.parentNode.childNodes[i].id == "SCBinterface") {
+                targ.parentNode.removeChild(targ.parentNode.childNodes[i]);
+                return;
+            }
+        }
         document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
     }
     var link = targ.getAttribute('data-url');
