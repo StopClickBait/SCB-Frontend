@@ -53,6 +53,7 @@ margin-right: 5px;
     .__clickbait_reveal_line {
         padding: 2px;
     margin-top: 11px;
+    margin-left: 1px;
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.4);
     }
 
