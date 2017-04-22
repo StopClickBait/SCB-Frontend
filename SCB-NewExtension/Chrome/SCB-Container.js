@@ -152,7 +152,7 @@ function addEventHandlers() {
                 targ = targ.parentNode;
             console.log(targ);
             var deleteButtons = targ.parentNode;
-            deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute;">Post deleted.</span>';
+            deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute; color: #828282 !important">Post deleted.</span>';
         };
     }
 
@@ -173,10 +173,9 @@ function addEventHandlers() {
     var pollButtonNo = document.getElementById("pollButtonNo")
     pollButtonYes.addEventListener("click", function () {
         document.getElementById("pollButtonArea").style.display = "none";
-        document.getElementById("pollQuestion").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
-
+        document.getElementById("pollAnswerBar").style.justifyContent = "space-between";
         if (!DEBUG) {
             var xhr = new XMLHttpRequest();
             var content = "";
@@ -190,15 +189,14 @@ function addEventHandlers() {
             }
             xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID + "&vote=yes");
         } else {
-            //JSON.parse('{ "no": "10", "yes": "90" }', (key, value) => processingVotingResults(key, value));
            processingVotingResults(JSON.parse('{ "no": "5", "yes": "95" }'));
         }
     });
     pollButtonNo.addEventListener("click", function () {
         document.getElementById("pollButtonArea").style.display = "none";
-        document.getElementById("pollQuestion").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
+        document.getElementById("pollAnswerBar").style.justifyContent = "space-between";
         if (!DEBUG) {
             var xhr = new XMLHttpRequest();
             var content = "";
@@ -226,8 +224,8 @@ function processingVotingResults(results) {
     var pollAnswerYes = document.getElementById('pollAnswerYes');
     var pollBar = document.getElementById('pollBar');
     pollBar.value = results.yes;
-    pollAnswerNo.innerText = "No:  " + results.no + "%";
-    pollAnswerYes.innerText = "Yes:  " + results.yes + "%";
+    pollAnswerNo.innerText = "Not clickbait:  " + results.no + "%";
+    pollAnswerYes.innerText = "Clickbait:  " + results.yes + "%";
 }
 
 function createCommentBox(commentId, content, userNameString, voteNumber, ownComment) {
