@@ -3,7 +3,7 @@
 if (DEBUG) {
     createCommentBox(1, "Hello!", "testUser", 23, false);
     createCommentBox(2, "Hello!", "myUserName", 17, true);
-    createCommentBox(3, "Hello!", "testUser3", 12, false);
+    createCommentBox(3, "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB", "testUser3", 12, false);
     createCommentBox(4, "Hello!", "testUser4", 10, false);
     createCommentBox(5, "Hello!", "testUser5", 8, false);
     addEventHandlers();

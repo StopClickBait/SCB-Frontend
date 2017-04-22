@@ -2,8 +2,8 @@
 
 if (DEBUG) {
     createCommentBox(1, "Hello!", "testUser", 23, false);
-    createCommentBox(2, "Hello!", "testUser2", 17, true);
-    createCommentBox(3, "Hello!", "testUser3", 12, false);
+    createCommentBox(2, "Hello!", "myUserName", 17, true);
+    createCommentBox(3, "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB", "testUser3", 12, false);
     createCommentBox(4, "Hello!", "testUser4", 10, false);
     createCommentBox(5, "Hello!", "testUser5", 8, false);
     addEventHandlers();
@@ -97,24 +97,28 @@ function addEventHandlers() {
 
     var deleteIcons = document.getElementsByClassName("deleteIcon");
     for (i = 0; i < deleteIcons.length; i++) {
-        deleteIcons[i].onclick = function (e) {
-            var targ;
-            if (!e) e = window.event;
-            if (e.target) targ = e.target;
-            else if (e.srcElement) targ = e.srcElement;
-            if (targ.nodeType == 3) // defeat Safari bug
-                targ = targ.parentNode;
-            console.log(targ);
-            var deleteButtons = document.getElementsByClassName('deleteButtons')
-            for (i = 0; i < deleteButtons.length; i++) {
-                if (deleteButtons[i].parentNode == targ.parentNode.parentNode) {
-                    targ.parentNode.parentNode.style.pointerEvents = "none";
-                    targ.parentNode.parentNode.classList.remove("clickedCommentBox");
-                    targ.parentNode.parentNode.classList.add("blockedCommentBox");
-                    deleteButtons[i].style.display = "unset";
+        if (deleteIcons[i].parentNode.parentNode.classList.contains('ownComment')) {
+            deleteIcons[i].onclick = function (e) {
+                var targ;
+                if (!e) e = window.event;
+                if (e.target) targ = e.target;
+                else if (e.srcElement) targ = e.srcElement;
+                if (targ.nodeType == 3) // defeat Safari bug
+                    targ = targ.parentNode;
+                console.log(targ);
+                var deleteButtons = document.getElementsByClassName('deleteButtons')
+                for (i = 0; i < deleteButtons.length; i++) {
+                    if (deleteButtons[i].parentNode == targ.parentNode.parentNode) {
+                        targ.parentNode.parentNode.style.pointerEvents = "none";
+                        targ.parentNode.parentNode.classList.remove("clickedCommentBox");
+                        targ.parentNode.parentNode.classList.add("blockedCommentBox");
+                        deleteButtons[i].style.display = "unset";
+                    }
                 }
-            }
-        };
+            };
+        } else {
+            deleteIcons[i].style.display = "none";
+        }
     }
 
     var cancelDeleteButtons = document.getElementsByClassName("cancelButton");
