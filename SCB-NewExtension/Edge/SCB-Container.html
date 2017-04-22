@@ -111,7 +111,7 @@
             display: flex;
         }
 
-            .clickedCommentBox *, .ownComment * {
+            .clickedCommentBox *, .ownComment *:not(.blockedCommentBox) {
                 color: white !important;
             }
 
@@ -283,7 +283,7 @@
             margin-left: 5px;
             margin-right: 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             color: #828282;
         }
 
@@ -407,11 +407,11 @@
         <progress id="pollBar" max="100"></progress>
         <div id="pollAnswerBar">
             <span id="pollAnswerYes">Yes:  10%</span>
-            <span id="pollQuestion">Is this clickbait?</span>
+            <!--<span id="pollQuestion">Is this clickbait?</span>-->
             <span id="pollButtonArea">
-                <button id="pollButtonYes">YES</button>
+                <button id="pollButtonYes">CLICKBAIT</button>
                 <span class="separator">|</span>
-                <button id="pollButtonNo">NO</button>
+                <button id="pollButtonNo">NOT CLICKBAIT</button>
             </span>
             <span id="pollAnswerNo">No:  90%</span>
         </div>
