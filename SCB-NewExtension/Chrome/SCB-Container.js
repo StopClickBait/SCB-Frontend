@@ -152,7 +152,7 @@ function addEventHandlers() {
                 targ = targ.parentNode;
             console.log(targ);
             var deleteButtons = targ.parentNode;
-            deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute;">Post deleted.</span>';
+            deleteButtons.innerHTML = '<span style="color:grey !important; top: 35%; left: 35%; position: absolute;">Post deleted.</span>';
         };
     }
 
@@ -173,7 +173,7 @@ function addEventHandlers() {
     var pollButtonNo = document.getElementById("pollButtonNo")
     pollButtonYes.addEventListener("click", function () {
         document.getElementById("pollButtonArea").style.display = "none";
-        document.getElementById("pollQuestion").style.display = "none";
+        //document.getElementById("pollQuestion").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
 
@@ -196,7 +196,7 @@ function addEventHandlers() {
     });
     pollButtonNo.addEventListener("click", function () {
         document.getElementById("pollButtonArea").style.display = "none";
-        document.getElementById("pollQuestion").style.display = "none";
+        //document.getElementById("pollQuestion").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
         if (!DEBUG) {
