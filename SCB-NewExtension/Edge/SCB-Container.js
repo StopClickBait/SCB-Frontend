@@ -1,4 +1,10 @@
 ﻿const DEBUG = true;
+if (document.location.href.indexOf('?') == -1) { } else {
+    var clickBaitLink = document.location.href.split('?url=')[1];
+    decodeURIComponent(clickBaitLink);
+    clickBaitLink = clickBaitLink.split('?')[0];
+}
+//var userID = chrome.storage.local.get("userID");
 
 if (DEBUG) {
     createCommentBox(1, "Hello!", "testUser", 23, false);
@@ -8,10 +14,6 @@ if (DEBUG) {
     createCommentBox(5, "Hello!", "testUser5", 8, false);
     addEventHandlers();
 } else {
-    var clickBaitLink = document.location.href.split('?url=')[1];
-    decodeURIComponent(clickBaitLink);
-    clickBaitLink = clickBaitLink.split('?')[0];
-    var userID = chrome.storage.local.get("userID");
     var xhr = new XMLHttpRequest();
     var content = "";
     xhr.open('POST', 'https://server.stopclickbait.com/getComments.php');
@@ -174,19 +176,58 @@ function addEventHandlers() {
         document.getElementById("pollQuestion").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
-        document.getElementById("pollBar").value = 10;
+
+        if (!DEBUG) {
+            var xhr = new XMLHttpRequest();
+            var content = "";
+            xhr.open('POST', 'https://server.stopclickbait.com/voting.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    content = xhr.responseText;
+                    processingVotingResults(content);
+                }
+            }
+            xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID + "&vote=yes");
+        } else {
+            //JSON.parse('{ "no": "10", "yes": "90" }', (key, value) => processingVotingResults(key, value));
+           processingVotingResults(JSON.parse('{ "no": "5", "yes": "95" }'));
+        }
     });
     pollButtonNo.addEventListener("click", function () {
         document.getElementById("pollButtonArea").style.display = "none";
         document.getElementById("pollQuestion").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
-        document.getElementById("pollBar").value = 10;
+        if (!DEBUG) {
+            var xhr = new XMLHttpRequest();
+            var content = "";
+            xhr.open('POST', 'https://server.stopclickbait.com/voting.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    content = xhr.responseText;
+                    processingVotingResults(content);
+                }
+            }
+            xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID + "&vote=no");
+        } else {
+            processingVotingResults(JSON.parse('{ "no": "95", "yes": "5" }'));
+        }
     });
 }
 
 function processingCommentList(content) {
 
+}
+
+function processingVotingResults(results) {
+    var pollAnswerNo = document.getElementById('pollAnswerNo');
+    var pollAnswerYes = document.getElementById('pollAnswerYes');
+    var pollBar = document.getElementById('pollBar');
+    pollBar.value = results.yes;
+    pollAnswerNo.innerText = "No:  " + results.no + "%";
+    pollAnswerYes.innerText = "Yes:  " + results.yes + "%";
 }
 
 function createCommentBox(commentId, content, userNameString, voteNumber, ownComment) {
