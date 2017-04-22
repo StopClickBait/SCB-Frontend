@@ -1,26 +1,13 @@
 {
-  "manifest_version": 2,
-  "name": "Stop Clickbait!",
-  "description": "Helps you from being clickbaited!",
-  "version": "0.1",
   "author": "Stop Clickbait team",
-  "icons": [
-    {
-      "96": "icon.png",
-      "48": "icon.png"
-    }
-  ],
   "browser_action": {
     "default_icon": {
-      "96": "icon.png",
-      "48": "icon.png"
+      "48": "icon.png",
+      "96": "icon.png"
     },
     "default_popup": "popup.html",
     "default_title": "Stop Clickbait!"
   },
-  "permissions": [
-    "https://*.stopclickbait.com/*"
-  ],
   "content_scripts": [
     {
       "matches": [
@@ -31,11 +18,25 @@
       ]
     }
   ],
-  "web_accessible_resources": [
-    "SCB-Container.html"
+  "description": "Helps you from being clickbaited!",
+  "icons": [
+    {
+      "48": "icon.png",
+      "96": "icon.png"
+    }
   ],
+  "manifest_version": 2,
   "-ms-preload": {
     "backgroundScript": "backgroundScriptsAPIBridge.js",
     "contentScript": "contentScriptsAPIBridge.js"
-  }
+  },
+  "name": "Stop Clickbait!",
+  "permissions": [
+    "https://*.stopclickbait.com/*",
+    "storage"
+  ],
+  "version": "0.1",
+  "web_accessible_resources": [
+    "SCB-Container.html"
+  ]
 }

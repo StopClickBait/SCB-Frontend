@@ -104,14 +104,14 @@
             position: relative;
         }
 
-        .clickedCommentBox {
+        .clickedCommentBox, .ownComment {
             background-color: #3b5998;
             margin: 0px 5px 5px 5px;
             border-radius: 3px;
             display: flex;
         }
 
-            .clickedCommentBox * {
+            .clickedCommentBox *, .ownComment * {
                 color: white !important;
             }
 
@@ -137,7 +137,7 @@
                 color: #a4a4a4;
             }
 
-        a {
+        a, .userName {
             color: #828282;
             text-decoration: none;
             padding-left: 4px;
@@ -382,7 +382,7 @@
             <a href="#">new</a>
         </div>
         <div id="commentArea">
-            <div class="commentBox">
+            <!--<div class="commentBox">
                 <div class="commentLeft">
                     <div class="commentText">
                         <p>
@@ -390,7 +390,7 @@
                         </p>
                     </div>
                     <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
+                        <span class="userName">FrenchDude</span>
                         <span class="separator">|</span>
                         <span class="reportLink"><a href="#">report</a></span>
                     </div>
@@ -402,70 +402,7 @@
                 </div>
 
                 <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>
-                            Hello!
-                        </p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <button class="deleteIcon">c</button>
-                    <span class="upvoteStar">a</span>
-                    <span class="upvotes">12</span>
-                </div>
-
-                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>
-                            Hello!
-                        </p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <button class="deleteIcon">c</button>
-                    <span class="upvoteStar">a</span>
-                    <span class="upvotes">12</span>
-                </div>
-
-                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
-            </div>
-            <div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>
-                            Hello!
-                        </p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName"><a href="#">FrenchDude</a></span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <button class="deleteIcon">c</button>
-                    <span class="upvoteStar">a</span>
-                    <span class="upvotes">12</span>
-                </div>
-
-                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
-            </div>
+            </div>-->
         </div>
         <progress id="pollBar" max="100"></progress>
         <div id="pollAnswerBar">
