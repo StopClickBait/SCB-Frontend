@@ -39,7 +39,7 @@ margin-right: 5px;
             width: 500px;
             height: 420px;
             position: absolute;
-    z-index: 2;
+    z-index: 5;
     background-color: white;
             border: 1px solid #cfcfcf;
     box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.5), 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
@@ -172,7 +172,7 @@ function displaySCBContainer(e) {
     var link = targ.getAttribute('data-url');
     var cardDiv = document.createElement('div');
     cardDiv.classList.add('SCBcards');
-    cardDiv.style.top = "70px";
+    cardDiv.style.top = "38.1px";
     cardDiv.style.left = "0px";
     cardDiv.id = "SCBinterface";
     cardDiv.style.backgroundColor = "#99ccff";
