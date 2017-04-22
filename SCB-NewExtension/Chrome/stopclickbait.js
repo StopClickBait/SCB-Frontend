@@ -1,4 +1,5 @@
 'use strict';
+const DEBUG = true;
 var myID = chrome.runtime.id
 
 function prepare() {
@@ -47,13 +48,20 @@ margin-right: 5px;
 
     svg {
         transform: translate(0, 2px);
-}
+    }
+
+    .__clickbait_reveal_line {
+        padding: 2px;
+    margin-top: 11px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.4);
+    }
+
 `;
     document.head.appendChild(css);
 }
 
 // counter that increments to generate a new ID
-var uniqueIds = 0;
+var uniqueIds = 1;
 
 function loop() {
     var allLinks = document.querySelectorAll('a._52c6');
@@ -73,6 +81,7 @@ function loop() {
             while (!spanContainer2.classList.contains('fbUserContent')) {
                 spanContainer2 = spanContainer2.parentNode;
             }
+            var RevealLine = spanContainer2.childNodes[0].childNodes[2].childNodes[3];
             var actionBar = spanContainer2.childNodes[1].childNodes[0].childNodes[3];
             for (var j = 0; j < actionBar.childNodes.length; j++) {
                 if (actionBar.childNodes[j].classList.contains('_37uu')) {
@@ -92,6 +101,8 @@ function loop() {
                 }
             }
 
+            revealLine(RevealLine, realUrl, uniqueIds);
+
             actionBar = actionBar.childNodes[0];
             var CBButtonSpan = document.createElement('span');
             CBButtonSpan.appendChild(document.createElement('a'));
@@ -106,6 +117,8 @@ function loop() {
             CBButtonLink.addEventListener('click', function (e) { displaySCBContainer(e); })
             //CBButtonLink.style.float = "right";
             actionBar.appendChild(CBButtonSpan);
+            uniqueIds++;
+
 
             var FBPageLink = spanContainer2.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].href;
         }
@@ -175,6 +188,29 @@ function displaySCBContainer(e) {
 function getURLParameter(name) {
     var value = decodeURIComponent((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, ""])[1]);
     return (value !== 'null') ? value : false;
+}
+
+function revealLine(element, realURL, id) {
+    //var userID = chrome.storage.local.get("userID");
+    realURL = realURL.substring(0, realURL.indexOf('?'));
+    element.classList.add('_5pbx');
+    element.classList.add('__clickbait_reveal_line');
+    element.id = '__clickbait_reveal_line_' + id;
+    if (!DEBUG) {
+        var xhr = new XMLHttpRequest();
+        var content = "";
+        xhr.open('POST', 'https://server.stopclickbait.com/getTopComment.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                content = xhr.responseText;
+                element.innerText = content;
+            }
+        }
+        xhr.send("url=" + encodeURIComponent(realURL) + "&userid=" + userID);
+    } else {
+        element.innerText = "This is a StopClickBait test.";
+    }
 }
 
 init();
