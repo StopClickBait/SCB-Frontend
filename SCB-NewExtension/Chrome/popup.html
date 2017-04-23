@@ -37,8 +37,8 @@
         }
 
         #Profile {
-            height: 240px;
             margin-top: 20px;
+            margin-bottom: 20px;
             font-family: Arial;
         }
 
@@ -49,7 +49,7 @@
             display: block;
         }
 
-        #profile_name  {
+        #profile_name {
             text-align: center;
             margin: 10px;
         }
@@ -57,15 +57,15 @@
         .profile_content {
             margin: auto;
             width: 50%;
-            height: 30px;
             display: flex;
+            height: 20px;
         }
 
         .content_left {
             float: left;
-            height: 30px;
             width: 50%;
             text-align: right;
+            line-height: 20px;
             padding-right: 10px;
             border-right: solid;
             border-right-width: 1px;
@@ -74,14 +74,47 @@
 
         .content_right {
             float: left;
-            height: 30px;
             width: 50%;
+            line-height: 20px;
             padding-left: 10px;
             text-align: left;
         }
 
         #Stars {
             color: #0059b3;
+        }
+        .star_area {
+            margin: 10px;
+            height: 20px;
+            font-size: medium;
+            text-align: center;
+        }
+            .star_area span {
+                height: 20px;
+                line-height: 20px;
+            }
+        #profile_name {
+            margin: 10px;
+            font-size: large;
+        }
+        .button_container {
+            text-align: center;
+        }
+        #login {
+            background-color: crimson;
+            border: none;
+            color: white;
+            text-align: center;
+            height: 25px;
+            width: 70px;
+            border-radius: 3px;
+        }
+        .settings {
+            height: 100px;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid #c6c6c6;
         }
     </style>
 </head>
@@ -96,16 +129,27 @@
         </div>
     </div>
     <div id="Profile">
+        <div class="star_area">
+            <span style="font-family: stopclickbait; color: #00bfff; font-size: large;">a</span>
+            <span>352</span>
+        </div>
         <img id="profile_image" src="test_profile.png" />
-        <div id="profile_name">FNAME LNAME</div>
-        <div id="Posts" class="profile_content">
+        <div id="profile_name">YourNameHere</div>
+        <!--<div id="Posts" class="profile_content">
             <span class="content_left">Stars</span>
             <span class="content_right" id="posts_number">100</span>
         </div>
         <div id="Stars" class="profile_content">
             <span class="content_left">Posts</span>
             <span class="content_right" id="stars_number">5</span>
+        </div>-->
+        <div class="button_container">
+            <button id="login">Logout</button>
         </div>
+    </div>
+
+    <div class="settings">
+
     </div>
     <!--<script src="popup.js"></script>-->
 
