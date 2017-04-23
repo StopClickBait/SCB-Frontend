@@ -124,13 +124,29 @@ function loop() {
             CBButtonLink.innerHTML = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="5px" width="16px" height="16px" viewBox="0 0 72 72" style="enable-background:new 0 0 72 72;" xml:space="preserve"><g id="loading"><g><path class="st0" d="M20.5,4c-1.1,0.1-1.9,1-1.8,2.1l0.5,7.6c0.1,1.1,1,1.9,2.1,1.8c1.1-0.1,1.9-1,1.8-2.1l-0.5-7.6C22.5,4.7,21.6,3.9,20.5,4z"/><path class="st0" d="M11.6,8.9c-0.7-0.8-2-1-2.8-0.2s-0.9,2-0.2,2.8l4.9,5.8c0.4,0.5,1.1,0.7,1.7,0.7c0.4,0,0.8-0.2,1.1-0.5c0.8-0.7,1-2,0.2-2.8L11.6,8.9z"/><path class="st0" d="M3.6,21.7l7.4,1.8c0.2,0.1,0.4,0.1,0.6,0.1c0.8-0.1,1.6-0.6,1.8-1.5c0.3-1.1-0.4-2.1-1.4-2.4l-7.4-1.8c-1.1-0.3-2.1,0.4-2.4,1.5C1.9,20.4,2.6,21.5,3.6,21.7z"/><path class="st0" d="M13.8,27.5c-0.4-1-1.6-1.5-2.6-1.1l-7.1,2.9c-1,0.4-1.5,1.6-1.1,2.6c0.3,0.8,1.2,1.3,2,1.2c0.2,0,0.4-0.1,0.6-0.1l7.1-2.9C13.7,29.7,14.2,28.5,13.8,27.5z"/><path class="st0" d="M26.5,16.8c0.4,0.2,0.8,0.3,1.2,0.3c0.6,0,1.2-0.4,1.6-0.9l4-6.5c0.6-0.9,0.3-2.2-0.6-2.8c-0.9-0.6-2.2-0.3-2.8,0.6l-4,6.5C25.3,15,25.6,16.3,26.5,16.8z"/></g></g><g id="arrow_cursor"><g id="_x35_0-arrrow-cursor.png"><g><path class="st0" d="M50.3,40.5L65,31.6c0,0,0.3-0.2,0.4-0.3c0.9-0.9,0.9-2.3,0-3.1c-0.3-0.3-0.7-0.5-1.1-0.6l0,0c-4.2-1-43.7-8.2-43.7-8.2l0,0c-0.7-0.2-1.5,0.1-2,0.6c-0.6,0.6-0.8,1.3-0.6,2l0,0L24.6,53l3.1,12.1c0.1,0.4,0.3,0.9,0.6,1.2c0.9,0.9,2.3,0.9,3.1,0c0.1-0.2,0.4-0.5,0.4-0.5c0,0,9.2-15.9,9.2-15.9L60.1,69l9.4-9.4L50.3,40.5z"/></g></g></g></svg><span style="margin-left: 6px;">#SCB</span>';
 
             CBButtonLink.id = `__clickbait_btn_${(uniqueIds)}`;
-            CBButtonLink.addEventListener('click', function (e) { displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, false, CBButtonLink); });
-            CBButtonLink.addEventListener('mouseover', function (e) {
-                displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, CBButtonLink);
+            CBButtonLink.addEventListener('click', (e) => {
+                if (!CBButtonLink.classList.contains('clicked')) {
+                    CBButtonLink.classList.add('clicked');
+                } else {
+                    CBButtonLink.classList.remove('clicked');
+                }
+                if (CBButtonLink.classList.contains('hovered'))
+                    CBButtonLink.classList.remove('hovered');
+                displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, false, CBButtonLink);
+            });
+            CBButtonLink.addEventListener('mouseenter', (e) => {
+                if (!CBButtonLink.classList.contains('clicked')) {
+                    CBButtonLink.classList.add('hovered');
+                    displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, CBButtonLink);
+                }
+            });
+            CBButtonLink.addEventListener('mouseleave', () => {
+                if (CBButtonLink.classList.contains('hovered'))
+                    document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
             });
             actionBar.appendChild(CBButtonSpan);
             uniqueIds++;
-            
+
 
             var FBPageLink = spanContainer2.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].href;
         }
@@ -168,13 +184,18 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     else if (e.srcElement) targ = e.srcElement;
     if (targ.nodeType == 3) // defeat Safari bug
         targ = targ.parentNode;
+    if (targ.tagName.toLowerCase() == 'span') {
+        targ = targ.childNodes[0];
+    }
     while (!targ.classList.contains('__clickbait_btn')) {
         targ = targ.parentNode;
     }
+
     if (document.getElementById("SCBinterface")) {
         for (var i = 0; i < targ.parentNode.childNodes.length; i++) {
             if (targ.parentNode.childNodes[i].id == "SCBinterface") {
                 targ.parentNode.removeChild(targ.parentNode.childNodes[i]);
+                CBButtonLink.classList.remove('clicked');
                 return;
             }
         }
@@ -202,17 +223,6 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     card.src = chrome.runtime.getURL('SCB-Container.html') + '?url=' + encodeURIComponent(link);
     targ.parentNode.appendChild(cardDiv);
     cardDiv.appendChild(card);
-    if (hover) {
-        cardDiv.addEventListener('click', () => {
-            CBButtonLink.removeEventListener('mouseout', () => {
-                document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
-            });
-        });
-    } else {
-        CBButtonLink.removeEventListener('mouseover', function (e) {
-            displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, CBButtonLink);
-        });
-    }
 
     //window.setTimeout(function () { cardDiv.style.height = card.clientHeight; }, 2000);
 }
