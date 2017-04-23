@@ -75,6 +75,16 @@
             margin-top: 5px;
         }
 
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #828282;
+            border-radius: 3px;
+            width: 6px;
+        }
+
         .commentBox {
             background-color: white;
             margin: 0 5px 5px 5px;
@@ -116,7 +126,7 @@
             }
 
         .commentText {
-            margin-top: 5px;
+            margin-top: 15px;
             color: #828282;
             padding-left: 4px;
             padding-top: 2px;
@@ -234,7 +244,7 @@
             border: 0;
             margin: 5px;
             height: 10px;
-            width: 95%;
+            width: 96.5%;
             margin-right: 15px;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -248,6 +258,7 @@
 
                 #pollBar[value]::-webkit-progress-bar {
                     background-color: #2ecc71;
+                    border-radius: 3px;
                 }
 
 
@@ -257,6 +268,7 @@
 
                 #pollBar[value]::-moz-progress-bar {
                     background-color: #d56969;
+                    border-radius: 3px;
                 }
 
             #pollBar:not([value]) {
@@ -267,11 +279,13 @@
                 #pollBar:not([value])::-webkit-progress-bar {
                     color: #e4ae48;
                     background-color: #e4ae48;
+                    border-radius: 3px;
                 }
 
                 #pollBar:not([value])::-moz-progress-bar {
                     color: #e4ae48;
                     background-color: #e4ae48;
+                    border-radius: 3px;
                 }
 
         #pollAnswerYes {
