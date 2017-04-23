@@ -7,11 +7,11 @@ if (document.location.href.indexOf('?') == -1) { } else {
 //var userID = chrome.storage.local.get("userID");
 
 if (DEBUG) {
-    createCommentBox(1, "Hello!", "testUser", 23, false);
-    createCommentBox(2, "Hello!", "myUserName", 17, true);
-    createCommentBox(3, "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB", "testUser3", 12, false);
-    createCommentBox(4, "Hello!", "testUser4", 10, false);
-    createCommentBox(5, "Hello!", "testUser5", 8, false);
+    createCommentBox(1, 1490000000, "Hello!", "testUser", 23, false);
+    createCommentBox(2, 1491000000, "Hello!", "myUserName", 17, true);
+    createCommentBox(3, 1492000000, "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB", "testUser3", 12, false);
+    createCommentBox(4, 1493000000, "Hello!", "testUser4", 10, false);
+    createCommentBox(5, 1494000000, "Hello!", "testUser5", 8, false);
     addEventHandlers();
 } else {
     var xhr = new XMLHttpRequest();
@@ -231,7 +231,7 @@ function processingVotingResults(results) {
     pollAnswerYes.innerText = "Clickbait:  " + results.yes + "%";
 }
 
-function createCommentBox(commentId, content, userNameString, voteNumber, ownComment) {
+function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
     var commentArea = document.getElementById("commentArea");
     var commentBox = commentArea.appendChild(document.createElement('div'));
     var commentLeft = commentBox.appendChild(document.createElement('div'));
@@ -252,6 +252,7 @@ function createCommentBox(commentId, content, userNameString, voteNumber, ownCom
 
     commentBox.classList.add('commentBox');
     commentBox.id = 'comment-' + commentId;
+    commentBox.setAttribute('data-timestamp', timestamp);
 
     if (ownComment)
         commentBox.classList.add('ownComment');

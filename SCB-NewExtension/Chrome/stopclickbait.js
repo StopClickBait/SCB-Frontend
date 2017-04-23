@@ -1,6 +1,6 @@
 'use strict';
 const DEBUG = true;
-var myID = chrome.runtime.id
+var myID = chrome.runtime.id;
 
 function prepare() {
     var css = document.createElement("style");
