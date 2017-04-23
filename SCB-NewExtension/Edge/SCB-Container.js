@@ -211,6 +211,11 @@ function addEventHandlers() {
             processingVotingResults(JSON.parse('{ "no": "95", "yes": "5" }'));
         }
     });
+
+    document.getElementById("submitCB").oninput = () => {
+        var value = document.getElementById("submitCB").value.length;
+        document.getElementById('charCounter').innerText = (140 - value).toString();
+    };
 }
 
 function processingCommentList(content) {
@@ -292,8 +297,3 @@ function createCommentBox(commentId, content, userNameString, voteNumber, ownCom
     cancelButton.innerText = 'Cancel';
 
 }
-
-document.getElementById("submitCB").onkeypress = () => {
-    var value = document.getElementById("submitCB").value.length;
-    document.getElementById('charCounter').innerText = (140 - value).toString();
-};
