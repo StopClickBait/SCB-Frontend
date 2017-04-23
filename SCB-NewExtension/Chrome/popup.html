@@ -42,15 +42,16 @@
             font-family: Arial;
         }
 
-        .profile_image {
+        #profile_image {
             border-radius: 50%;
             height: 90px;
             margin: auto;
             display: block;
         }
 
-        .profile_name {
+        #profile_name  {
             text-align: center;
+            margin: 10px;
         }
 
         .profile_content {
@@ -95,15 +96,15 @@
         </div>
     </div>
     <div id="Profile">
-        <img class="profile_image" src="test_profile.png" />
-        <p class="profile_name">FNAME LNAME</p>
+        <img id="profile_image" src="test_profile.png" />
+        <div id="profile_name">FNAME LNAME</div>
         <div id="Posts" class="profile_content">
-            <p class="content_left">Stars</p>
-            <p class="content_right">100</p>
+            <span class="content_left">Stars</span>
+            <span class="content_right" id="posts_number">100</span>
         </div>
         <div id="Stars" class="profile_content">
-            <p class="content_left">Posts</p>
-            <p class="content_right">5</p>
+            <span class="content_left">Posts</span>
+            <span class="content_right" id="stars_number">5</span>
         </div>
     </div>
     <!--<script src="popup.js"></script>-->
