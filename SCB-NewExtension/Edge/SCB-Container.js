@@ -46,7 +46,6 @@ function addEventHandlers() {
         var submitArea = document.getElementById("submitCB");
         if (submitArea.value.length == 0) {
             document.getElementById("controlBar").style.display = "none";
-
             document.getElementById("commentArea").style.height = "285px";
             document.getElementById("pollBar").style.display = "";
             document.getElementById("pollAnswerBar").style.display = "";
@@ -161,8 +160,7 @@ function addEventHandlers() {
         var submitArea = document.getElementById("submitCB");
         submitArea.value = "";
         document.getElementById("controlBar").style.display = "none";
-        document.getElementById("commentArea").style.display = "";
-        document.getElementById("sortingArea").style.display = "";
+        document.getElementById("commentArea").style.height = "285px";
         document.getElementById("pollBar").style.display = "";
         document.getElementById("pollAnswerBar").style.display = "";
         submitArea.style.height = "30px";

@@ -54,6 +54,7 @@ margin-right: 5px;
         padding: 2px;
         padding-left: 8px;
     margin-top: 11px;
+    margin-bottom: 11px;
     margin-left: 1px;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.4);
     }
