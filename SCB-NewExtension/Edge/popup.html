@@ -52,6 +52,36 @@
             text-align: center;
             font-family: Arial;
         }
+
+        .profile_content {
+            margin: auto;
+            width: 50%;
+            height: 30px;
+            display: flex;
+        }
+
+        .content_left {
+            float: left;
+            height: 30px;
+            width: 50%;
+            text-align: right;
+            padding-right: 10px;
+            border-right: solid;
+            border-right-width: 1px;
+            border-right-color: #c6c6c6;
+        }
+
+        .content_right {
+            float: left;
+            height: 30px;
+            width: 50%;
+            padding-left: 10px;
+            text-align: left;
+        }
+
+        #Stars {
+            color: #0059b3;
+        }
     </style>
 </head>
 
@@ -65,15 +95,15 @@
         </div>
     </div>
     <div id="Profile">
-        <img class="profile_image" src="images/test_profile.jpg" />
+        <img class="profile_image" src="test_profile.jpg" />
         <p class="profile_name">FNAME LNAME</p>
-        <div id="Posts">
-            <p>Stars</p>
-            <p class="profile_posts_number"></p>
+        <div id="Posts" class="profile_content">
+            <p class="content_left">Stars</p>
+            <p class="content_right">100</p>
         </div>
-        <div id="Stars">
-            <p>Posts</p>
-            <p class="profile_stars_number"></p>
+        <div id="Stars" class="profile_content">
+            <p class="content_left">Posts</p>
+            <p class="content_right">5</p>
         </div>
     </div>
     <!--<script src="popup.js"></script>-->
