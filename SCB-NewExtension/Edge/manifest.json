@@ -2,8 +2,8 @@
   "author": "Stop Clickbait team",
   "browser_action": {
     "default_icon": {
-      "48": "icon.png",
-      "96": "icon.png"
+      "20": "images/icon_20.png",
+      "40": "images/icon_40.png"
     },
     "default_popup": "popup.html",
     "default_title": "Stop Clickbait!"
@@ -19,12 +19,10 @@
     }
   ],
   "description": "Helps you from being clickbaited!",
-  "icons": [
-    {
-      "48": "icon.png",
-      "96": "icon.png"
-    }
-  ],
+  "icons": {
+      "24": "images/icon_24.png",
+      "48": "images/icon_48.png"
+  },
   "manifest_version": 2,
   "-ms-preload": {
     "backgroundScript": "backgroundScriptsAPIBridge.js",
