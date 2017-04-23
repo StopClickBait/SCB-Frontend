@@ -35,19 +35,19 @@ function addEventHandlers() {
     submitArea.addEventListener("focus", function () {
         var submitArea = document.getElementById("submitCB");
         document.getElementById("controlBar").style.display = "flex";
-        document.getElementById("commentArea").style.display = "none";
-        document.getElementById("sortingArea").style.display = "none";
+        document.getElementById("commentArea").style.height = "215px";
+        //document.getElementById("sortingArea").style.display = "none";
         document.getElementById("pollBar").style.display = "none";
         document.getElementById("pollAnswerBar").style.display = "none";
-        submitArea.style.height = "340px";
+        submitArea.style.height = "100px";
         submitArea.removeAttribute("rows");
     });
     submitArea.addEventListener("focusout", function () {
         var submitArea = document.getElementById("submitCB");
         if (submitArea.value.length == 0) {
             document.getElementById("controlBar").style.display = "none";
-            document.getElementById("commentArea").style.display = "";
-            document.getElementById("sortingArea").style.display = "";
+
+            document.getElementById("commentArea").style.height = "285px";
             document.getElementById("pollBar").style.display = "";
             document.getElementById("pollAnswerBar").style.display = "";
             submitArea.style.height = "30px";
