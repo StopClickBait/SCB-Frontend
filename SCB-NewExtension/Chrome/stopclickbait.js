@@ -51,12 +51,12 @@ margin-right: 5px;
     }
 
     .__clickbait_reveal_line {
-        padding: 2px;
+        padding: 4px;
         padding-left: 8px;
     margin-top: 11px;
     margin-bottom: 11px;
     margin-left: 1px;
-    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.4);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
     }
 
 `;
