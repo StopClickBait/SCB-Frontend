@@ -1,7 +1,8 @@
-<head>
+﻿<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title></title>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <style type="text/css">
         @font-face {
             font-family: "stopclickbait";
@@ -11,16 +12,70 @@
             font-style: normal;
         }
 
-        #Popup {
-            width: 300px;
-            height: 300px;
+        body {
+            height: 320px;
+            width: 250px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #Header {
+            height: 80px;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            border-bottom: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: #c6c6c6;
+        }
+
+        #header_text {
+            text-align: center;
+            font-size: large;
+            padding-top: 15px;
+            font-family: 'Anton', sans-serif;
+        }
+
+        #Profile {
+            height: 240px;
+            margin-top: 20px;
+        }
+
+        .profile_image {
+            border-radius: 50%;
+            height: 90px;
+            margin: auto;
+            display: block;
+        }
+
+        .profile_name {
+            text-align: center;
+            font-family: Arial;
         }
     </style>
 </head>
 
 <body>
-    <div id="Popup">
-        <p>Stop ClickBait!</p>
+    <div id="Header">
+        <div id="header_text">
+            #STOPCLICKBAIT
+        </div>
+        <div id="social_bttns">
+
+        </div>
+    </div>
+    <div id="Profile">
+        <img class="profile_image" src="images/test_profile.jpg" />
+        <p class="profile_name">FNAME LNAME</p>
+        <div id="Posts">
+            <p>Stars</p>
+            <p class="profile_posts_number"></p>
+        </div>
+        <div id="Stars">
+            <p>Posts</p>
+            <p class="profile_stars_number"></p>
+        </div>
     </div>
     <!--<script src="popup.js"></script>-->
+
 </body>
