@@ -254,28 +254,4 @@ function revealLine(element, realURL, id) {
     }
 }
 
-var session = null;
-if(localStorage.session) { 
-    session = JSON.parse(localStorage.session);
-}
-chrome.extension.onRequest.addListener( function(request, sender, sendResponse) {
-    if(!request.message) return;
-
-    switch(request.message)
-    {
-        case "setSession":
-        {
-            localStorage.session = JSON.stringify(request.session);
-            session = request.session;
-            sendResponse();
-            console.log(session);
-            break;
-        }
-        case "getSession":
-        {
-            sendResponse(session);
-            break;
-        }
-    }
-});
 init();

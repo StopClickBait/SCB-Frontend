@@ -8,13 +8,13 @@
   "content_scripts": [
     {
       "matches": [ "https://*.facebook.com/*" ],
-      "js": [ "stopclickbait.js", "intercept_session.js" ]
+      "js": [ "stopclickbait.js" ]
     }
   ],
   "description": "Helps you from being clickbaited!",
   "manifest_version": 2,
   "name": "Stop Clickbait!",
-  "permissions": [ "https://*.stopclickbait.com/*", "storage" ],
+  "permissions": [ "https://*.stopclickbait.com/*", "storage", "tabs" ],
   "version": "0.1",
   "web_accessible_resources": [
     "SCB-Container.html"
