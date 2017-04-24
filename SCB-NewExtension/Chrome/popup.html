@@ -38,8 +38,8 @@
         }
 
         #Profile_Logged_In, #Profile_Logged_Out {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -120,7 +120,7 @@
                 background-color: darkred;
             }
 
-        .settings {
+        #settings {
             height: 150px;
             background: #f9f9f9;
             text-align: center;
@@ -132,7 +132,7 @@
             font-size: 9pt;
         }
 
-        .settings div {
+        #settings div {
             margin: 5px;
         }
         
@@ -167,6 +167,10 @@
             line-height: 20px;
             color: #3f3f3f;
             text-decoration: none;
+        }
+
+        #YourPosts {
+            height: inherit;
         }
     </style>
 </head>
@@ -210,9 +214,9 @@
         Your Posts
     </div>
 
-    <div class="settings">
+    <div id="settings">
         <h1 id="colorHeader">Primary Color</h1>
-        <div id="colors"></div>
+        <div id="colors">Placeholder</div>
         <div>Show expanation by default: <input id="showExplanation" type="checkbox"/></div>
         <div>Hover to open: <input id="hoverToOpen" type="checkbox"/></div>
     </div>

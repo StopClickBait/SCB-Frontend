@@ -24,5 +24,6 @@ function addEventHandlers() {
         e.preventDefault();
         document.getElementById("YourPosts").style.display = "block";
         document.getElementById("Profile_Logged_In").style.display = "none";
+        document.getElementById("settings").style.display = "none";
     })
 }
