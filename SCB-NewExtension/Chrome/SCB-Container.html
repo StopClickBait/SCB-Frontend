@@ -23,7 +23,7 @@
             font-family: Tahoma, Geneva, Verdana, sans-serif;
             /*border: 1px solid #cfcfcf;
             box-shadow: 2px 2px 0 0 #cfcfcf, 0 0 1px 1px #cfcfcf inset; */
-            height: 420px;
+            height: 450px;
             color: #828282;
         }
 
@@ -71,7 +71,7 @@
             margin-left: 11px;
             margin-right: 9px;
             position: relative;
-            height: 15px;
+            
             justify-content: space-between;
             width: inherit;
         }
@@ -79,13 +79,12 @@
         #commentArea {
             font-size: 12pt;
             margin-bottom: 9px;
-            bottom: 345px;
             overflow: auto;
+            bottom: 390px;
             max-height: 285px;
             margin-top: 5px;
             display: flex;
             flex-direction: column;
-
         }
 
         ::-webkit-scrollbar {
@@ -258,7 +257,11 @@
             display: inline-block;
             margin-left: 10px;
             margin-right: 6px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             width: 470px;
+            position: fixed;
+            bottom: 0;
         }
 
         #pollBar {
@@ -416,7 +419,7 @@
             background-color: #828282;
             color: white;
             border: 0;
-            height: 40px;
+            height: 30px;
             margin-top:18px;
             border-radius: 3px;
             cursor: pointer;
@@ -428,7 +431,7 @@
             background-color: #3b5998;
             color: white;
             border: 0;
-            height: 40px;
+            height: 30px;
             margin-top: 18px;
             margin-left: 10px;
             margin-right: 10px;
@@ -443,7 +446,7 @@
             float: left;
         }
         #TopNew {
-            float: right;
+            margin-left: 7px;
         }
     </style>
 </head>
@@ -454,12 +457,25 @@
         </div>
         <div id="sortingArea">
             <span id="charCounter">140</span>
-            <div id="TopNew">
-                <a href="#">top</a>
-                <span class="separator">|</span>
-                <a href="#">new</a>
+            <div id="controlBar">
+                <div id="leftBar">
+                    <button id="btnPhoto">&#x1F4F7;</button>
+                    <button id="btnEmoji">&#x1F642;</button>
+
+                </div>
+                <div id="rightBar">
+                    <button id="btnClose">Cancel</button>
+                    <button id="btnSubmit" type="submit">Submit</button>
+                </div>
             </div>
         </div>
+
+        <div id="TopNew">
+            <a href="#">top</a>
+            <span class="separator">|</span>
+            <a href="#">new</a>
+        </div>
+
         <div id="commentArea">
             <!--<div class="commentBox">
                 <div class="commentLeft">
@@ -504,17 +520,7 @@
             <canvas class="pictureBox"></canvas>
             <canvas class="pictureBox"></canvas>
         </div>
-        <div id="controlBar">
-            <div id="leftBar">
-                <button id="btnPhoto">&#x1F4F7;</button>
-                <button id="btnEmoji">&#x1F642;</button>
-                
-            </div>
-            <div id="rightBar">
-                <button id="btnClose">Cancel</button>
-                <button id="btnSubmit" type="submit">Submit</button>
-            </div>
-        </div>
+
     </div>
     <script src="SCB-Container.js"></script>
 </body>
