@@ -226,6 +226,22 @@
         #YourPosts {
             height: inherit;
         }
+        
+        #CheckboxOptions {
+            padding: 10px;
+            height: 30px;
+        }
+        .checkboxline span {
+            float: left;
+        }
+        .checkboxline input {
+            float: right;
+        }
+        .checkboxline {
+            width: auto;
+            height: 15px;
+            display: block;
+        }
     </style>
 </head>
 
@@ -272,8 +288,11 @@
     <div id="settings">
         <h1 id="colorHeader">Primary Color</h1>
         <div id="colors">Placeholder</div>
-        <div>Show expanation by default: <input id="showExplanation" type="checkbox"/></div>
-        <div>Hover to open: <input id="hoverToOpen" type="checkbox"/></div>
+        <div id="CheckboxOptions">
+            
+            <div class="checkboxLine"><span>Show expanation by default:</span><input id="showExplanation" type="checkbox"/></div>
+            <div class="checkboxLine"><span>Hover to open:</span><input id="hoverToOpen" type="checkbox"/></div>
+        </div>
     </div>
     <div class="about">
         <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
