@@ -13,7 +13,6 @@
         }
 
         body {
-            height: 320px;
             width: 250px;
             margin: 0;
             padding: 0;
@@ -297,33 +296,5 @@
     <div class="about">
         <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
     </div>
-    <script>
-        window.fbAsyncInit = function() {
-            FB._domain = {
-                api : 'https://api.facebook.com/',
-                cdn : 'https://s-static.ak.fbcdn.net/',
-                www : 'https://www.facebook.com/'
-            };
-
-            FB.init({
-            appId      : '137575509998503',
-            xfbml      : true,
-            version    : 'v2.9'
-            });
-            FB.AppEvents.logPageView();
-
-            // FB.getLoginStatus(function(response) {
-            //     statusChangeCallback(response);
-            // });
-        };
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
     <script src="popup.js"></script>
 </body>

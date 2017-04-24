@@ -14,7 +14,8 @@
   "description": "Helps you from being clickbaited!",
   "manifest_version": 2,
   "name": "Stop Clickbait!",
-  "permissions": [ "https://*.stopclickbait.com/*", "storage", "tabs" ],
+  "permissions": [ "https://*.stopclickbait.com/*", "http://*/*", "https://*/*",
+                   "storage", "tabs", "cookies" ],
   "version": "0.1",
   "web_accessible_resources": [
     "SCB-Container.html"

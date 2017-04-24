@@ -255,3 +255,4 @@ function revealLine(element, realURL, id) {
 }
 
 init();
+ 
