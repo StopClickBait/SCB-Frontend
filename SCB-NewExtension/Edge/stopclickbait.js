@@ -39,7 +39,6 @@ margin-right: 5px;
     width: 500px;
     height: 420px;
     position: absolute;
-    box-shadow: 0 4px 2px -2px gray;
     z-index: 7;
     background-color: white;
     overflow: hidden;
