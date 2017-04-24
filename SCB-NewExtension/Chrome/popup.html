@@ -107,8 +107,7 @@
         .button_container {
             text-align: center;
         }
-
-        #login {
+        .button_container button {
             background-color: crimson;
             border: none;
             color: white;
@@ -117,8 +116,7 @@
             width: 70px;
             border-radius: 3px;
         }
-
-            #login:hover {
+            .button_container button:hover {
                 background-color: darkred;
             }
 
@@ -137,7 +135,7 @@
         .settings div {
             margin: 5px;
         }
-
+        
         #colorHeader {
             font-size: 12pt;
         }
@@ -182,7 +180,7 @@
 
         </div>
     </div>
-    <div id="#Profile_Logged_In">
+    <div id="Profile_Logged_In">
         <div class="star_area">
             <span class="star_icon">a</span>
             <span>352</span>
@@ -198,16 +196,18 @@
             <span class="content_right" id="stars_number">5</span>
         </div>-->
         <div class="button_container">
-            <button id="login">Logout</button>
+            <button id="postsBttn">My Posts</button>
+            <button id="login">Logout</button> 
         </div>
     </div>
 
     <div id="Profile_Logged_Out">
+        Facebook Login
         <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
     </div>
 
     <div id="YourPosts">
-
+        Your Posts
     </div>
 
     <div class="settings">
@@ -220,23 +220,26 @@
         <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
     </div>
     <!--<script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '137575509998503',
-          xfbml      : true,
-          version    : 'v2.9'
-        });
-        FB.AppEvents.logPageView();
-      };
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '137575509998503',
+            xfbml      : true,
+            version    : 'v2.9'
+            });
+            FB.AppEvents.logPageView();
 
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>-->
-
-    <!--<script src="popup.js"></script>-->
+    <script src="popup.js"></script>
 </body>
