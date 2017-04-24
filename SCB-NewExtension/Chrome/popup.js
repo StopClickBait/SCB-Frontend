@@ -20,12 +20,9 @@ if(loggedIn)
     var loginButton = document.getElementById("LoginButton");
     loginButton.addEventListener("click", function (e) {
         e.preventDefault();
-        var win = window.open("http://www.facebook.com/login.php?api_key=&connect;_display=popup&v;=1.0&next;=http://www.facebook.com/connect/login_success.html&cancel;_url=http://www.facebook.com/connect/login_failure.html&fbconnect;=true&return;_session=true&session;_key_only=true",
+        var win = window.open("http://www.facebook.com/login.php?api_key=137575509998503&connect;_display=popup&v;=1.0&next;=http://www.facebook.com/connect/login_success.html&cancel;_url=http://www.facebook.com/connect/login_failure.html&fbconnect;=true&return;_session=true&session;_key_only=true",
             "fbconnect", "width=400,height=400");
-        
     })
-
-    
 }
 
 function addEventHandlers() {
