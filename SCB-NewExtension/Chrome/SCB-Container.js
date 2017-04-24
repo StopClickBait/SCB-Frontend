@@ -39,8 +39,7 @@ function addEventHandlers() {
         document.getElementById("commentArea").style.height = "215px";
         //document.getElementById("sortingArea").style.display = "visible";
         document.getElementById("charCounter").style.display = "visible";
-        document.getElementById("pollBar").style.display = "none";
-        document.getElementById("pollAnswerBar").style.display = "none";
+        document.getElementById("pollArea").style.display = "none";
         submitArea.style.height = "100px";
         submitArea.removeAttribute("rows");
     });
@@ -50,8 +49,7 @@ function addEventHandlers() {
             document.getElementById("controlBar").style.display = "none";
             document.getElementById("charCounter").style.display = "none";
             document.getElementById("commentArea").style.height = "285px";
-            document.getElementById("pollBar").style.display = "";
-            document.getElementById("pollAnswerBar").style.display = "";
+            document.getElementById("pollArea").style.display = "";
             submitArea.style.height = "30px";
             submitArea.setAttribute("rows", "1");
         }
@@ -165,8 +163,7 @@ function addEventHandlers() {
         document.getElementById("controlBar").style.display = "none";
         document.getElementById("charCounter").style.display = "none";
         document.getElementById("commentArea").style.height = "285px";
-        document.getElementById("pollBar").style.display = "";
-        document.getElementById("pollAnswerBar").style.display = "";
+        document.getElementById("pollArea").style.display = "";
         submitArea.style.height = "30px";
         submitArea.setAttribute("rows", "1");
     });

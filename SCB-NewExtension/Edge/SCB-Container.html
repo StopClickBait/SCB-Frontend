@@ -13,14 +13,19 @@
             font-style: normal;
         }
 
+        body {
+            margin: 0;
+            padding: 0;
+            width: 500px;
+        }
+
         #card {
-            padding: 10px;
+            padding: 5px;
             background-color: #e9ebee;
             font-family: Tahoma, Geneva, Verdana, sans-serif;
             /*border: 1px solid #cfcfcf;
             box-shadow: 2px 2px 0 0 #cfcfcf, 0 0 1px 1px #cfcfcf inset; */
-            width: 480px;
-            height: 400px;
+            height: 420px;
             color: #828282;
         }
 
@@ -29,15 +34,16 @@
             border: 0;
             border-radius: 4px;
             height: 30px;
-            width: 98%;
-            padding-left: 25px;
-            padding-top: 12px;
+            width: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
             padding-bottom: 0;
             font-family: Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
             font-size: 12pt;
             color: #828282;
             resize: none;
-            box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
         }
 
             #submitCB::-webkit-input-placeholder {
@@ -53,8 +59,9 @@
             }
 
         #submitArea {
-            margin: 5px;
-            margin-right: 20px;
+            margin: 10px;
+            margin-right: 30px;
+            margin-bottom: 0px;
         }
 
         .commentLeft {
@@ -63,16 +70,18 @@
         }
 
         #sortingArea {
-            display: flex;
             font-size: 9pt;
-            margin-right: 15px;
+            margin-left: 11px;
+            margin-right: 9px;
+            position: relative;
+            height: 15px;
             justify-content: space-between;
-            margin-left: 9px;
+            width: inherit;
         }
 
         #commentArea {
             font-size: 12pt;
-            margin-bottom: 5px;
+            margin-bottom: 9px;
             bottom: 345px;
             overflow: auto;
             max-height: 285px;
@@ -82,7 +91,7 @@
         }
 
         ::-webkit-scrollbar {
-            width: 7px;
+            width: 5px;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -93,22 +102,18 @@
 
         .commentBox {
             background-color: white;
-            margin: 0 5px 5px 5px;
+            margin: 0 5px 5px 10px;
             border-radius: 3px;
             display: flex;
             padding-left: 25px;
             position: relative;
-            box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
             flex-shrink: 0;
             flex-grow: 0;
         }
 
             .commentBox:hover {
                 background-color: #3b5998;
-                margin: 0px 5px 5px 5px;
-                border-radius: 3px;
-                display: flex;
-                position: relative;
                 box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
             }
 
@@ -118,7 +123,7 @@
 
         .blockedCommentBox:hover {
             background-color: white;
-            margin: 0 5px 5px 5px;
+            margin: 0 5px 5px 10px;
             border-radius: 3px;
             display: flex;
             position: relative;
@@ -127,7 +132,7 @@
 
         .clickedCommentBox, .ownComment {
             background-color: #3b5998;
-            margin: 0px 5px 5px 5px;
+            margin: 0px 5px 5px 10px;
             border-radius: 3px;
             display: flex;
             box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
@@ -253,7 +258,7 @@
         #pollArea {
             height: 40px;
             display: inline-block;
-            margin-left: 6px;
+            margin-left: 10px;
             margin-right: 6px;
             width: 470px;
         }
@@ -261,6 +266,7 @@
         #pollBar {
             border-radius: 3px;
             position: absolute;
+            box-shadow: 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
             border: 0;
             height: 40px;
             width: inherit;
@@ -309,6 +315,7 @@
         #pollAnswerYes {
             float: left;
             text-align: left;
+            margin-left: 12px;
             display: none;
             padding: 5px;
         }
@@ -321,13 +328,13 @@
             font-size: 9pt;
             justify-content: center;
             color: #ffffff;
-            /*color: #828282;*/
         }
 
         #pollAnswerNo {
             float: right;
             padding: 5px;
             text-align: right;
+            margin-right: 12px;
             display: none;
         }
 
@@ -377,10 +384,9 @@
             display: none;
             margin: 0;
             /*display: flex; */
-            height: 40px;
+            height: 20px;
             padding: 0;
             margin-left: 5px;
-            background-color: #eeeeee;
         }
 
         #leftBar {
@@ -415,7 +421,8 @@
             background-color: #828282;
             color: white;
             border: 0;
-            height: 35px;
+            height: 40px;
+            margin-top: 18px;
             border-radius: 3px;
             cursor: pointer;
             width: 80px;
@@ -426,7 +433,8 @@
             background-color: #3b5998;
             color: white;
             border: 0;
-            height: 35px;
+            height: 40px;
+            margin-top: 18px;
             margin-left: 10px;
             margin-right: 10px;
             border-radius: 3px;
@@ -437,21 +445,27 @@
 
         #charCounter {
             display: none;
+            width: 100px;
+            float: left;
+        }
+
+        #TopNew {
+            float: right;
         }
     </style>
 </head>
-<body style="margin: 0px;">
+<body>
     <div id="card">
         <div id="submitArea">
             <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="1" maxlength="140"></textarea>
         </div>
         <div id="sortingArea">
             <span id="charCounter">140</span>
-            <span>
+            <div id="TopNew">
                 <a href="#">top</a>
                 <span class="separator">|</span>
                 <a href="#">new</a>
-            </span>
+            </div>
         </div>
         <div id="commentArea">
             <!--<div class="commentBox">
@@ -478,7 +492,6 @@
         </div>
         <div id="pollArea">
             <progress id="pollBar" max="100"></progress>
-
             <div id="pollAnswerBar">
                 <span id="pollAnswerYes">Yes:  10%</span>
                 <!--<span id="pollQuestion">Is this clickbait?</span>-->
