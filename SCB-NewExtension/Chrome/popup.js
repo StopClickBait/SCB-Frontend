@@ -1,9 +1,9 @@
-﻿function statusChangeCallback(response) {
-    console.log("statusChangeCallback");
-    console.log(response);
-}
+﻿// function statusChangeCallback(response) {
+//     console.log("statusChangeCallback");
+//     console.log(response);
+// }
 
-var loggedIn = true;
+var loggedIn = false;
 
 document.getElementById("YourPosts").style.display = "none";
 
@@ -16,6 +16,16 @@ if(loggedIn)
 } else {
     document.getElementById("Profile_Logged_In").style.display = "none";
     document.getElementById("Profile_Logged_Out").style.display = "block";
+
+    var loginButton = document.getElementById("LoginButton");
+    loginButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        var win = window.open("http://www.facebook.com/login.php?api_key=&connect;_display=popup&v;=1.0&next;=http://www.facebook.com/connect/login_success.html&cancel;_url=http://www.facebook.com/connect/login_failure.html&fbconnect;=true&return;_session=true&session;_key_only=true",
+            "fbconnect", "width=400,height=400");
+        
+    })
+
+    
 }
 
 function addEventHandlers() {
@@ -27,3 +37,4 @@ function addEventHandlers() {
         document.getElementById("settings").style.display = "none";
     })
 }
+
