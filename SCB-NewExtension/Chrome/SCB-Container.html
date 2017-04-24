@@ -251,14 +251,20 @@
                 background-color: #707070;
             }
 
-
+        #pollArea {
+            height: 30px;
+            display: inline-block;
+            margin-left: 6px;
+            margin-right: 6px;
+            width: 470px;
+        }
+        
         #pollBar {
             border-radius: 3px;
+            position: absolute;
             border: 0;
-            margin: 5px;
-            height: 10px;
-            width: 96.5%;
-            margin-right: 15px;
+            height: 30px;
+            width: inherit;
             -webkit-appearance: none;
             -moz-appearance: none;
             -webkit-animation: animate-stripes 5s linear infinite;
@@ -271,7 +277,7 @@
 
                 #pollBar[value]::-webkit-progress-bar {
                     background-color: #2ecc71;
-                    border-radius: 3px;
+                    border-radius: 5px;
                 }
 
 
@@ -281,7 +287,7 @@
 
                 #pollBar[value]::-moz-progress-bar {
                     background-color: #d56969;
-                    border-radius: 3px;
+                    border-radius: 5px;
                 }
 
             #pollBar:not([value]) {
@@ -292,44 +298,76 @@
                 #pollBar:not([value])::-webkit-progress-bar {
                     color: #e4ae48;
                     background-color: #e4ae48;
-                    border-radius: 3px;
+                    border-radius: 5px;
                 }
 
                 #pollBar:not([value])::-moz-progress-bar {
                     color: #e4ae48;
                     background-color: #e4ae48;
-                    border-radius: 3px;
+                    border-radius: 5px;
                 }
-
         #pollAnswerYes {
+            float: left;
             font-size: 9pt;
+            margin-left: 5px;
+            text-align:left;
             display: none;
         }
 
         #pollAnswerBar {
-            margin-left: 5px;
-            margin-right: 20px;
+            position: absolute;
+            width: inherit;
             display: flex;
             justify-content: center;
-            color: #828282;
+            color: #ffffff;
+            /*color: #828282;*/
         }
 
-            #pollAnswerBar button {
-                border: 0;
-                background-color: transparent;
-                cursor: pointer;
-                color: #828282;
-            }
-
         #pollAnswerNo {
+            float: right;
+            padding-right: 5px;
+            text-align: right;
             font-size: 9pt;
             display: none;
         }
 
-        #pollQuestion {
+        #pollButtonArea {
+            width: inherit;
+            line-height: 30px;
+            display: inline-block;
+            color: white;
+            font-size: 12pt;
+        }
+        #pollBttns {
+            width: 87px;
+            float: right;
+            display: inline-block;
+
+        }
+            #pollBttns button {
+                line-height: 30px;
+                font-size: 12pt;
+                border: 0;
+                background-color: transparent;
+                cursor: pointer;
+                color: #ffffff;
+            }
+                #pollBttns button:hover {
+                    color: #000000;
+                }
+
+        #pollText {
+            margin-left: 5px;
+            float: left;
+            position: absolute;
         }
 
-        #pollButtonArea {
+        #pollButtonYes {
+            float: left;
+        }
+
+        #pollButtonNo {
+            float: right;
         }
 
         #pictureBar {
@@ -410,8 +448,8 @@
         <div id="sortingArea">
             <span id="charCounter">140</span>
             <span><a href="#">top</a>
-<span class="separator">|</span>
-<a href="#">new</a></span>
+            <span class="separator">|</span>
+            <a href="#">new</a></span>
         </div>
         <div id="commentArea">
             <!--<div class="commentBox">
@@ -436,16 +474,22 @@
                 <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
             </div>-->
         </div>
-        <progress id="pollBar" max="100"></progress>
-        <div id="pollAnswerBar">
-            <span id="pollAnswerYes">Yes:  10%</span>
-            <!--<span id="pollQuestion">Is this clickbait?</span>-->
-            <span id="pollButtonArea">
-                <button id="pollButtonYes">CLICKBAIT</button>
-                <span class="separator">|</span>
-                <button id="pollButtonNo">NOT CLICKBAIT</button>
-            </span>
-            <span id="pollAnswerNo">No:  90%</span>
+        <div id="pollArea">
+            <progress id="pollBar" max="100"></progress>
+
+                <div id="pollAnswerBar">
+                    <span id="pollAnswerYes">Yes:  10%</span>
+                    <!--<span id="pollQuestion">Is this clickbait?</span>-->
+                    <div id="pollButtonArea">
+                        <span id="pollText">Is it Clickbait?</span>
+                        <div id="pollBttns">
+                            <button id="pollButtonYes">YES</button>
+                            <span class="separator">|</span>
+                            <button id="pollButtonNo">NO</button>
+                        </div>
+                    </div>
+                    <span id="pollAnswerNo">No:  90%</span>
+                </div>
         </div>
         <div id="pictureBar">
             <canvas class="pictureBox"></canvas>

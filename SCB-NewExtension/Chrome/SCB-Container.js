@@ -231,8 +231,8 @@ function processingVotingResults(results) {
     var pollAnswerYes = document.getElementById('pollAnswerYes');
     var pollBar = document.getElementById('pollBar');
     pollBar.value = results.yes;
-    pollAnswerNo.innerText = "Not clickbait:  " + results.no + "%";
-    pollAnswerYes.innerText = "Clickbait:  " + results.yes + "%";
+    pollAnswerNo.innerText = "NOT CLICKBAIT\n" + results.no + "%";
+    pollAnswerYes.innerText = "CLICKBAIT\n" + results.yes + "%";
 }
 
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
