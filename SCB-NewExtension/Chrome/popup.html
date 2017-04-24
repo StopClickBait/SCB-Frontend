@@ -165,10 +165,37 @@
             <button id="login">Logout</button>
         </div>
     </div>
-
-    <div class="settings">
+    <div id="Profile_Logged_Out">
+        <div>Please Log In:</div>
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+    </div>
+    <div id="YourPosts">
 
     </div>
-    <!--<script src="popup.js"></script>-->
+    <div class="settings">
+        <div id="colorHeader">Primary Color</div>
+        <div id="colors"></div>
+        <div>Show expanation by default: <input id="showExplanation" type="checkbox"/></div>
+        <div>Hover to open: <input id="hoverToOpen" type="checkbox"/></div>
+    </div>
+    <!--<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '137575509998503',
+          xfbml      : true,
+          version    : 'v2.9'
+        });
+        FB.AppEvents.logPageView();
+      };
 
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>-->
+
+    <!--<script src="popup.js"></script>-->
 </body>
