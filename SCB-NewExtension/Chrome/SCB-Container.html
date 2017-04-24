@@ -43,6 +43,8 @@
             font-size: 12pt;
             color: #828282;
             resize: none;
+            max-height: 254px;
+            overflow: hidden;
         }
 
             #submitCB::-webkit-input-placeholder {
@@ -61,7 +63,18 @@
             margin: 10px;
             margin-right: 37px;
             margin-bottom: 0px;
+            position: relative;
         }
+
+        #charCounter {
+            left: -51%;
+            top: 29px;
+            display: none;
+            float: left;
+            position: absolute;
+            color: #bbb;
+        }
+
 
         .commentLeft {
             width: 85%;
@@ -75,6 +88,13 @@
             position: relative;
             justify-content: space-between;
             width: inherit;
+        }
+
+        #TopNew {
+            font-size: 9pt;
+            margin-left: 11px;
+            margin-right: 9px;
+            text-align: right;
         }
 
         #commentArea {
@@ -283,7 +303,6 @@
 
                 #pollBar[value]::-webkit-progress-bar {
                     background-color: #2ecc71;
-                    border-radius: 5px;
                 }
 
 
@@ -388,6 +407,9 @@
             height: 20px;
             padding: 0;
             margin-left: 5px;
+            position: relative;
+            top: -65px;
+            left: 55%;
         }
 
         #leftBar {
@@ -444,11 +466,6 @@
             font-size: 12pt;
         }
 
-        #charCounter {
-            display: none;
-            width: 100px;
-            float: left;
-        }
 
         #TopNew {
             margin-left: 7px;
@@ -458,11 +475,29 @@
 <body>
     <div id="card">
         <div id="submitArea">
-            <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="1" maxlength="140"></textarea>
-        </div>
-        <div id="sortingArea">
-            <span id="charCounter">140</span>
+            <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="10" maxlength="140"></textarea>
             <div id="controlBar">
+                <span id="charCounter">140</span>
+                <div id="leftBar">
+
+                    <button id="btnPhoto">&#x1F4F7;</button>
+                    <button id="btnEmoji">&#x1F642;</button>
+                </div>
+                <div id="rightBar">
+
+                    <button id="btnClose">Cancel</button>
+                    <button id="btnSubmit" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sortingArea">
+            <div id="TopNew">
+                <a href="#">top</a>
+                <span class="separator">|</span>
+                <a href="#">new</a>
+            </div>
+            <!--<div id="controlBar">
                 <div id="leftBar">
                     <button id="btnPhoto">&#x1F4F7;</button>
                     <button id="btnEmoji">&#x1F642;</button>
@@ -472,13 +507,7 @@
                     <button id="btnClose">Cancel</button>
                     <button id="btnSubmit" type="submit">Submit</button>
                 </div>
-            </div>
-        </div>
-
-        <div id="TopNew">
-            <a href="#">top</a>
-            <span class="separator">|</span>
-            <a href="#">new</a>
+            </div>-->
         </div>
 
         <div id="commentArea">
@@ -525,7 +554,6 @@
             <canvas class="pictureBox"></canvas>
             <canvas class="pictureBox"></canvas>
         </div>
-
     </div>
     <script src="SCB-Container.js"></script>
 </body>

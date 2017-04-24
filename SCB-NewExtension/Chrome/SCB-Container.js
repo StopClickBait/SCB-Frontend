@@ -34,22 +34,21 @@ function addEventHandlers() {
     var submitArea = document.getElementById("submitCB");
     submitArea.addEventListener("focus", function () {
         var submitArea = document.getElementById("submitCB");
-        document.getElementById("controlBar").style.display = "flex";
+        document.getElementById("controlBar").style.display = "block";
         document.getElementById("charCounter").style.display = "flex";
-        document.getElementById("commentArea").style.height = "195px";
-        //document.getElementById("sortingArea").style.display = "visible";
-        document.getElementById("charCounter").style.display = "visible";
-        submitArea.style.height = "100px";
-        submitArea.removeAttribute("rows");
+        submitArea.style.height = 0;
+        submitArea.style.height = (submitArea.scrollHeight + 40) + "px";
+        document.getElementById("commentArea").style.height = (295 - submitArea.offsetHeight) + "px";
+        submitArea.style.paddingBottom = "20px";
     });
     submitArea.addEventListener("focusout", function () {
         var submitArea = document.getElementById("submitCB");
         if (submitArea.value.length == 0) {
             document.getElementById("controlBar").style.display = "none";
             document.getElementById("charCounter").style.display = "none";
-            document.getElementById("commentArea").style.height = "285px";
+            document.getElementById("commentArea").style.height = "265px";
             submitArea.style.height = "30px";
-            submitArea.setAttribute("rows", "1");
+            submitArea.style.paddingBottom = "0px";
         }
     });
 
@@ -167,7 +166,8 @@ function addEventHandlers() {
 
     var pollButtonYes = document.getElementById("pollButtonYes")
     var pollButtonNo = document.getElementById("pollButtonNo")
-    pollButtonYes.addEventListener("click", function () {
+    pollButtonYes.addEventListener("click", function (e) {
+        e.preventDefault();
         document.getElementById("pollButtonArea").style.display = "none";
         document.getElementById("pollAnswerYes").style.display = "unset";
         document.getElementById("pollAnswerNo").style.display = "unset";
@@ -211,8 +211,12 @@ function addEventHandlers() {
     });
 
     document.getElementById("submitCB").oninput = () => {
-        var value = document.getElementById("submitCB").value.length;
+        var submitCB = document.getElementById("submitCB");
+        var value = submitCB.value.length;
         document.getElementById('charCounter').innerText = (140 - value).toString();
+        submitCB.style.height = 0;
+        submitCB.style.height = (submitCB.scrollHeight + 40) + "px";
+        document.getElementById("commentArea").style.height = (295 - submitArea.offsetHeight) + "px";
     };
 }
 
