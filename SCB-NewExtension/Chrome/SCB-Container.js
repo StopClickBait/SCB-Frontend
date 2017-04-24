@@ -37,18 +37,18 @@ function addEventHandlers() {
         document.getElementById("controlBar").style.display = "block";
         document.getElementById("charCounter").style.display = "flex";
         submitCB.style.height = 0;
-        submitCB.style.height = (submitCB.scrollHeight + 20) + "px";
-        document.getElementById("commentArea").style.height = (295 - submitCB.offsetHeight) + "px";
         submitCB.style.paddingBottom = "20px";
+        submitCB.style.height = (submitCB.scrollHeight + 20) + "px";
+        document.getElementById("commentArea").style.height = (325 - submitCB.offsetHeight) + "px";
     });
     submitCB.addEventListener("focusout", function () {
         var submitCB = document.getElementById("submitCB");
         if (submitCB.value.length == 0) {
             document.getElementById("controlBar").style.display = "none";
             document.getElementById("charCounter").style.display = "none";
-            document.getElementById("commentArea").style.height = (295 - submitArea.offsetHeight) + "px";
             submitCB.style.height = "30px";
             submitCB.style.paddingBottom = "0px";
+            document.getElementById("commentArea").style.height = "285px";
         }
     });
     submitCB.oninput = () => {
@@ -60,7 +60,7 @@ function addEventHandlers() {
         document.getElementById('charCounter').innerText = (140 - value).toString();
         submitCB.style.height = 0;
         submitCB.style.height = (submitCB.scrollHeight + 0) + "px";
-        document.getElementById("commentArea").style.height = (295 - submitArea.offsetHeight) + "px";
+        document.getElementById("commentArea").style.height = (325 - submitArea.offsetHeight) + "px";
         if (submitCB.value.indexOf('\n') != -1) {
             submitCB.value = submitCB.value.replace('\n', ' ');
         }
