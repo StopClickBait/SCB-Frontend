@@ -36,14 +36,13 @@ margin-right: 5px;
         }
 
 .SCBcards {
-            width: 500px;
-            height: 420px;
-            position: absolute;
+    width: 500px;
+    height: 420px;
+    position: absolute;
+    box-shadow: 0 4px 2px -2px gray;
     z-index: 7;
     background-color: white;
-            border: 1px solid #cfcfcf;
-    box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.5), 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
-            overflow: hidden;
+    overflow: hidden;
     }
 
     svg {
@@ -216,6 +215,7 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     cardDiv.style.backgroundColor = "#99ccff";
     var card = document.createElement('iframe');
     card.style.top = "0px";
+    card.frameBorder = "0";
     card.classList.add("SCBcards");
     card.style.left = "0px";
     card.id = "SCBinterfaceIFRAME"
