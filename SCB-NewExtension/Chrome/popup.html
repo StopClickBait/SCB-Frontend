@@ -37,10 +37,10 @@
             font-weight: normal;
         }
 
-        #Profile {
+        #Profile_Logged_In, #Profile_Logged_Out {
             margin-top: 20px;
             margin-bottom: 20px;
-            font-family: Arial;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         #profile_image {
@@ -53,6 +53,7 @@
         #profile_name {
             text-align: center;
             margin: 10px;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         .profile_content {
@@ -122,17 +123,52 @@
             }
 
         .settings {
-            height: 100px;
+            height: 150px;
             background: #f9f9f9;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #3f3f3f;
             margin: 0;
             padding: 0;
             border-top: 1px solid #c6c6c6;
+            font-size: 9pt;
         }
 
+        .settings div {
+            margin: 5px;
+        }
+
+        #colorHeader {
+            font-size: 12pt;
+        }
+
+        #colors {
+            background-color: #0059b3;
+            height: 40px;
+            margin: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        
         .star_icon {
             font-family: stopclickbait;
             color: #00bfff;
             font-size: 20px;
+        }
+
+        .about {
+            height: 20px;
+            border-top: 1px solid #c6c6c6;
+            background-color: #f9f9f9;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9pt;
+        }
+
+        .about a {
+            line-height: 20px;
+            color: #3f3f3f;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -146,12 +182,12 @@
 
         </div>
     </div>
-    <div id="Profile">
+    <div id="#Profile_Logged_In">
         <div class="star_area">
             <span class="star_icon">a</span>
             <span>352</span>
         </div>
-        <img id="profile_image" src="images/test_profile.png" />
+        <img id="profile_image" src="test_profile.png" />
         <div id="profile_name">YourNameHere</div>
         <!--<div id="Posts" class="profile_content">
             <span class="content_left">Stars</span>
@@ -165,18 +201,23 @@
             <button id="login">Logout</button>
         </div>
     </div>
+
     <div id="Profile_Logged_Out">
-        <div>Please Log In:</div>
         <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
     </div>
+
     <div id="YourPosts">
 
     </div>
+
     <div class="settings">
-        <div id="colorHeader">Primary Color</div>
+        <h1 id="colorHeader">Primary Color</h1>
         <div id="colors"></div>
         <div>Show expanation by default: <input id="showExplanation" type="checkbox"/></div>
         <div>Hover to open: <input id="hoverToOpen" type="checkbox"/></div>
+    </div>
+    <div class="about">
+        <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
     </div>
     <!--<script>
       window.fbAsyncInit = function() {
