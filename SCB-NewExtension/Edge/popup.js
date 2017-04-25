@@ -15,8 +15,9 @@ if(loggedIn)
     var loginButton = document.getElementById("LoginButton");
     loginButton.addEventListener("click", function (e) {
         e.preventDefault();
-        var gettingCookie = browser.cookies.get({url:"https://www.facebook.com", name: "c_user"}, function(cookie) {
+        var gettingCookie = browser.cookies.get({url:"https://www.facebook.com/", name: "c_user"}, function(cookie) {
             if(!cookie) {
+                // Edge reports no cookie match, even though c_user is stored under facebook's cookies.
                 console.log("No cookie match!");
                 // get the user logged into Facebook so we can get their ID
             } else {
