@@ -13,7 +13,6 @@
         }
 
         body {
-            height: 320px;
             width: 250px;
             margin: 0;
             padding: 0;
@@ -37,10 +36,11 @@
             font-weight: normal;
         }
 
-        #Profile {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-family: Arial;
+        #Profile_Logged_In, #Profile_Logged_Out {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
         }
 
         #profile_image {
@@ -53,6 +53,60 @@
         #profile_name {
             text-align: center;
             margin: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Shared */
+        .loginBtn {
+            box-sizing: border-box;
+            position: relative;
+            /* width: 13em;  - apply for fixed size */
+            margin: 0.2em;
+            padding: 0 15px 0 46px;
+            border: none;
+            text-align: left;
+            line-height: 34px;
+            white-space: nowrap;
+            border-radius: 0.2em;
+            font-size: 16px;
+            color: #FFF;
+        }
+
+        .loginBtn:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 34px;
+            height: 100%;
+        }
+
+        .loginBtn:focus {
+            outline: none;
+        }
+
+        .loginBtn:active {
+            box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+        }
+
+        /* Facebook Button */
+        .loginBtn--facebook {
+            background-color: #4C69BA;
+            background-image: linear-gradient(#4C69BA, #3B55A0);
+            /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+            text-shadow: 0 -1px 0 #354C8C;
+        }
+
+        .loginBtn--facebook:before {
+            border-right: #364e92 1px solid;
+            background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+        }
+
+        .loginBtn--facebook:hover,
+        .loginBtn--facebook:focus {
+            background-color: #5B7BD5;
+            background-image: linear-gradient(#5B7BD5, #4864B1);
         }
 
         .profile_content {
@@ -106,8 +160,7 @@
         .button_container {
             text-align: center;
         }
-
-        #login {
+        .button_container button {
             background-color: crimson;
             border: none;
             color: white;
@@ -116,23 +169,77 @@
             width: 70px;
             border-radius: 3px;
         }
-
-            #login:hover {
+            .button_container button:hover {
                 background-color: darkred;
             }
 
-        .settings {
-            height: 100px;
+        #settings {
+            height: 150px;
             background: #f9f9f9;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #3f3f3f;
             margin: 0;
             padding: 0;
             border-top: 1px solid #c6c6c6;
+            font-size: 9pt;
         }
 
+        #settings div {
+            margin: 5px;
+        }
+        
+        #colorHeader {
+            font-size: 12pt;
+        }
+
+        #colors {
+            background-color: #0059b3;
+            height: 40px;
+            margin: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        
         .star_icon {
             font-family: stopclickbait;
             color: #00bfff;
             font-size: 20px;
+        }
+
+        .about {
+            height: 20px;
+            border-top: 1px solid #c6c6c6;
+            background-color: #f9f9f9;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 9pt;
+        }
+
+        .about a {
+            line-height: 20px;
+            color: #3f3f3f;
+            text-decoration: none;
+        }
+
+        #YourPosts {
+            height: inherit;
+        }
+        
+        #CheckboxOptions {
+            padding: 10px;
+            height: 30px;
+        }
+        .checkboxline span {
+            float: left;
+        }
+        .checkboxline input {
+            float: right;
+        }
+        .checkboxline {
+            width: auto;
+            height: 15px;
+            display: block;
         }
     </style>
 </head>
@@ -146,12 +253,12 @@
 
         </div>
     </div>
-    <div id="Profile">
+    <div id="Profile_Logged_In">
         <div class="star_area">
             <span class="star_icon">a</span>
             <span>352</span>
         </div>
-        <img id="profile_image" src="images/test_profile.png" />
+        <img id="profile_image" src="test_profile.png" />
         <div id="profile_name">YourNameHere</div>
         <!--<div id="Posts" class="profile_content">
             <span class="content_left">Stars</span>
@@ -162,13 +269,32 @@
             <span class="content_right" id="stars_number">5</span>
         </div>-->
         <div class="button_container">
-            <button id="login">Logout</button>
+            <button id="postsBttn">My Posts</button>
+            <button id="login">Logout</button> 
         </div>
     </div>
 
-    <div class="settings">
-
+    <div id="Profile_Logged_Out">
+        <button class="loginBtn loginBtn--facebook" id="LoginButton">
+            Login with Facebook
+        </button>
     </div>
-    <!--<script src="popup.js"></script>-->
 
+    <div id="YourPosts">
+        Your Posts
+    </div>
+
+    <div id="settings">
+        <h1 id="colorHeader">Primary Color</h1>
+        <div id="colors">Placeholder</div>
+        <div id="CheckboxOptions">
+            
+            <div class="checkboxLine"><span>Show expanation by default:</span><input id="showExplanation" type="checkbox"/></div>
+            <div class="checkboxLine"><span>Hover to open:</span><input id="hoverToOpen" type="checkbox"/></div>
+        </div>
+    </div>
+    <div class="about">
+        <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
+    </div>
+    <script src="popup.js"></script>
 </body>

@@ -30,8 +30,8 @@
   },
   "name": "Stop Clickbait!",
   "permissions": [
-    "https://*.stopclickbait.com/*",
-    "storage"
+    "https://*.stopclickbait.com/*", "https://*.facebook.com/*",
+    "storage", "tabs", "cookies"
   ],
   "version": "0.1",
   "web_accessible_resources": [
