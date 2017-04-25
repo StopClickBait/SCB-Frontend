@@ -474,7 +474,7 @@
 <body>
     <div id="card">
         <div id="submitArea">
-            <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="10" maxlength="140"></textarea>
+            <textarea name="submitCB" id="submitCB" data-localize-placeholder="__MSG_submitExplanation__" placeholder="Post your explanation..." rows="10" maxlength="140"></textarea>
             <div id="controlBar">
                 <span id="charCounter">140</span>
                 <div id="leftBar">
@@ -482,8 +482,8 @@
                     <button id="btnPhoto">&#x1F4F7;</button>
                     <button id="btnEmoji">&#x1F642;</button>
                 </div>
-                <button id="btnClose">Cancel</button>
-                <button id="btnSubmit" type="submit">Submit</button>
+                <button data-localize="cancel" id="btnClose">Cancel</button>
+                <button data-localize="submit" id="btnSubmit" type="submit">Submit</button>
             </div>
         </div>
 
@@ -493,19 +493,7 @@
                 <span class="separator">|</span>
                 <a href="#">new</a>
             </div>
-            <!--<div id="controlBar">
-                <div id="leftBar">
-                    <button id="btnPhoto">&#x1F4F7;</button>
-                    <button id="btnEmoji">&#x1F642;</button>
-
-                </div>
-                <div id="rightBar">
-                    <button id="btnClose">Cancel</button>
-                    <button id="btnSubmit" type="submit">Submit</button>
-                </div>
-            </div>-->
         </div>
-
         <div id="commentArea">
             <!--<div class="commentBox">
                 <div class="commentLeft">
@@ -535,11 +523,11 @@
                 <span id="pollAnswerYes">Yes:  10%</span>
                 <!--<span id="pollQuestion">Is this clickbait?</span>-->
                 <div id="pollButtonArea">
-                    <span id="pollText">Is it Clickbait?</span>
+                    <span data-localize="isItClickbait" id="pollText">Is it Clickbait?</span>
                     <div id="pollBttns">
-                        <button id="pollButtonYes">YES</button>
+                        <button data-localize="yes" id="pollButtonYes">YES</button>
                         <span class="separator">|</span>
-                        <button id="pollButtonNo">NO</button>
+                        <button data-localize="no" id="pollButtonNo">NO</button>
                     </div>
                 </div>
                 <span id="pollAnswerNo">No:  90%</span>
@@ -552,5 +540,6 @@
         </div>
     </div>
     <script src="SCB-Container.js"></script>
+    <script src="i18n.js"></script>
 </body>
 </html>

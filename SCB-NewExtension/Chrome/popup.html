@@ -274,13 +274,13 @@
             <span class="content_right" id="stars_number">5</span>
         </div>-->
         <div class="button_container">
-            <button id="postsBttn">My Posts</button>
-            <button id="login">Logout</button>
+            <button data-localize="MyPosts" id="postsBttn">My Posts</button>
+            <button data-localize="Logout" id="login">Logout</button>
         </div>
     </div>
 
     <div id="Profile_Logged_Out">
-        <button class="loginBtn loginBtn--facebook" id="LoginButton">
+        <button data-localize="LoginWithFB" class="loginBtn loginBtn--facebook" id="LoginButton">
             Login with Facebook
         </button>
     </div>
@@ -290,16 +290,17 @@
     </div>
 
     <div id="settings">
-        <h1 id="colorHeader">Primary Color</h1>
+        <h1 data-localize="primaryColor" id="colorHeader">Primary Color</h1>
         <div id="colors">Placeholder</div>
         <div id="CheckboxOptions">
 
-            <div class="checkboxLine"><span>Show expanation by default:</span><input id="showExplanation" type="checkbox" /></div>
-            <div class="checkboxLine"><span>Hover to open:</span><input id="hoverToOpen" type="checkbox" /></div>
+            <div class="checkboxLine"><span data-localize="ShowExplanationByDefault">Show expanation by default:</span><input id="showExplanation" type="checkbox" /></div>
+            <div class="checkboxLine"><span data-localize="HoverToOpen">Hover to open:</span><input id="hoverToOpen" type="checkbox" /></div>
         </div>
     </div>
     <div class="about">
-        <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
+        <a href="http://stopclickbait.com/" data-localize="AboutSCB" target="_blank">About #StopClickBait</a>
     </div>
     <script src="popup.js"></script>
+    <script src="i18n.js"></script>
 </body>
