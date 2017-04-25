@@ -1,4 +1,4 @@
-﻿var loggedIn = false;
+﻿var loggedIn = true;
 
 document.getElementById("YourPosts").style.display = "none";
 

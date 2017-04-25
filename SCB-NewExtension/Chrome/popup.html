@@ -189,18 +189,6 @@
             margin: 5px;
         }
         
-        #colorHeader {
-            font-size: 12pt;
-        }
-
-        #colors {
-            background-color: #0059b3;
-            height: 40px;
-            margin: 10px;
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-        
         .star_icon {
             font-family: stopclickbait;
             color: #00bfff;
@@ -240,6 +228,26 @@
             width: auto;
             height: 15px;
             display: block;
+        }
+        #colorHeader {
+            font-size: 12pt;
+            margin-bottom: 0;
+        }
+        #colors {
+            height: 40px;
+            margin: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
+            text-align: center;
+        }
+        .colorButton {
+            border: 1px solid white;
+            display: inline-block;
+            border-radius: 2px;
+            width: 14px;
+            height: 14px;
+            background-color: #0059b3;
+            box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.75);
         }
     </style>
 </head>
@@ -286,7 +294,9 @@
 
     <div id="settings">
         <h1 id="colorHeader">Primary Color</h1>
-        <div id="colors">Placeholder</div>
+        <div id="colors">
+            <button class="colorButton"></button>
+        </div>
         <div id="CheckboxOptions">
             
             <div class="checkboxLine"><span>Show expanation by default:</span><input id="showExplanation" type="checkbox"/></div>
