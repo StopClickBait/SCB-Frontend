@@ -1,4 +1,5 @@
 ﻿var loggedIn = true;
+var colors = ["#000080", "#0000ff","#800020","#008080","#000000","#ffa500","#00ff00","#551a8b"];
 
 document.getElementById("YourPosts").style.display = "none";
 
@@ -7,7 +8,7 @@ if(loggedIn)
     document.getElementById("Profile_Logged_Out").style.display = "none";
     document.getElementById("Profile_Logged_In").style.display = "block";
     addEventHandlers();
-    
+    setupColors();
 } else {
     document.getElementById("Profile_Logged_In").style.display = "none";
     document.getElementById("Profile_Logged_Out").style.display = "block";
@@ -43,7 +44,14 @@ if(loggedIn)
 })
 
 }
-
+function setupColors() {
+    for(i = 0; i < colors.length; i++) {
+        var colorDiv = document.createElement("button");
+        colorDiv.className = "colorButton";
+        colorDiv.style.backgroundColor = colors[i];
+        document.getElementById("colors").appendChild(colorDiv);
+    }
+}
 function addEventHandlers() {
     var postsBttn = document.getElementById("postsBttn");
     postsBttn.addEventListener("click", function (e) {
