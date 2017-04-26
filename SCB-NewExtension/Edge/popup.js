@@ -28,8 +28,8 @@ chrome.storage.sync.get('selectedColor', function (items) {
             // Move the "selected" style to the button which triggered the color change
             changeSelectedStyleTo(document.getElementById(selectedColor));
             // Update the local colors
-            setBackgroundColors();
-            setTextColors();
+            setBackgroundColors(selectedColor);
+            setTextColors(selectedColor);
             return;
         }
     }
