@@ -1,11 +1,9 @@
-﻿var loggedIn = true;
-var colors = ["#3b5999", "#00acee","#c83b6f","#1bbc9b","#34495e","#e84c3d","#2dcc70","#9b58b5"];
+﻿var colors = ["#3b5999", "#00acee","#c83b6f","#1bbc9b","#34495e","#e84c3d","#2dcc70","#9b58b5"];
 var selectedColor;
 
 var idsOfCustomBackgroundColor = ["postsBttn", "login" ];
 var idsOfCustomTextColor = ["star_icon"];
 
-var loggedIn = false;
 var content = null;
 var userToken;
 
@@ -28,8 +26,6 @@ chrome.storage.sync.get('selectedColor', function (items) {
             // If the setting exists, update the local stuff:
             selectedColor = items.selectedColor;
             changeSelectedStyleTo(document.getElementById(selectedColor));
-            setBackgroundColors(items.selectedColor);
-            setTextColors(items.selectedColor);
             return;
         }
     }
@@ -118,7 +114,6 @@ function changeSelectedStyleTo(element) {
 }
 
 chrome.storage.local.get('accessToken', (accessToken) => {
-    var Profile_Logged_In = document.getElementById("YourPosts");
     userToken = accessToken.accessToken;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://graph.facebook.com/v2.9/me?access_token=' + accessToken.accessToken + '&fields=id%2Cname');
@@ -129,7 +124,6 @@ chrome.storage.local.get('accessToken', (accessToken) => {
             if (content.error) {
 
             } else {
-                loggedIn = true;
                 chrome.storage.local.set({ 'user_id': content.id });
                 processLogIn();
             }
@@ -161,4 +155,47 @@ function setBackgroundColors(c) {
         var currentObject = document.getElementById(idsOfCustomBackgroundColor[i]);
         currentObject.style.backgroundColor = c;
     }
+}
+
+function processUserPosts(content) {
+
+}
+
+function getUserPosts() {
+
+    processUserPosts({
+        "comments": [
+            {
+                "id": 1,
+                "timestamp": 1490000000,
+                "commentText": "Hello!",
+                "starCount": 23
+            },
+            {
+                "id": 2,
+                "timestamp": 1490000000,
+                "commentText": "Hello!",
+                "starCount": 17
+            },
+            {
+                "id": 3,
+                "timestamp": 1490000000,
+                "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
+                "starCount": 12
+            },
+            {
+                "commentText": "Hello!",
+                "id": 4,
+                "starCount": 10
+                "timestamp": 1490000000
+            },
+            {
+                "id": 5,
+                "timestamp": 1490000000,
+                "commentText": "Hello!",
+                "starCount": 8
+            }
+        ]
+    });
+
 }

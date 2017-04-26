@@ -2,3 +2,6 @@
     padding: 0 !important;
 }
 
+.button_container button {
+    width: 100px !important;
+}
