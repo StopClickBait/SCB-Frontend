@@ -25,7 +25,11 @@ chrome.storage.sync.get('selectedColor', function (items) {
         {
             // If the setting exists, update the local stuff:
             selectedColor = items.selectedColor;
+            // Move the "selected" style to the button which triggered the color change
             changeSelectedStyleTo(document.getElementById(selectedColor));
+            // Update the local colors
+            setBackgroundColors();
+            setTextColors();
             return;
         }
     }
