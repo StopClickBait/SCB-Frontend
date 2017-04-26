@@ -186,7 +186,7 @@ function getUserPosts() {
             {
                 "commentText": "Hello!",
                 "id": 4,
-                "starCount": 10
+                "starCount": 10,
                 "timestamp": 1490000000
             },
             {
