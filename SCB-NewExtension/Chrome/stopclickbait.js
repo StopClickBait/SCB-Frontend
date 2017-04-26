@@ -1,6 +1,7 @@
 'use strict';
 const DEBUG = true;
 var myID = chrome.runtime.id;
+var LinkTimeout;
 
 function prepare() {
     var css = document.createElement("style");
@@ -126,6 +127,7 @@ function loop() {
                     CBButtonLink.classList.add('clicked');
                 } else {
                     CBButtonLink.classList.remove('clicked');
+                    document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
                 }
                 if (CBButtonLink.classList.contains('hovered'))
                     CBButtonLink.classList.remove('hovered');
@@ -138,8 +140,10 @@ function loop() {
                 }
             });
             CBButtonLink.addEventListener('mouseleave', () => {
-                if (CBButtonLink.classList.contains('hovered'))
-                    document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+               LinkTimeout = setTimeout(() => {
+                    if (CBButtonLink.classList.contains('hovered'))
+                        document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+                }, 500);
             });
             actionBar.appendChild(CBButtonSpan);
             uniqueIds++;
@@ -224,7 +228,15 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     card.src = chrome.runtime.getURL('SCB-Container.html') + '?url=' + encodeURIComponent(link);
     targ.parentNode.appendChild(cardDiv);
     cardDiv.appendChild(card);
-
+    card.addEventListener('mouseenter', (e) => {
+        if (LinkTimeout) {
+            var SCBButtonLink = document.getElementById('SCBinterface').parentNode.childNodes[0];
+            SCBButtonLink.classList.remove('hovered');
+            SCBButtonLink.classList.add('clicked');
+            clearTimeout(LinkTimeout);
+            LinkTimeout = null;
+        }
+    });
     //window.setTimeout(function () { cardDiv.style.height = card.clientHeight; }, 2000);
 }
 

@@ -223,6 +223,12 @@ function addEventHandlers() {
             processingVotingResults(JSON.parse('{ "no": "95", "yes": "5" }'));
         }
     });
+
+    var commentArea = document.getElementById("commentArea");
+    commentArea.onmousewheel = (e) => {
+        console.log('mousewheel');
+    }
+
 }
 
 function processingCommentList(content) {
