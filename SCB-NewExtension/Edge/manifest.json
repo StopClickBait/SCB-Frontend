@@ -16,13 +16,24 @@
       "js": [
         "stopclickbait.js"
       ]
+    },
+    {
+      "matches": [
+        "https://www.facebook.com/connect/login_success.html"
+      ],
+      "js": [
+        "FBlogin.js"
+      ]
     }
   ],
-  "description": "Helps you from being clickbaited!",
-  "icons": {
+  "default_locale": "en",
+  "description": "__MSG_appDescription__",
+  "icons": [
+    {
       "24": "images/icon_24.png",
       "48": "images/icon_48.png"
-  },
+    }
+  ],
   "manifest_version": 2,
   "-ms-preload": {
     "backgroundScript": "backgroundScriptsAPIBridge.js",
@@ -30,8 +41,9 @@
   },
   "name": "Stop Clickbait!",
   "permissions": [
-    "https://*.stopclickbait.com/*", "https://*.facebook.com/*",
-    "storage", "cookies"
+    "https://*.stopclickbait.com/*",
+    "https://*.facebook.com/*",
+    "storage"
   ],
   "version": "0.1",
   "web_accessible_resources": [

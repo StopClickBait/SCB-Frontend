@@ -1,6 +1,7 @@
 'use strict';
 const DEBUG = true;
 var myID = chrome.runtime.id;
+var LinkTimeout;
 
 function prepare() {
     var css = document.createElement("style");
@@ -36,12 +37,12 @@ margin-right: 5px;
         }
 
 .SCBcards {
-            width: 500px;
-            height: 420px;
-            position: absolute;
-            z-index: 7;
-            background-color: white;
-            overflow: hidden;
+    width: 500px;
+    height: 420px;
+    position: absolute;
+    z-index: 7;
+    background-color: white;
+    overflow: hidden;
     }
 
     svg {
@@ -67,7 +68,6 @@ var uniqueIds = 1;
 function loop() {
     var allLinks = document.querySelectorAll('a._52c6');
     var qualifyingLinks = [];
-
     for (var i = 0; i < allLinks.length; i++) {
         var node = allLinks.item(i);
         if (!node.classList.contains("__clickbait_link")) {
@@ -127,6 +127,8 @@ function loop() {
                     CBButtonLink.classList.add('clicked');
                 } else {
                     CBButtonLink.classList.remove('clicked');
+                    document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+                    return;
                 }
                 if (CBButtonLink.classList.contains('hovered'))
                     CBButtonLink.classList.remove('hovered');
@@ -139,8 +141,11 @@ function loop() {
                 }
             });
             CBButtonLink.addEventListener('mouseleave', () => {
-                if (CBButtonLink.classList.contains('hovered'))
-                    document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+               LinkTimeout = setTimeout(() => {
+                    if (CBButtonLink.classList.contains('hovered'))
+                        document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+                    CBButtonLink.classList.remove('hovered');
+                }, 500);
             });
             actionBar.appendChild(CBButtonSpan);
             uniqueIds++;
@@ -188,7 +193,8 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     while (!targ.classList.contains('__clickbait_btn')) {
         targ = targ.parentNode;
     }
-
+    var postWidth = targ.parentNode.parentNode.parentNode.parentNode.parentNode.offsetWidth;
+    console.log(postWidth);
     if (document.getElementById("SCBinterface")) {
         for (var i = 0; i < targ.parentNode.childNodes.length; i++) {
             if (targ.parentNode.childNodes[i].id == "SCBinterface") {
@@ -210,9 +216,11 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
         cardDiv.style.top = "38.2px";
     }
     cardDiv.style.left = "0px";
+    cardDiv.style.width = postWidth + "px";
     cardDiv.id = "SCBinterface";
     cardDiv.style.backgroundColor = "#99ccff";
     var card = document.createElement('iframe');
+    card.style.width = postWidth + "px";
     card.style.top = "0px";
     card.frameBorder = "0";
     card.classList.add("SCBcards");
@@ -222,7 +230,15 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     card.src = chrome.runtime.getURL('SCB-Container.html') + '?url=' + encodeURIComponent(link);
     targ.parentNode.appendChild(cardDiv);
     cardDiv.appendChild(card);
-
+    card.addEventListener('mouseenter', (e) => {
+        if (LinkTimeout) {
+            var SCBButtonLink = document.getElementById('SCBinterface').parentNode.childNodes[0];
+            SCBButtonLink.classList.remove('hovered');
+            SCBButtonLink.classList.add('clicked');
+            clearTimeout(LinkTimeout);
+            LinkTimeout = null;
+        }
+    });
     //window.setTimeout(function () { cardDiv.style.height = card.clientHeight; }, 2000);
 }
 
@@ -255,4 +271,3 @@ function revealLine(element, realURL, id) {
 }
 
 init();
- 

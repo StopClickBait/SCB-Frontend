@@ -4,18 +4,20 @@ var selectedColor;
 
 var idsOfCustomBackgroundColor = ["postsBttn", "login" ];
 var idsOfCustomTextColor = ["star_icon"];
-document.getElementById("YourPosts").style.display = "none";
 
-if(loggedIn)
-{
-    document.getElementById("Profile_Logged_Out").style.display = "none";
-    document.getElementById("Profile_Logged_In").style.display = "block";
-    addEventHandlers();
-    setupColors();
-} else {
-    document.getElementById("Profile_Logged_In").style.display = "none";
-    document.getElementById("Profile_Logged_Out").style.display = "block";
-}
+var loggedIn = false;
+var content = null;
+var userToken;
+
+document.getElementById("YourPosts").style.display = "none";
+document.getElementById("Profile_Logged_In").style.display = "none";
+document.getElementById("Profile_Logged_Out").style.display = "block";
+
+var loginButton = document.getElementById("LoginButton");
+loginButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
+});
 
 chrome.storage.sync.get('selectedColor', function (items) {
     for(var prop in items) {
@@ -34,31 +36,26 @@ chrome.storage.sync.get('selectedColor', function (items) {
     selectedColor = colors[0];
 })
 
-function setupColors() {
-    for(i = 0; i < colors.length; i++) {
-        var colorDiv = document.createElement("div");
-        colorDiv.className = "colorButton";
-        colorDiv.id = colors[i];
-        colorDiv.style.backgroundColor = colors[i];
-        colorDiv.addEventListener("click", function(e) {
-            e.preventDefault();
-            var caller = e.target || e.srcElement;
+function processLogIn() {
+    document.getElementById("Profile_Logged_Out").style.display = "none";
+    document.getElementById("Profile_Logged_In").style.display = "block";
+    document.getElementById('profile_name').innerText = content.name;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=normal');
+    xhr.send(null);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            var content2 = JSON.parse(xhr.responseText);
+            if (content2.error) {
 
-            // Set the selected color to the same as the background color. 
-            selectedColor = rgb2hex(caller.style.backgroundColor);
-            chrome.storage.sync.set({'selectedColor': selectedColor}, function() {
-                console.log(selectedColor + " saved to default.");
-            });
-            changeSelectedStyleTo(caller);    
-        })
-
-        if(i == 0) {
-            selectedColor = colors[i];
-            colorDiv.className += " selectedColorButton";
+            } else {
+                document.getElementById('profile_image').src = content2.data.url;
+            }
         }
-        document.getElementById("colors").appendChild(colorDiv);
     }
+    addEventHandlers();
 }
+
 function addEventHandlers() {
     var postsBttn = document.getElementById("postsBttn");
     postsBttn.addEventListener("click", function (e) {
@@ -76,6 +73,31 @@ function addEventHandlers() {
       });
 }
 
+function setupColors() {
+    for(i = 0; i < colors.length; i++) {
+        var colorDiv = document.createElement("div");
+        colorDiv.className = "colorButton";
+        colorDiv.id = colors[i];
+        colorDiv.style.backgroundColor = colors[i];
+        colorDiv.addEventListener("click", function(e) {
+            e.preventDefault();
+            var caller = e.target || e.srcElement;
+
+            // Set the selected color to the same as the background color. 
+            selectedColor = rgb2hex(caller.style.backgroundColor);
+            chrome.storage.sync.set({'selectedColor': selectedColor}, function() {
+                console.log(selectedColor + " saved to default.");
+            });
+            changeSelectedStyleTo(caller);    
+        })
+        if(i == 0) {
+            selectedColor = colors[i];
+            colorDiv.className += " selectedColorButton";
+        }
+        document.getElementById("colors").appendChild(colorDiv);
+    }
+}
+
 function changeSelectedStyleTo(element) {
         // Remove selection styling:
         var colors = document.getElementById("colors").getElementsByTagName("div");
@@ -87,6 +109,26 @@ function changeSelectedStyleTo(element) {
         // Add selection styling to selected div:
         element.className += " selectedColorButton";
 }
+
+chrome.storage.local.get('accessToken', (accessToken) => {
+    var Profile_Logged_In = document.getElementById("YourPosts");
+    userToken = accessToken.accessToken;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://graph.facebook.com/v2.9/me?access_token=' + accessToken.accessToken + '&fields=id%2Cname');
+    xhr.send(null);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            content = JSON.parse(xhr.responseText);
+            if (content.error) {
+
+            } else {
+                loggedIn = true;
+                chrome.storage.local.set({ 'user_id': content.id });
+                processLogIn();
+            }
+        }
+    };
+});
 
 function rgb2hex(rgb) {
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;

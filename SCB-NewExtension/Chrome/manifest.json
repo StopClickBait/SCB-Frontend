@@ -9,13 +9,25 @@
     {
       "matches": [ "https://*.facebook.com/*" ],
       "js": [ "stopclickbait.js" ]
+    },
+    {
+      "matches": [
+        "https://www.facebook.com/connect/login_success.html"
+      ],
+      "js": [
+        "FBlogin.js"
+      ]
     }
   ],
-  "description": "Helps you from being clickbaited!",
+  "description": "__MSG_appDescription__",
+  "default_locale": "en",
   "manifest_version": 2,
   "name": "Stop Clickbait!",
-  "permissions": [ "https://*.stopclickbait.com/*", "http://*/*", "https://*/*",
-                   "storage", "tabs", "cookies" ],
+  "permissions": [
+    "https://*.stopclickbait.com/*",
+    "https://*.facebook.com/*",
+    "storage"
+  ],
   "version": "0.1",
   "web_accessible_resources": [
     "SCB-Container.html"

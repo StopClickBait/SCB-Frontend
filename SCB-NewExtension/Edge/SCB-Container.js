@@ -234,7 +234,7 @@ function processingVotingResults(results) {
     var pollAnswerYes = document.getElementById('pollAnswerYes');
     var pollBar = document.getElementById('pollBar');
     pollBar.value = results.yes;
-    pollAnswerNo.innerText = "NOT CLICKBAIT\n" + results.no + "%";
+    pollAnswerNo.innerText = chrome.i18n.getMessage("notClickbait") + "\n" + results.no + "%";
     pollAnswerYes.innerText = "CLICKBAIT\n" + results.yes + "%";
 }
 
@@ -281,6 +281,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     reportLink.classList.add('reportLink');
 
     reportLinkA.href = "#";
+    reportLinkA.setAttribute('data-localize', 'report');
     reportLinkA.innerText = "report";
 
     voteArea.classList.add('voteArea');
@@ -299,9 +300,11 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     deleteButtons.onmouseover = function () { return false; };
 
     deleteButton.classList.add('deleteButton');
+    deleteButton.setAttribute('data-localize', 'delete');
     deleteButton.innerText = 'Delete';
 
     cancelButton.classList.add('cancelButton');
+    cancelButton.setAttribute('data-localize', 'cancel');
     cancelButton.innerText = 'Cancel';
 
 }

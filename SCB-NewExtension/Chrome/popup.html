@@ -72,23 +72,23 @@
             color: #FFF;
         }
 
-        .loginBtn:before {
-            content: "";
-            box-sizing: border-box;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 34px;
-            height: 100%;
-        }
+            .loginBtn:before {
+                content: "";
+                box-sizing: border-box;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 34px;
+                height: 100%;
+            }
 
-        .loginBtn:focus {
-            outline: none;
-        }
+            .loginBtn:focus {
+                outline: none;
+            }
 
-        .loginBtn:active {
-            box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
-        }
+            .loginBtn:active {
+                box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+            }
 
         /* Facebook Button */
         .loginBtn--facebook {
@@ -98,16 +98,16 @@
             text-shadow: 0 -1px 0 #354C8C;
         }
 
-        .loginBtn--facebook:before {
-            border-right: #364e92 1px solid;
-            background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
-        }
+            .loginBtn--facebook:before {
+                border-right: #364e92 1px solid;
+                background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+            }
 
-        .loginBtn--facebook:hover,
-        .loginBtn--facebook:focus {
-            background-color: #5B7BD5;
-            background-image: linear-gradient(#5B7BD5, #4864B1);
-        }
+            .loginBtn--facebook:hover,
+            .loginBtn--facebook:focus {
+                background-color: #5B7BD5;
+                background-image: linear-gradient(#5B7BD5, #4864B1);
+            }
 
         .profile_content {
             margin: auto;
@@ -160,18 +160,20 @@
         .button_container {
             text-align: center;
         }
-        .button_container button {
-            background-color: crimson;
-            border: none;
-            color: white;
-            text-align: center;
-            height: 25px;
-            width: 70px;
-            border-radius: 3px;
-        }
-            .button_container button:hover {
-                background-color: darkred;
+
+            .button_container button {
+                background-color: crimson;
+                border: none;
+                color: white;
+                text-align: center;
+                height: 25px;
+                width: 70px;
+                border-radius: 3px;
             }
+
+                .button_container button:hover {
+                    background-color: darkred;
+                }
 
         #settings {
             height: 150px;
@@ -184,12 +186,24 @@
             border-top: 1px solid #c6c6c6;
             font-size: 9pt;
         }
+      
+            #settings div {
+                margin: 5px;
+            }
 
-        #settings div {
-            margin: 5px;
+        #colorHeader {
+            font-size: 12pt;
         }
-        
-        #star_icon {
+
+        #colors {
+            background-color: #0059b3;
+            height: 40px;
+            margin: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .star_icon {
             font-family: stopclickbait;
             color: #00bfff;
             font-size: 20px;
@@ -204,26 +218,29 @@
             font-size: 9pt;
         }
 
-        .about a {
-            line-height: 20px;
-            color: #3f3f3f;
-            text-decoration: none;
-        }
+            .about a {
+                line-height: 20px;
+                color: #3f3f3f;
+                text-decoration: none;
+            }
 
         #YourPosts {
             height: inherit;
         }
-        
+
         #CheckboxOptions {
             padding: 10px;
             height: 30px;
         }
+
         .checkboxline span {
             float: left;
         }
+
         .checkboxline input {
             float: right;
         }
+
         .checkboxline {
             width: auto;
             height: 15px;
@@ -276,7 +293,7 @@
             <span id="star_icon">a</span>
             <span>352</span>
         </div>
-        <img id="profile_image" src="test_profile.png" />
+        <img id="profile_image" src="images/test_profile.png" />
         <div id="profile_name">YourNameHere</div>
         <!--<div id="Posts" class="profile_content">
             <span class="content_left">Stars</span>
@@ -287,13 +304,13 @@
             <span class="content_right" id="stars_number">5</span>
         </div>-->
         <div class="button_container">
-            <button id="postsBttn">My Posts</button>
-            <button id="login">Logout</button> 
+            <button data-localize="MyPosts" id="postsBttn">My Posts</button>
+            <button data-localize="Logout" id="login">Logout</button>
         </div>
     </div>
 
     <div id="Profile_Logged_Out">
-        <button class="loginBtn loginBtn--facebook" id="LoginButton">
+        <button data-localize="LoginWithFB" class="loginBtn loginBtn--facebook" id="LoginButton">
             Login with Facebook
         </button>
     </div>
@@ -303,17 +320,18 @@
     </div>
 
     <div id="settings">
-        <h1 id="colorHeader">Primary Color</h1>
-        <div id="colors">
-        </div>
+        <h1 data-localize="primaryColor" id="colorHeader">Primary Color</h1>
+        <div id="colors"></div>
+
         <div id="CheckboxOptions">
-            
-            <div class="checkboxLine"><span>Show expanation by default:</span><input id="showExplanation" type="checkbox"/></div>
-            <div class="checkboxLine"><span>Hover to open:</span><input id="hoverToOpen" type="checkbox"/></div>
+
+            <div class="checkboxLine"><span data-localize="ShowExplanationByDefault">Show expanation by default:</span><input id="showExplanation" type="checkbox" /></div>
+            <div class="checkboxLine"><span data-localize="HoverToOpen">Hover to open:</span><input id="hoverToOpen" type="checkbox" /></div>
         </div>
     </div>
     <div class="about">
-        <a href="http://stopclickbait.com/" target="_blank">About #StopClickBait</a>
+        <a href="http://stopclickbait.com/" data-localize="AboutSCB" target="_blank">About #StopClickBait</a>
     </div>
     <script src="popup.js"></script>
+    <script src="i18n.js"></script>
 </body>

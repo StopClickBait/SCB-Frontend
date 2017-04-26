@@ -16,7 +16,7 @@
         body {
             margin: 0;
             padding: 0;
-            width: 500px;
+            /*width: 500px;*/
         }
 
         #card {
@@ -279,8 +279,8 @@
             margin-left: 10px;
             margin-right: 6px;
             margin-top: 10px;
-            margin-bottom: 10px;
-            width: 470px;
+            margin-bottom: 15px;
+            width: 92%;
             bottom: 0;
         }
 
@@ -303,11 +303,13 @@
 
                 #pollBar[value]::-webkit-progress-bar {
                     background-color: #2ecc71;
+                    border-radius: 5px;
                 }
 
 
                 #pollBar[value]::-webkit-progress-value {
                     background-color: #d56969;
+                    border-radius: 5px;
                 }
 
                 #pollBar[value]::-moz-progress-bar {
@@ -474,7 +476,7 @@
 <body>
     <div id="card">
         <div id="submitArea">
-            <textarea name="submitCB" id="submitCB" placeholder="Post your explanation..." rows="10" maxlength="140"></textarea>
+            <textarea name="submitCB" id="submitCB" data-localize-placeholder="submitExplanation" placeholder="Submit your explanation..." rows="10" maxlength="140"></textarea>
             <div id="controlBar">
                 <span id="charCounter">140</span>
                 <div id="leftBar">
@@ -482,8 +484,8 @@
                     <button id="btnPhoto">&#x1F4F7;</button>
                     <button id="btnEmoji">&#x1F642;</button>
                 </div>
-                <button id="btnClose">Cancel</button>
-                <button id="btnSubmit" type="submit">Submit</button>
+                <button data-localize="cancel" id="btnClose">Cancel</button>
+                <button data-localize="submit" id="btnSubmit" type="submit">Submit</button>
             </div>
         </div>
 
@@ -493,56 +495,23 @@
                 <span class="separator">|</span>
                 <a href="#">new</a>
             </div>
-            <!--<div id="controlBar">
-                <div id="leftBar">
-                    <button id="btnPhoto">&#x1F4F7;</button>
-                    <button id="btnEmoji">&#x1F642;</button>
-
-                </div>
-                <div id="rightBar">
-                    <button id="btnClose">Cancel</button>
-                    <button id="btnSubmit" type="submit">Submit</button>
-                </div>
-            </div>-->
         </div>
-
         <div id="commentArea">
-            <!--<div class="commentBox">
-                <div class="commentLeft">
-                    <div class="commentText">
-                        <p>
-                            Hello!
-                        </p>
-                    </div>
-                    <div class="userArea">
-                        <span class="userName">FrenchDude</span>
-                        <span class="separator">|</span>
-                        <span class="reportLink"><a href="#">report</a></span>
-                    </div>
-                </div>
-                <div class="voteArea">
-                    <button class="deleteIcon">c</button>
-                    <span class="upvoteStar">a</span>
-                    <span class="upvotes">12</span>
-                </div>
 
-                <div class="deleteButtons" onclick="return false;" onmouseover="return false;"><button class="deleteButton">Delete</button><button class="cancelButton">Cancel</button></div>
-            </div>-->
         </div>
         <div id="pollArea">
             <progress id="pollBar" max="100"></progress>
             <div id="pollAnswerBar">
-                <span id="pollAnswerYes">Yes:  10%</span>
-                <!--<span id="pollQuestion">Is this clickbait?</span>-->
+                <span id="pollAnswerYes"></span>
                 <div id="pollButtonArea">
-                    <span id="pollText">Is it Clickbait?</span>
+                    <span data-localize="isItClickbait" id="pollText">Is it Clickbait?</span>
                     <div id="pollBttns">
-                        <button id="pollButtonYes">YES</button>
+                        <button data-localize="yes" id="pollButtonYes">YES</button>
                         <span class="separator">|</span>
-                        <button id="pollButtonNo">NO</button>
+                        <button data-localize="no" id="pollButtonNo">NO</button>
                     </div>
                 </div>
-                <span id="pollAnswerNo">No:  90%</span>
+                <span id="pollAnswerNo"></span>
             </div>
         </div>
         <div id="pictureBar">
@@ -552,5 +521,6 @@
         </div>
     </div>
     <script src="SCB-Container.js"></script>
+    <script src="i18n.js"></script>
 </body>
 </html>

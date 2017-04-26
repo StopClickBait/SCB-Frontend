@@ -1,49 +1,35 @@
 var loggedIn = false;
-
+var content = null;
+var userToken;
 document.getElementById("YourPosts").style.display = "none";
 
-if(loggedIn)
-{
+document.getElementById("Profile_Logged_In").style.display = "none";
+document.getElementById("Profile_Logged_Out").style.display = "block";
+
+var loginButton = document.getElementById("LoginButton");
+loginButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
+});
+
+function processLogIn() {
     document.getElementById("Profile_Logged_Out").style.display = "none";
     document.getElementById("Profile_Logged_In").style.display = "block";
-    addEventHandlers();
-    
-} else {
-    document.getElementById("Profile_Logged_In").style.display = "none";
-    document.getElementById("Profile_Logged_Out").style.display = "block";
+    document.getElementById('profile_name').innerText = content.name;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=normal');
+    xhr.send(null);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            var content2 = JSON.parse(xhr.responseText);
+            if (content2.error) {
 
-    var loginButton = document.getElementById("LoginButton");
-    loginButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        var gettingCookie = browser.cookies.get({url:"https://www.facebook.com/", name: "c_user"}, function(cookie) {
-            if(!cookie) {
-                // Edge reports no cookie match, even though c_user is stored under facebook's cookies.
-                console.log("No cookie match!");
-                // get the user logged into Facebook so we can get their ID
             } else {
-                console.log(cookie.value);
-                document.getElementById("profile_name").innerText = cookie.value;
-                document.getElementById("Profile_Logged_Out").style.display = "none";
-                document.getElementById("Profile_Logged_In").style.display = "block";
-                loggedIn = true;
+                document.getElementById('profile_image').src = content2.data.url;
             }
-        });
-        // chrome.tabs.onUpdated.addListener( function( tabId,  changeInfo,  tab) {
-        //     tabURL = tab.url;
-        //     if(tabURL.startsWith("https://www.facebook.com/connect/login_success.html")) {
-        //         var code = getParameterByName("code", tabURL);
-        //         // send code to server to get an access token
-        //         document.getElementById("profile_name").innerText = code;
-        //         document.getElementById("Profile_Logged_Out").style.display = "none";
-        //         document.getElementById("Profile_Logged_In").style.display = "block";
-        //         loggedIn = true;
-        //         chrome.windows.remove(tab.windowId);
-        // }
-
-    // var win = window.open("https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&redirect_uri=https://www.facebook.com/connect/login_success.html",
-    //     "fbconnect", "width=600,height=500");
-})
-
+        }
+    }
+    addEventHandlers();
 }
 
 function addEventHandlers() {
@@ -55,6 +41,26 @@ function addEventHandlers() {
         document.getElementById("settings").style.display = "none";
     })
 }
+
+chrome.storage.local.get('accessToken', (accessToken) => {
+    var Profile_Logged_In = document.getElementById("YourPosts");
+    userToken = accessToken.accessToken;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://graph.facebook.com/v2.9/me?access_token=' + accessToken.accessToken + '&fields=id%2Cname');
+    xhr.send(null);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            content = JSON.parse(xhr.responseText);
+            if (content.error) {
+
+            } else {
+                loggedIn = true;
+                chrome.storage.local.set({ 'user_id': content.id });
+                processLogIn();
+            }
+        }
+    };
+});
 
 // function getParameterByName(name, url) {
 //     if (!url) url = window.location.href;
