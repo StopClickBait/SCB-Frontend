@@ -2,10 +2,10 @@
   "app_title": {
     "message": "Stop Clickbait!"
   },
-  "app_description": {
+  "appDescription": {
     "message": "Prevents you from being clickbaited!"
   },
-  "submit_explanation": {
+  "submitExplanation": {
     "message": "Post your explanation..."
   },
   "cancel": {
