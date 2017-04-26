@@ -3,10 +3,10 @@
     "message": "Stop Clickbait!"
   },
   "appDescription": {
-    "message": "Verhindert, dass du auf Clickbait herinfällst!"
+    "message": "Verhindert, dass du auf Clickbait hereinfällst!"
   },
-  "submit_explanation": {
-    "message": "Poste deine Erklärung..."
+  "submitExplanation": {
+    "message": "Füge deine Erklärung hinzu..."
   },
   "cancel": {
     "message": "Abbrechen"
