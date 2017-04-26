@@ -1,5 +1,6 @@
 ﻿var loggedIn = true;
 var colors = ["#000080", "#0000ff","#800020","#008080","#000000","#ffa500","#00ff00","#551a8b"];
+var selectedColor;
 
 document.getElementById("YourPosts").style.display = "none";
 
@@ -49,6 +50,29 @@ function setupColors() {
         var colorDiv = document.createElement("button");
         colorDiv.className = "colorButton";
         colorDiv.style.backgroundColor = colors[i];
+        colorDiv.addEventListener("click", function(e) {
+            e.preventDefault();
+            var caller = e.target || e.srcElement;
+
+            // Set the selected color to the same as the background color. 
+            selectedColor = caller.style.backgroundColor;
+
+            // Remove selection styling:
+            var colors = document.getElementById("colors").getElementsByTagName("button");
+            for (i = 0; i < colors.length; i++)
+            {
+                if(colors[i].classList.contains("selectedColorButton"))
+                    colors[i].classList.remove("selectedColorButton");
+            }
+            // Add selection styling to selected div:
+            caller.className += " selectedColorButton";
+            
+        })
+
+        if(i == 0) {
+            selectedColor = colors[i];
+            colorDiv.className += " selectedColorButton";
+        }
         document.getElementById("colors").appendChild(colorDiv);
     }
 }
