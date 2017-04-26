@@ -31,6 +31,13 @@ if (DEBUG) {
 // Add event handlers
 
 function addEventHandlers() {
+    // Add event listener to find selected color in settings:
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+        if(namespace === "sync" && changes["selectedColor"]) {
+            // set styles here...
+            style = document.stylesh
+        }
+    });
     var submitCB = document.getElementById("submitCB");
     submitCB.addEventListener("focus", function () {
         var submitCB = document.getElementById("submitCB");

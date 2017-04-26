@@ -2,8 +2,8 @@
 var colors = ["#000080", "#0000ff","#800020","#008080","#000000","#ffa500","#00ff00","#551a8b"];
 var selectedColor;
 
-var idsOfCustomBackgroundColor = [];
-var idsOfCustomTextColor = [];
+var idsOfCustomBackgroundColor = ["postsBttn", "login" ];
+var idsOfCustomTextColor = ["star_icon"];
 document.getElementById("YourPosts").style.display = "none";
 
 if(loggedIn)
@@ -15,37 +15,6 @@ if(loggedIn)
 } else {
     document.getElementById("Profile_Logged_In").style.display = "none";
     document.getElementById("Profile_Logged_Out").style.display = "block";
-
-    var loginButton = document.getElementById("LoginButton");
-    loginButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        chrome.cookies.get({url:"https://www.facebook.com", name: "c_user"}, function(c) {
-            if(!c) {
-                // get the user logged into Facebook so we can get their ID
-            } else {
-                console.log(c.value);
-                document.getElementById("profile_name").innerText = c.value;
-                document.getElementById("Profile_Logged_Out").style.display = "none";
-                document.getElementById("Profile_Logged_In").style.display = "block";
-                loggedIn = true;
-            }
-        })
-        // chrome.tabs.onUpdated.addListener( function( tabId,  changeInfo,  tab) {
-        //     tabURL = tab.url;
-        //     if(tabURL.startsWith("https://www.facebook.com/connect/login_success.html")) {
-        //         var code = getParameterByName("code", tabURL);
-        //         // send code to server to get an access token
-        //         document.getElementById("profile_name").innerText = code;
-        //         document.getElementById("Profile_Logged_Out").style.display = "none";
-        //         document.getElementById("Profile_Logged_In").style.display = "block";
-        //         loggedIn = true;
-        //         chrome.windows.remove(tab.windowId);
-        // }
-
-    // var win = window.open("https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&redirect_uri=https://www.facebook.com/connect/login_success.html",
-    //     "fbconnect", "width=600,height=500");
-})
-
 }
 
 chrome.storage.sync.get('selectedColor', function (items) {
@@ -98,7 +67,7 @@ function addEventHandlers() {
     })
 
     chrome.storage.onChanged.addListener(function(changes, namespace) {
-        if(namespace == "sync" && changes["selectedColor"]) {
+        if(namespace === "sync" && changes["selectedColor"]) {
             setTextColors(changes["selectedColor"].newValue);
             setBackgroundColors(changes["selectedColor"].newValue);
         }
@@ -129,7 +98,7 @@ function rgb2hex(rgb) {
 
 // Set the text colors of all the specified objects to the specified color.
 function setTextColors(c) {
-    for(i = 0; i < idsOfCustomTextColor; i ++) {
+    for(i = 0; i < idsOfCustomTextColor.length; i ++) {
         var currentTextObject = document.getElementById(idsOfCustomTextColor[i]);
         currentTextObject.style.color = c;
     }
@@ -137,7 +106,7 @@ function setTextColors(c) {
 
 // Set the background colors of all the specified objects to the specified color.
 function setBackgroundColors(c) {
-    for(i = 0; i < idsOfCustomBackgroundColor; i ++) {
+    for(i = 0; i < idsOfCustomBackgroundColor.length; i ++) {
         var currentObject = document.getElementById(idsOfCustomBackgroundColor[i]);
         currentObject.style.backgroundColor = c;
     }
