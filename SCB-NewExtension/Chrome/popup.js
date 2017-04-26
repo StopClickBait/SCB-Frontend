@@ -41,7 +41,7 @@ function processLogIn() {
     document.getElementById("Profile_Logged_In").style.display = "block";
     document.getElementById('profile_name').innerText = content.name;
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=normal');
+    xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=square');
     xhr.send(null);
     xhr.onreadystatechange = () => {
         if (xhr.readyState == xhr.DONE) {
