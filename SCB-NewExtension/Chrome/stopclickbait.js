@@ -128,6 +128,7 @@ function loop() {
                 } else {
                     CBButtonLink.classList.remove('clicked');
                     document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+                    return;
                 }
                 if (CBButtonLink.classList.contains('hovered'))
                     CBButtonLink.classList.remove('hovered');
@@ -143,6 +144,7 @@ function loop() {
                LinkTimeout = setTimeout(() => {
                     if (CBButtonLink.classList.contains('hovered'))
                         document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+                    CBButtonLink.classList.remove('hovered');
                 }, 500);
             });
             actionBar.appendChild(CBButtonSpan);
