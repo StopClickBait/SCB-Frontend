@@ -1,5 +1,5 @@
 ﻿var loggedIn = true;
-var colors = ["#000080", "#0000ff","#800020","#008080","#000000","#ffa500","#00ff00","#551a8b"];
+var colors = ["#3b5999", "#00acee","#c83b6f","#1bbc9b","#34495e","#e84c3d","#2dcc70","#9b58b5"];
 var selectedColor;
 
 var idsOfCustomBackgroundColor = ["postsBttn", "login" ];
