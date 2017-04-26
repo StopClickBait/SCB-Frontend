@@ -18,18 +18,20 @@ if(loggedIn)
 }
 
 chrome.storage.sync.get('selectedColor', function (items) {
-    if(!items) {
+    for(var prop in items) {
+        if(items.hasOwnProperty(prop))
+        {
+            // If the setting exists, update the local stuff:
+            selectedColor = items.selectedColor;
+            changeSelectedStyleTo(document.getElementById(selectedColor));
+            return;
+        }
+    }
+    // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
     chrome.storage.sync.set({'selectedColor': colors[0]}, function() {
         console.log(colors[0] + " saved to default.");
     });
     selectedColor = colors[0];
-    }
-    else {
-        selectedColor = items.selectedColor;
-        changeSelectedStyleTo(document.getElementById(selectedColor));
-        console.log(items.selectedColor);
-        return true;
-    }
 })
 
 function setupColors() {
