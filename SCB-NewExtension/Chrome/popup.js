@@ -2,6 +2,15 @@
 var colors = ["#000080", "#0000ff","#800020","#008080","#000000","#ffa500","#00ff00","#551a8b"];
 var selectedColor;
 
+if(chrome.StorageArea.get('selectedColor', function (items) {
+    if(!items) { return false; }
+    else { return true; }
+})) {
+    // add color to storage
+}
+else {
+    // get selected color and set UI.
+}
 document.getElementById("YourPosts").style.display = "none";
 
 if(loggedIn)
