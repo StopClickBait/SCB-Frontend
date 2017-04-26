@@ -2,10 +2,10 @@
   "app_title": {
     "message": "Stop Clickbait!"
   },
-  "appDescription": {
+  "app_description": {
     "message": "Prevents you from being clickbaited!"
   },
-  "submitExplanation": {
+  "submit_explanation": {
     "message": "Post your explanation..."
   },
   "cancel": {
@@ -25,6 +25,9 @@
   },
   "no": {
     "message": "No"
+  },
+  "noClickbait": {
+    "message": "NOT CLICKBAIT"
   },
   "isItClickbait": {
     "message": "Is it Clickbait?"

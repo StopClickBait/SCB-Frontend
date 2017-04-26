@@ -234,7 +234,7 @@ function processingVotingResults(results) {
     var pollAnswerYes = document.getElementById('pollAnswerYes');
     var pollBar = document.getElementById('pollBar');
     pollBar.value = results.yes;
-    pollAnswerNo.innerText = "NOT CLICKBAIT\n" + results.no + "%";
+    pollAnswerNo.innerText = chrome.i18n.getMessage("notClickbait") + "\n" + results.no + "%";
     pollAnswerYes.innerText = "CLICKBAIT\n" + results.yes + "%";
 }
 

@@ -36,12 +36,12 @@ margin-right: 5px;
         }
 
 .SCBcards {
-            width: 500px;
-            height: 420px;
-            position: absolute;
-            z-index: 7;
-            background-color: white;
-            overflow: hidden;
+    width: 500px;
+    height: 420px;
+    position: absolute;
+    z-index: 7;
+    background-color: white;
+    overflow: hidden;
     }
 
     svg {
@@ -67,7 +67,6 @@ var uniqueIds = 1;
 function loop() {
     var allLinks = document.querySelectorAll('a._52c6');
     var qualifyingLinks = [];
-
     for (var i = 0; i < allLinks.length; i++) {
         var node = allLinks.item(i);
         if (!node.classList.contains("__clickbait_link")) {
@@ -188,7 +187,8 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     while (!targ.classList.contains('__clickbait_btn')) {
         targ = targ.parentNode;
     }
-
+    var postWidth = targ.parentNode.parentNode.parentNode.parentNode.parentNode.offsetWidth;
+    console.log(postWidth);
     if (document.getElementById("SCBinterface")) {
         for (var i = 0; i < targ.parentNode.childNodes.length; i++) {
             if (targ.parentNode.childNodes[i].id == "SCBinterface") {
@@ -210,9 +210,11 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
         cardDiv.style.top = "38.2px";
     }
     cardDiv.style.left = "0px";
+    cardDiv.style.width = postWidth + "px";
     cardDiv.id = "SCBinterface";
     cardDiv.style.backgroundColor = "#99ccff";
     var card = document.createElement('iframe');
+    card.style.width = postWidth + "px";
     card.style.top = "0px";
     card.frameBorder = "0";
     card.classList.add("SCBcards");
@@ -255,4 +257,3 @@ function revealLine(element, realURL, id) {
 }
 
 init();
- 

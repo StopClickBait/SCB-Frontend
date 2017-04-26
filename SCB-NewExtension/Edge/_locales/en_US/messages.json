@@ -26,6 +26,9 @@
   "no": {
     "message": "No"
   },
+  "noClickbait": {
+    "message": "NOT CLICKBAIT"
+  },
   "isItClickbait": {
     "message": "Is it Clickbait?"
   },
