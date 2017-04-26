@@ -7,12 +7,52 @@ if (document.location.href.indexOf('?') == -1) { } else {
 //var userID = chrome.storage.local.get("userID");
 
 if (DEBUG) {
-    createCommentBox(1, 1490000000, "Hello!", "testUser", 23, false);
-    createCommentBox(2, 1491000000, "Hello!", "myUserName", 17, true);
-    createCommentBox(3, 1492000000, "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB", "testUser3", 12, false);
-    createCommentBox(4, 1493000000, "Hello!", "testUser4", 10, false);
-    createCommentBox(5, 1494000000, "Hello!", "testUser5", 8, false);
+    processingCommentList({
+        "comments": [
+          {
+              "id": 1,
+              "timestamp": 1490000000,
+              "commentText": "Hello!",
+              "userName": "testUser",
+              "starCount": 23,
+              "ownComment": false
+          },
+          {
+              "id": 2,
+              "timestamp": 1490000000,
+              "commentText": "Hello!",
+              "userName": "myUserName",
+              "starCount": 17,
+              "ownComment": true
+          },
+          {
+              "id": 3,
+              "timestamp": 1490000000,
+              "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
+              "userName": "testUser3",
+              "starCount": 12,
+              "ownComment": false
+          },
+          {
+              "commentText": "Hello!",
+              "id": 4,
+              "ownComment": false,
+              "userName": "testUser4",
+              "starCount": 10,
+              "timestamp": 1490000000
+          },
+          {
+              "id": 5,
+              "timestamp": 1490000000,
+              "commentText": "Hello!",
+              "userName": "testUser5",
+              "starCount": 8,
+              "ownComment": false
+          }
+        ]
+    });
     addEventHandlers();
+
 } else {
     var xhr = new XMLHttpRequest();
     var content = "";
@@ -39,7 +79,7 @@ function addEventHandlers() {
         submitCB.style.height = 0;
         submitCB.style.paddingBottom = "20px";
         submitCB.style.height = (submitCB.scrollHeight + 20) + "px";
-        document.getElementById("commentArea").style.height = (325 - submitCB.offsetHeight) + "px";
+        document.getElementById("commentArea").style.height = (305 - submitCB.offsetHeight) + "px";
     });
     submitCB.addEventListener("focusout", function () {
         var submitCB = document.getElementById("submitCB");
@@ -48,7 +88,7 @@ function addEventHandlers() {
             document.getElementById("charCounter").style.display = "none";
             submitCB.style.height = "30px";
             submitCB.style.paddingBottom = "0px";
-            document.getElementById("commentArea").style.height = "285px";
+            document.getElementById("commentArea").style.height = "265px";
         }
     });
     submitCB.oninput = () => {
@@ -60,7 +100,7 @@ function addEventHandlers() {
         document.getElementById('charCounter').innerText = (140 - value).toString();
         submitCB.style.height = 0;
         submitCB.style.height = (submitCB.scrollHeight + 0) + "px";
-        document.getElementById("commentArea").style.height = (325 - submitArea.offsetHeight) + "px";
+        document.getElementById("commentArea").style.height = (305 - submitArea.offsetHeight) + "px";
         if (submitCB.value.indexOf('\n') != -1) {
             submitCB.value = submitCB.value.replace('\n', ' ');
         }
@@ -163,7 +203,7 @@ function addEventHandlers() {
                 targ = targ.parentNode;
             console.log(targ);
             var deleteButtons = targ.parentNode;
-            deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute; color: #828282 !important">Post deleted.</span>';
+            deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute; color: #828282 !important">' + chrome.i18n.getMessage('postDeleted') + '</span>';
         };
     }
 
@@ -199,7 +239,7 @@ function addEventHandlers() {
             }
             xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID + "&vote=yes");
         } else {
-           processingVotingResults(JSON.parse('{ "no": "5", "yes": "95" }'));
+            processingVotingResults(JSON.parse('{ "no": "5", "yes": "95" }'));
         }
     });
     pollButtonNo.addEventListener("click", function () {
@@ -223,17 +263,15 @@ function addEventHandlers() {
             processingVotingResults(JSON.parse('{ "no": "95", "yes": "5" }'));
         }
     });
-
-    var commentArea = document.getElementById("commentArea");
-    commentArea.onmousewheel = (e) => {
-        console.log('mousewheel');
-    }
-
 }
 
 function processingCommentList(content) {
-
+    for (var i in content.comments) if (content.comments.hasOwnProperty(i)) {
+        var comment = content.comments[i];
+        createCommentBox(comment.id, comment.timestamp, comment.commentText, comment.userName, comment.starCount, comment.ownComment);
+    }
 }
+
 
 function processingVotingResults(results) {
     var pollAnswerNo = document.getElementById('pollAnswerNo');

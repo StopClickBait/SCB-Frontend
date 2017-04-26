@@ -6,7 +6,7 @@
     "message": "Prevents you from being clickbaited!"
   },
   "submitExplanation": {
-    "message": "Post your explanation..."
+    "message": "Submit your explanation..."
   },
   "cancel": {
     "message": "Cancel"
@@ -20,13 +20,16 @@
   "delete": {
     "message": "Delete"
   },
+  "postDeleted": {
+    "message": "Post deleted."
+  },
   "yes": {
     "message": "Yes"
   },
   "no": {
     "message": "No"
   },
-  "noClickbait": {
+  "notClickbait": {
     "message": "NOT CLICKBAIT"
   },
   "isItClickbait": {

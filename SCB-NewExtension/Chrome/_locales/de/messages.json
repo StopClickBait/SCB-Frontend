@@ -20,13 +20,16 @@
   "delete": {
     "message": "Löschen"
   },
+    "postDeleted": {
+    "message": "Post gelöscht."
+  },
   "yes": {
     "message": "Ja"
   },
   "no": {
     "message": "Nein"
   },
-  "noClickbait": {
+  "notClickbait": {
     "message": "KEIN CLICKBAIT"
   },
   "isItClickbait": {

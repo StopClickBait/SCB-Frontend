@@ -1,0 +1,15 @@
+﻿.cancelButton {
+    width: 100px !important;
+}
+
+#btnClose, #btnSubmit {
+    width: 100px !important;
+}
+
+#btnClose {
+    left: 0% !important;
+}
+
+#btnSubmit {
+    left: 22% !important;
+}
