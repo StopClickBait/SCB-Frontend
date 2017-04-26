@@ -54,6 +54,7 @@ function processLogIn() {
         }
     }
     addEventHandlers();
+    setupColors();
 }
 
 function addEventHandlers() {
