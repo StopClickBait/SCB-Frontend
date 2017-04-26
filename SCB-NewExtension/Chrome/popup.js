@@ -19,6 +19,8 @@ loginButton.addEventListener("click", function (e) {
     var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
 });
 
+setupColors();
+
 chrome.storage.sync.get('selectedColor', function (items) {
     for(var prop in items) {
         if(items.hasOwnProperty(prop))
@@ -26,6 +28,8 @@ chrome.storage.sync.get('selectedColor', function (items) {
             // If the setting exists, update the local stuff:
             selectedColor = items.selectedColor;
             changeSelectedStyleTo(document.getElementById(selectedColor));
+            setBackgroundColors(items.selectedColor);
+            setTextColors(items.selectedColor);
             return;
         }
     }
@@ -34,6 +38,9 @@ chrome.storage.sync.get('selectedColor', function (items) {
         console.log(colors[0] + " saved to default.");
     });
     selectedColor = colors[0];
+    changeSelectedStyleTo(document.getElementById(selectedColor));
+    setBackgroundColors();
+    setTextColors();
 })
 
 function processLogIn() {
@@ -54,7 +61,6 @@ function processLogIn() {
         }
     }
     addEventHandlers();
-    setupColors();
 }
 
 function addEventHandlers() {
