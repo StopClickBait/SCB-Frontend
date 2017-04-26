@@ -6,6 +6,11 @@ if (document.location.href.indexOf('?') == -1) { } else {
 }
 //var userID = chrome.storage.local.get("userID");
 
+// Get the current color from Chrome storage and set the custom colors in the document.
+chrome.storage.sync.get('selectedColor', function (items) {
+    setElementColors(items.selectedColor);
+})
+
 if (DEBUG) {
     createCommentBox(1, 1490000000, "Hello!", "testUser", 23, false);
     createCommentBox(2, 1491000000, "Hello!", "myUserName", 17, true);
@@ -313,22 +318,17 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
 
 }
 
-function setElementColors(c) {
-    var theRules = new Array();
-    if (document.styleSheets[0].cssRules)
-        theRules = document.styleSheets[0].cssRules
-    else if (document.styleSheets[0].rules)
-        theRules = document.styleSheets[0].rules
-    for(i = 0; i < theRules.length; i++)
-    {
-        var ruleText = theRules[i].selectorText;
-        // Add elements here. If text needs to be taken care of, we can do style.color = c;
-        if( ruleText === ".commentBox:hover" || 
-            ruleText === ".clickedCommentBox, .ownComment" ||
-            ruleText === ".deleteButton" ||
-            ruleText === ".deleteButton:hover")
-        {
-            theRules[i].style.backgroundColor = c;
+function setElementColors(color) {
+    var a = document.styleSheets;
+    for (var i in a) if (a.hasOwnProperty(i)) {
+        var b;
+        (a[i].cssRules) ? b = a[i].cssRules : b = a[i].rules;
+        for (var j in b) if (b.hasOwnProperty(j)) {
+            if (b[j].selectorText === ".commentBox:hover" || b[j].selectorText === ".clickedCommentBox, .ownComment" || b[j].selectorText === ".deleteButton") {
+                b[j].style.backgroundColor = color;
+            } else if (b[j].selectorText === ".deleteButton:hover") {
+                b[j].style.backgroundColor = color;
+            }
         }
     }
 }
