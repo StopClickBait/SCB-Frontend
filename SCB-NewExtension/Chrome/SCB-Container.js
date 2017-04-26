@@ -34,10 +34,10 @@ function addEventHandlers() {
     // Add event listener to find selected color in settings:
     chrome.storage.onChanged.addListener(function(changes, namespace) {
         if(namespace === "sync" && changes["selectedColor"]) {
-            // set styles here...
-            style = document.stylesh
+            setElementColors(changes["selectedColor"].newValue);
         }
     });
+    
     var submitCB = document.getElementById("submitCB");
     submitCB.addEventListener("focus", function () {
         var submitCB = document.getElementById("submitCB");
@@ -311,4 +311,24 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     cancelButton.classList.add('cancelButton');
     cancelButton.innerText = 'Cancel';
 
+}
+
+function setElementColors(c) {
+    var theRules = new Array();
+    if (document.styleSheets[0].cssRules)
+        theRules = document.styleSheets[0].cssRules
+    else if (document.styleSheets[0].rules)
+        theRules = document.styleSheets[0].rules
+    for(i = 0; i < theRules.length; i++)
+    {
+        var ruleText = theRules[i].selectorText;
+        // Add elements here. If text needs to be taken care of, we can do style.color = c;
+        if( ruleText === ".commentBox:hover" || 
+            ruleText === ".clickedCommentBox, .ownComment" ||
+            ruleText === ".deleteButton" ||
+            ruleText === ".deleteButton:hover")
+        {
+            theRules[i].style.backgroundColor = c;
+        }
+    }
 }
