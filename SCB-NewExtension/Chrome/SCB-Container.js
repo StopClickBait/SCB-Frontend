@@ -6,6 +6,11 @@ if (document.location.href.indexOf('?') == -1) { } else {
 }
 //var userID = chrome.storage.local.get("userID");
 
+// Get the current color from Chrome storage and set the custom colors in the document.
+chrome.storage.sync.get('selectedColor', function (items) {
+    setElementColors(items.selectedColor);
+})
+
 if (DEBUG) {
     processingCommentList({
         "comments": [
@@ -71,6 +76,13 @@ if (DEBUG) {
 // Add event handlers
 
 function addEventHandlers() {
+    // Add event listener to find selected color in settings:
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+        if(namespace === "sync" && changes["selectedColor"]) {
+            setElementColors(changes["selectedColor"].newValue);
+        }
+    });
+    
     var submitCB = document.getElementById("submitCB");
     submitCB.addEventListener("focus", function () {
         var submitCB = document.getElementById("submitCB");
@@ -351,4 +363,19 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     cancelButton.setAttribute('data-localize', 'cancel');
     cancelButton.innerText = 'Cancel';
 
+}
+
+function setElementColors(color) {
+    var a = document.styleSheets;
+    for (var i in a) if (a.hasOwnProperty(i)) {
+        var b;
+        (a[i].cssRules) ? b = a[i].cssRules : b = a[i].rules;
+        for (var j in b) if (b.hasOwnProperty(j)) {
+            if (b[j].selectorText === ".commentBox:hover" || b[j].selectorText === ".clickedCommentBox, .ownComment" || b[j].selectorText === ".deleteButton") {
+                b[j].style.backgroundColor = color;
+            } else if (b[j].selectorText === ".deleteButton:hover") {
+                b[j].style.backgroundColor = color;
+            }
+        }
+    }
 }

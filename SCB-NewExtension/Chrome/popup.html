@@ -186,7 +186,7 @@
             border-top: 1px solid #c6c6c6;
             font-size: 9pt;
         }
-
+      
             #settings div {
                 margin: 5px;
             }
@@ -246,6 +246,36 @@
             height: 15px;
             display: block;
         }
+        #colorHeader {
+            font-size: 12pt;
+            margin-bottom: 0;
+        }
+
+        #colors {
+            height: 40px;
+            margin: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        .colorButton {
+            border: 1px solid white;
+            display: inline-block;
+            border-radius: 2px;
+            width: 14px;
+            height: 14px;
+            margin: 5px;
+            -webkit-box-shadow: 0px 0px 6px -2px rgba(0,0,0,1);
+            -moz-box-shadow: 0px 0px 6px -2px rgba(0,0,0,1);
+            box-shadow: 0px 0px 6px -2px rgba(0,0,0,1);
+        }
+        
+        .selectedColorButton {
+            -webkit-box-shadow: 0px 0px 2px 1px rgba(0,187,255,1);
+            -moz-box-shadow: 0px 0px 2px 1px rgba(0,187,255,1);
+            box-shadow: 0px 0px 2px 1px rgba(0,187,255,1);
+       }
     </style>
 </head>
 
@@ -260,7 +290,7 @@
     </div>
     <div id="Profile_Logged_In">
         <div class="star_area">
-            <span class="star_icon">a</span>
+            <span id="star_icon">a</span>
             <span>352</span>
         </div>
         <img id="profile_image" src="images/test_profile.png" />
@@ -291,7 +321,8 @@
 
     <div id="settings">
         <h1 data-localize="primaryColor" id="colorHeader">Primary Color</h1>
-        <div id="colors">Placeholder</div>
+        <div id="colors"></div>
+
         <div id="CheckboxOptions">
 
             <div class="checkboxLine"><span data-localize="ShowExplanationByDefault">Show expanation by default:</span><input id="showExplanation" type="checkbox" /></div>
