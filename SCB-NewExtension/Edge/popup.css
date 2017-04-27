@@ -185,7 +185,11 @@ body {
     height: 30px;
 }
 
-.checkboxline span {
+.checkboxline {
+    width: inherit;
+}
+
+.checkboxline label {
     float: left;
 }
 
