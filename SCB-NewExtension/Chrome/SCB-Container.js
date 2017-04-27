@@ -7,7 +7,7 @@ if (document.location.href.indexOf('?') == -1) { } else {
 //var userID = chrome.storage.local.get("userID");
 
 // Get the current color from Chrome storage and set the custom colors in the document.
-chrome.storage.sync.get('selectedColor', function (items) {
+chrome.storage.local.get('selectedColor', function (items) {
     setElementColors(items.selectedColor);
 })
 
@@ -78,7 +78,7 @@ if (DEBUG) {
 function addEventHandlers() {
     // Add event listener to find selected color in settings:
     chrome.storage.onChanged.addListener(function(changes, namespace) {
-        if(namespace === "sync" && changes["selectedColor"]) {
+        if(namespace === "local" && changes["selectedColor"]) {
             setElementColors(changes["selectedColor"].newValue);
         }
     });
@@ -154,8 +154,7 @@ function addEventHandlers() {
                 while (!targ.classList.contains('commentBox')) {
                     targ = targ.parentNode;
                 }
-                targ.style.backgroundColor = "#2a4887";
-
+                // Potentially darken the shade of the color here...
             });
         }
     }
@@ -371,7 +370,10 @@ function setElementColors(color) {
         var b;
         (a[i].cssRules) ? b = a[i].cssRules : b = a[i].rules;
         for (var j in b) if (b.hasOwnProperty(j)) {
-            if (b[j].selectorText === ".commentBox:hover" || b[j].selectorText === ".clickedCommentBox, .ownComment" || b[j].selectorText === ".deleteButton") {
+            if (b[j].selectorText === ".commentBox:hover" ||
+                b[j].selectorText === ".clickedCommentBox, .ownComment" ||
+                b[j].selectorText === ".deleteButton" ||
+                b[j].selectorText === "#btnSubmit") {
                 b[j].style.backgroundColor = color;
             } else if (b[j].selectorText === ".deleteButton:hover") {
                 b[j].style.backgroundColor = color;

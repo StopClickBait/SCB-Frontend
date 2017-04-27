@@ -19,7 +19,7 @@ loginButton.addEventListener("click", function (e) {
 
 setupColors();
 
-chrome.storage.sync.get('selectedColor', function (items) {
+chrome.storage.local.get('selectedColor', function (items) {
     for(var prop in items) {
         if(items.hasOwnProperty(prop))
         {
@@ -34,7 +34,7 @@ chrome.storage.sync.get('selectedColor', function (items) {
         }
     }
     // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
-    chrome.storage.sync.set({'selectedColor': colors[0]}, function() {
+    chrome.storage.local.set({'selectedColor': colors[0]}, function() {
         console.log(colors[0] + " saved to default.");
     });
     selectedColor = colors[0];
@@ -73,7 +73,7 @@ function addEventHandlers() {
     })
 
     chrome.storage.onChanged.addListener(function(changes, namespace) {
-        if(namespace === "sync" && changes["selectedColor"]) {
+        if(namespace === "local" && changes["selectedColor"]) {
             setTextColors(changes["selectedColor"].newValue);
             setBackgroundColors(changes["selectedColor"].newValue);
         }
@@ -92,7 +92,7 @@ function setupColors() {
 
             // Set the selected color to the same as the background color. 
             selectedColor = rgb2hex(caller.style.backgroundColor);
-            chrome.storage.sync.set({'selectedColor': selectedColor}, function() {
+            chrome.storage.local.set({'selectedColor': selectedColor}, function() {
                 console.log(selectedColor + " saved to default.");
             });
             changeSelectedStyleTo(caller);    
