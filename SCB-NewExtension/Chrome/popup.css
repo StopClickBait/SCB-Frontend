@@ -89,24 +89,34 @@ body {
 .buttons {
     box-sizing: border-box;
     position: relative;
-    /* width: 13em;  - apply for fWixed size */
-    /*margin: 0.2em;
-    padding: 0 15px 0 15px;*/
+    /* width: 13em;  - apply for fWixed size
+    margin: 0.2em;*/
+    padding: 0 15px 0 15px;
     border: 1px solid black;
     text-align: center;
     line-height: 34px;
     white-space: nowrap;
-    border-radius: 1em;
+    border-radius: 2em;
     font-size: 16px;
     color: #000;
     background-color: transparent;
 }
-.buttons:hover {
-    background-color: #3f3f3f;
-    color: white;
+    .buttons:hover {
+        background-color: #3f3f3f;
+        color: white;
+    }
+    .buttons:focus {
+        outline: 0;
+    }
+#Profile_Logged_Out button {
+    color: #3b5999;
+    background-color: transparent;
+    border-color: #3b5999;
 }
-.buttons:focus {
-    outline: 0;
+#Profile_Logged_Out button:hover {
+    color: #fff;
+    background-color: #3b5999;
+    border-color: transparent;
 }
  /*Facebook Button 
 .loginBtn--facebook {
@@ -137,7 +147,7 @@ body {
 }
 
     .button_container button {
-        width: 90px;
+        width: 100px;
     }
 
 #settings {
