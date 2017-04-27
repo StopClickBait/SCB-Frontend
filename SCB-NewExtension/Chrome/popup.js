@@ -1,9 +1,6 @@
 ﻿var colors = ["#3b5999", "#00acee","#c83b6f","#1bbc9b","#34495e","#e84c3d","#2dcc70","#9b58b5"];
 var selectedColor;
 
-var idsOfCustomBackgroundColor = ["postsBttn", "login" ];
-var idsOfCustomTextColor = ["star_icon"];
-
 var content = null;
 var userToken;
 
@@ -23,13 +20,10 @@ chrome.storage.local.get('selectedColor', function (items) {
     for(var prop in items) {
         if(items.hasOwnProperty(prop))
         {
-            // If the setting exists, update the local stuff:
-            selectedColor = items.selectedColor;
-            // Move the "selected" style to the button which triggered the color change
-            changeSelectedStyleTo(document.getElementById(selectedColor));
+            // Move the "selected" style to the saved color
+            changeSelectedStyleTo(document.getElementById(items.selectedColor));
             // Update the local colors
-            setBackgroundColors(selectedColor);
-            setTextColors(selectedColor);
+            setElementColors(items.selectedColor);
             return;
         }
     }
@@ -37,10 +31,8 @@ chrome.storage.local.get('selectedColor', function (items) {
     chrome.storage.local.set({'selectedColor': colors[0]}, function() {
         console.log(colors[0] + " saved to default.");
     });
-    selectedColor = colors[0];
-    changeSelectedStyleTo(document.getElementById(selectedColor));
-    setBackgroundColors();
-    setTextColors();
+    changeSelectedStyleTo(document.getElementById(colors[0]));
+    setElementColors(colors[0]);
 })
 
 function processLogIn() {
@@ -74,10 +66,9 @@ function addEventHandlers() {
 
     chrome.storage.onChanged.addListener(function(changes, namespace) {
         if(namespace === "local" && changes["selectedColor"]) {
-            setTextColors(changes["selectedColor"].newValue);
-            setBackgroundColors(changes["selectedColor"].newValue);
+            setElementColors(changes["selectedColor"].newValue);
         }
-      });
+    });
 }
 
 function setupColors() {
@@ -145,22 +136,6 @@ function rgb2hex(rgb) {
     return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
-// Set the text colors of all the specified objects to the specified color.
-function setTextColors(c) {
-    for(i = 0; i < idsOfCustomTextColor.length; i ++) {
-        var currentTextObject = document.getElementById(idsOfCustomTextColor[i]);
-        currentTextObject.style.color = c;
-    }
-}
-
-// Set the background colors of all the specified objects to the specified color.
-function setBackgroundColors(c) {
-    for(i = 0; i < idsOfCustomBackgroundColor.length; i ++) {
-        var currentObject = document.getElementById(idsOfCustomBackgroundColor[i]);
-        currentObject.style.backgroundColor = c;
-    }
-}
-
 function processUserPosts(content) {
 
 }
@@ -202,4 +177,46 @@ function getUserPosts() {
         ]
     });
 
+}
+
+function setElementColors(c) {
+    var a = document.styleSheets;
+    for (var i in a) if (a.hasOwnProperty(i)) {
+        var b;
+        (a[i].cssRules) ? b = a[i].cssRules : b = a[i].rules;
+        for (var j in b) if (b.hasOwnProperty(j)) {
+            if(b[j].selectorText === ".buttons") {
+                setButtonNormalColor(b[j], c);
+            }
+            if (b[j].selectorText === ".buttons:hover") {
+                setButtonHoverColor(b[j], c);
+            }
+            if(b[j].selectorText === "#YourPosts") {
+               setBackgroundColor(b[j], c);
+            }
+            if(b[j].selectorText === "#star_icon") {
+                setTextColor(b[j], c);
+            }
+        }
+    }
+}
+
+function setButtonNormalColor(bttn, c) {
+    bttn.style.borderColor = c;
+    bttn.style.backgroundColor = "transparent";
+    bttn.style.color = c;
+}
+
+function setButtonHoverColor(bttn, c) {
+    bttn.style.backgroundColor = c;
+    bttn.style.borderColor = "transparent";
+    bttn.style.color = "white";
+}
+
+function setTextColor(textElm, c) {
+    textElm.style.color = c;
+}
+
+function setBackgroundColor(elm, c) {
+    elm.style.backgroundColor = c;
 }
