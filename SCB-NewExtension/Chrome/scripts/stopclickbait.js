@@ -1,20 +1,20 @@
 'use strict';
 const DEBUG = true;
-var myID = chrome.runtime.id;
+var showDefaultExplanation = true;
+var hoverToOpen = true;
 var LinkTimeout;
 
-// Set the default color if it has not yet been set.
-chrome.storage.local.get('selectedColor', function (items) {
-    for(var prop in items) {
-        if(items.hasOwnProperty(prop)) return;
-    }
-    // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
-    chrome.storage.local.set({'selectedColor': "#3b5999"}, function() {
-        console.log("#3b5999" + " saved to default.");
-    });
-})
-
 function prepare() {
+    chrome.storage.local.get('showDefaultExplanation', (items) => {
+        if (items.hasOwnProperty('showDefaultExplanation'))
+            showDefaultExplanation = items.showDefaultExplanation;
+    });
+
+
+    chrome.storage.local.get('hoverToOpen', (items) => {
+        if (items.hasOwnProperty('hoverToOpen'))
+            hoverToOpen = items.hoverToOpen;
+    });
     var css = document.createElement("style");
     css.type = "text/css";
     css.innerHTML = `.__clickbait_text {
@@ -71,6 +71,15 @@ margin-right: 5px;
 
 `;
     document.head.appendChild(css);
+
+    // Set the default color if it has not yet been set.
+    chrome.storage.local.get('selectedColor', function (items) {
+        if (items.hasOwnProperty('selectedColor')) return;
+        // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
+        chrome.storage.local.set({ 'selectedColor': "#3b5999" }, function () {
+            console.log("#3b5999" + " saved to default.");
+        });
+    });
 }
 
 // counter that increments to generate a new ID
@@ -119,12 +128,13 @@ function loop() {
                     actionBar = actionBar.childNodes[j];
                 }
             }
-
-            revealLine(RevealLine, realUrl, uniqueIds);
+            if (showDefaultExplanation)
+                revealLine(RevealLine, realUrl, uniqueIds);
 
             actionBar = actionBar.childNodes[0];
             var CBButtonSpan = document.createElement('span');
             CBButtonSpan.appendChild(document.createElement('a'));
+            CBButtonSpan.classList.add('SCBButtonSpan');
             var CBButtonLink = CBButtonSpan.childNodes[0];
 
             CBButtonLink.classList.add('__clickbait_btn');
@@ -145,19 +155,21 @@ function loop() {
                     CBButtonLink.classList.remove('hovered');
                 displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, false, CBButtonLink);
             });
-            CBButtonLink.addEventListener('mouseenter', (e) => {
-                if (!CBButtonLink.classList.contains('clicked')) {
-                    CBButtonLink.classList.add('hovered');
-                    displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, CBButtonLink);
-                }
-            });
-            CBButtonLink.addEventListener('mouseleave', () => {
-               LinkTimeout = setTimeout(() => {
-                    if (CBButtonLink.classList.contains('hovered'))
-                        document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
-                    CBButtonLink.classList.remove('hovered');
-                }, 500);
-            });
+            if (hoverToOpen) {
+                CBButtonLink.addEventListener('mouseenter', (e) => {
+                    if (!CBButtonLink.classList.contains('clicked')) {
+                        CBButtonLink.classList.add('hovered');
+                        displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, CBButtonLink);
+                    }
+                });
+                CBButtonLink.addEventListener('mouseleave', () => {
+                    LinkTimeout = setTimeout(() => {
+                        if (CBButtonLink.classList.contains('hovered'))
+                            document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
+                        CBButtonLink.classList.remove('hovered');
+                    }, 500);
+                });
+            }
             actionBar.appendChild(CBButtonSpan);
             uniqueIds++;
 
@@ -198,14 +210,13 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     else if (e.srcElement) targ = e.srcElement;
     if (targ.nodeType == 3) // defeat Safari bug
         targ = targ.parentNode;
-    if (targ.tagName.toLowerCase() == 'span') {
+    if (targ.classList.contains('SCBButtonSpan')) {
         targ = targ.childNodes[0];
     }
     while (!targ.classList.contains('__clickbait_btn')) {
         targ = targ.parentNode;
     }
     var postWidth = targ.parentNode.parentNode.parentNode.parentNode.parentNode.offsetWidth;
-    console.log(postWidth);
     if (document.getElementById("SCBinterface")) {
         for (var i = 0; i < targ.parentNode.childNodes.length; i++) {
             if (targ.parentNode.childNodes[i].id == "SCBinterface") {

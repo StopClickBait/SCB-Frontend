@@ -37,6 +37,12 @@ function processLogIn() {
     document.getElementById("Profile_Logged_In").style.display = "block";
     document.getElementById("settings").style.display = "block";
     document.getElementById('profile_name').innerText = content.name;
+    document.getElementById('showExplanation').onclick = () => {
+        chrome.storage.local.set({ 'showDefaultExplanation': document.getElementById('showExplanation').checked }, () => { console.log("showExplanation: " + document.getElementById('showExplanation').checked); });
+    }
+    document.getElementById('hoverToOpen').onclick = () => {
+        chrome.storage.local.set({ 'hoverToOpen': document.getElementById('hoverToOpen').checked }, () => { console.log("HoverToOpen: " + document.getElementById('HoverToOpen').checked); });
+    }
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=square');
     xhr.send(null);
