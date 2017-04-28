@@ -378,6 +378,26 @@ function setElementColors(color) {
             } else if (b[j].selectorText === ".deleteButton:hover") {
                 b[j].style.backgroundColor = color;
             }
+            if(b[j].selectorText === "#pollBar:not([value])" ||
+               b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
+               b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
+               b[j].selectorText === "button") {
+                b[j].style.backgroundColor = "#fff";
+                b[j].style.border = "1px solid";
+                b[j].style.borderColor = color;
+                b[j].style.color = color;
+                b[j].style.borderRadius = "2em";
+                document.getElementById("pollButtonArea").style.color = color;
+            }
+            if(b[j].selectorText === "#pollBttns button") {
+                b[j].style.color = color;
+            }
+            if(b[j].selectorText === "#pollBar:not([value]):hover" ||
+               b[j].selectorText === "button:hover") {
+                b[j].style.backgroundColor = color;
+                b[j].style.color = "white";
+                document.getElementById("pollButtonArea").style.color = "white";
+            }
         }
     }
 }
