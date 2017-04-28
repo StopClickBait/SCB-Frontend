@@ -53,6 +53,10 @@ body {
     #submitCB:-ms-input-placeholder {
         color: #bbb;
     }
+    #submitCB:focus {
+        outline-color: #fff;
+        outline-width: 0.5;
+    }
 
 #submitArea {
     margin: 10px;
@@ -118,6 +122,9 @@ button {
     background-color: transparent;
 }
 
+button:hover {
+    background-color: "black";
+}
 ::-webkit-scrollbar {
     width: 5px;
 }
@@ -290,7 +297,7 @@ a, .userName {
     margin-right: 6px;
     margin-top: 10px;
     margin-bottom: 15px;
-    width: 92%;
+    width: 94%;
     bottom: 0;
 }
 
@@ -324,7 +331,7 @@ a, .userName {
 
         #pollBar[value]::-moz-progress-bar {
             background-color: #d56969;
-            border-radius: 3px;
+            border-radius: 2em;
         }
 
     #pollBar:not([value]) {
@@ -378,7 +385,6 @@ a, .userName {
 }
 
 #pollBttns {
-    width: 87px;
     float: right;
     margin-right: 10px;
     display: inline-block;
@@ -396,7 +402,7 @@ a, .userName {
         outline: 0;
     }
 #pollText {
-    margin-left: 27px;
+    margin-left: 10px;
     float: left;
     position: absolute;
 }
@@ -457,6 +463,7 @@ a, .userName {
 #btnClose, #btnSubmit {
     cursor: pointer;
     height: 30px;
+    line-height: 30px;
     width: 80px;
     font-size: 12pt;
     top: 25px;

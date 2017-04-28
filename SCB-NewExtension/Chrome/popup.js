@@ -81,12 +81,15 @@ function addEventHandlers() {
     var logoutButton = document.getElementById("login");
     logoutButton.addEventListener("click", function(e) {
         e.preventDefault();
+        // Remove access token from storage
+        chrome.local.remove("accessToken", function() {
+            console.log("Removed Facebook access key from storage.");
+        });
+        // Display logged out interface
         document.getElementById("Profile_Logged_Out").style.display = "block";
         document.getElementById("Profile_Logged_In").style.display = "none";
         document.getElementById("settings").style.display = "none";
-
-        // Need to do more stuff for logout, including resize window.
-    });
+     });
 }
 
 ////* POSTS FUNCTIONS *////

@@ -372,8 +372,7 @@ function setElementColors(color) {
         for (var j in b) if (b.hasOwnProperty(j)) {
             if (b[j].selectorText === ".commentBox:hover" ||
                 b[j].selectorText === ".clickedCommentBox, .ownComment" ||
-                b[j].selectorText === ".deleteButton" ||
-                b[j].selectorText === "#btnSubmit") {
+                b[j].selectorText === ".deleteButton") {
                 b[j].style.backgroundColor = color;
             } else if (b[j].selectorText === ".deleteButton:hover") {
                 b[j].style.backgroundColor = color;
@@ -393,10 +392,15 @@ function setElementColors(color) {
                 b[j].style.color = color;
             }
             if(b[j].selectorText === "#pollBar:not([value]):hover" ||
+            b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
+             b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
                b[j].selectorText === "button:hover") {
                 b[j].style.backgroundColor = color;
                 b[j].style.color = "white";
                 document.getElementById("pollButtonArea").style.color = "white";
+            }
+            if(b[j].selectorText === "#submitCB:focus") {
+                b[j].style.outlineColor = color;
             }
         }
     }
