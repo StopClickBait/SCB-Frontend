@@ -370,6 +370,7 @@ function setElementColors(color) {
         var b;
         (a[i].cssRules) ? b = a[i].cssRules : b = a[i].rules;
         for (var j in b) if (b.hasOwnProperty(j)) {
+            // Change color:
             if (b[j].selectorText === ".commentBox:hover" ||
                 b[j].selectorText === ".clickedCommentBox, .ownComment" ||
                 b[j].selectorText === ".deleteButton") {
@@ -377,28 +378,34 @@ function setElementColors(color) {
             } else if (b[j].selectorText === ".deleteButton:hover") {
                 b[j].style.backgroundColor = color;
             }
+
+            // Change Pollbar color:
             if(b[j].selectorText === "#pollBar:not([value])" ||
                b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
                b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
-               b[j].selectorText === ":not([value])#pollBar" ||
-               b[j].selectorText === "button") {
+               b[j].selectorText === ":not([value])#pollBar" ) {
+                b[j].style.backgroundColor = "#fff";
+                b[j].style.border = "1px solid";
+                b[j].style.borderColor = color;
+                b[j].style.borderRadius = "3px";
+            }
+            
+            // Change color for button:
+            if(b[j].selectorText === "button") {
                 b[j].style.backgroundColor = "#fff";
                 b[j].style.border = "1px solid";
                 b[j].style.borderColor = color;
                 b[j].style.color = color;
                 b[j].style.borderRadius = "3px";
             }
+
+            // Change text color for these areas:
             if(b[j].selectorText === "#pollBttns button" ||
                b[j].selectorText === "#pollButtonArea") {
                 b[j].style.color = color;
             }
-            if(b[j].selectorText === "#pollBar:not([value]):hover" ||
-               b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
-               b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
-               b[j].selectorText === "button:hover") {
-                b[j].style.backgroundColor = color;
-                b[j].style.color = "white";
-            }
+
+            // Change the outline color of the textbox:
             if(b[j].selectorText === "#submitCB:focus") {
                 b[j].style.outlineColor = color;
             }

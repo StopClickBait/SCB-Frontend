@@ -312,7 +312,7 @@ a, .userName {
     width: inherit;
     -webkit-appearance: none;
     -moz-appearance: none;;
-    color: #3b5999;
+    color: #fff;
 }
     #pollBar[value] {
         background-color: #2ecc71;
