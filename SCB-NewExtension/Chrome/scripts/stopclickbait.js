@@ -238,7 +238,7 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     card.style.left = "0px";
     card.id = "SCBinterfaceIFRAME"
     card.setAttribute('scrolling', 'no');
-    card.src = chrome.runtime.getURL('SCB-Container.html') + '?url=' + encodeURIComponent(link);
+    card.src = chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent(link);
     targ.parentNode.appendChild(cardDiv);
     cardDiv.appendChild(card);
     card.addEventListener('mouseenter', (e) => {

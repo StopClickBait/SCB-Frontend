@@ -1,9 +1,9 @@
-﻿@import "_locales/__MSG_@@ui_locale__/SCB-Container.css";
+﻿@import "../_locales/__MSG_@@ui_locale__/SCB-Container.css";
 
 @font-face {
     font-family: "stopclickbait";
-    src: url("fonts/stopclickbait.eot");
-    src: url("fonts/stopclickbait.eot?#iefix") format("embedded-opentype"), url("fonts/stopclickbait.woff") format("woff"), url("fonts/stopclickbait.ttf") format("truetype"), url("fonts/stopclickbait.svg#stopclickbait") format("svg");
+    src: url("../fonts/stopclickbait.eot");
+    src: url("../fonts/stopclickbait.eot?#iefix") format("embedded-opentype"), url("../fonts/stopclickbait.woff") format("woff"), url("../fonts/stopclickbait.ttf") format("truetype"), url("../fonts/stopclickbait.svg#stopclickbait") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -309,8 +309,7 @@ a, .userName {
     height: 40px;
     width: inherit;
     -webkit-appearance: none;
-    -moz-appearance: none;
-    -webkit-animation: animate-stripes 5s linear infinite;
+    -moz-appearance: none;;
 }
 
     #pollBar[value] {

@@ -5,7 +5,7 @@
       "20": "images/icon_20.png",
       "40": "images/icon_40.png"
     },
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_title": "Stop Clickbait!"
   },
   "content_scripts": [
@@ -14,7 +14,7 @@
         "https://*.facebook.com/*"
       ],
       "js": [
-        "stopclickbait.js"
+        "scripts/stopclickbait.js"
       ]
     },
     {
@@ -22,7 +22,7 @@
         "https://www.facebook.com/connect/login_success.html"
       ],
       "js": [
-        "FBlogin.js"
+        "scripts/FBlogin.js"
       ]
     }
   ],
@@ -47,6 +47,6 @@
   ],
   "version": "0.1",
   "web_accessible_resources": [
-    "SCB-Container.html"
+    "scb-container/SCB-Container.html"
   ]
 }

@@ -1,21 +1,21 @@
 {
   "author": "Stop Clickbait team",
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html",
+    "default_icon": "images/icon.png",
+    "default_popup": "popup/popup.html",
     "default_title": "Stop Clickbait!"
   },
   "content_scripts": [
     {
       "matches": [ "https://*.facebook.com/*" ],
-      "js": [ "stopclickbait.js" ]
+      "js": [ "scripts/stopclickbait.js" ]
     },
     {
       "matches": [
         "https://www.facebook.com/connect/login_success.html"
       ],
       "js": [
-        "FBlogin.js"
+        "scripts/FBlogin.js"
       ]
     }
   ],
@@ -30,6 +30,6 @@
   ],
   "version": "0.1",
   "web_accessible_resources": [
-    "SCB-Container.html"
+    "scb-container/SCB-Container.html"
   ]
 }

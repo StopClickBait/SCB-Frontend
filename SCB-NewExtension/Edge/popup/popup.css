@@ -1,9 +1,9 @@
-﻿@import "_locales/__MSG_@@ui_locale__/popup.css";
+﻿@import "../_locales/__MSG_@@ui_locale__/popup.css";
 
 @font-face {
     font-family: "stopclickbait";
-    src: url("fonts/stopclickbait.eot");
-    src: url("fonts/stopclickbait.eot?#iefix") format("embedded-opentype"), url("fonts/stopclickbait.woff") format("woff"), url("fonts/stopclickbait.ttf") format("truetype"), url("fonts/stopclickbait.svg#stopclickbait") format("svg");
+    src: url("../fonts/stopclickbait.eot");
+    src: url("../fonts/stopclickbait.eot?#iefix") format("embedded-opentype"), url("../fonts/stopclickbait.woff") format("woff"), url("../fonts/stopclickbait.ttf") format("truetype"), url("../fonts/stopclickbait.svg#stopclickbait") format("svg");
     font-weight: normal;
     font-style: normal;
 }

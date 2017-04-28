@@ -393,8 +393,8 @@ function setElementColors(color) {
                 b[j].style.color = color;
             }
             if(b[j].selectorText === "#pollBar:not([value]):hover" ||
-              b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
-               b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
+            b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
+             b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
                b[j].selectorText === "button:hover") {
                 b[j].style.backgroundColor = color;
                 b[j].style.color = "white";
