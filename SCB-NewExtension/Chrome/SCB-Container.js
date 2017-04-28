@@ -386,7 +386,7 @@ function setElementColors(color) {
                 b[j].style.border = "1px solid";
                 b[j].style.borderColor = color;
                 b[j].style.color = color;
-                b[j].style.borderRadius = "2em";
+                b[j].style.borderRadius = "3px";
                 document.getElementById("pollButtonArea").style.color = color;
             }
             if(b[j].selectorText === "#pollBttns button") {
