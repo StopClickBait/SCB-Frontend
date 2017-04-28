@@ -373,7 +373,10 @@ function setElementColors(color) {
             // Change color:
             if (b[j].selectorText === ".commentBox:hover" ||
                 b[j].selectorText === ".clickedCommentBox, .ownComment" ||
-                b[j].selectorText === ".deleteButton") {
+                b[j].selectorText === ".deleteButton" ||
+                b[j].selectorText === "#pollBar[value]::-webkit-progress-value" ||
+                b[j].selectorText === "#pollBar[value]::-moz-progress-bar" ||
+                b[j].selectorText === "#pollBar[value]") {
                 b[j].style.backgroundColor = color;
             } else if (b[j].selectorText === ".deleteButton:hover") {
                 b[j].style.backgroundColor = color;

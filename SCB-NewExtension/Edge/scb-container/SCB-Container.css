@@ -315,23 +315,22 @@ a, .userName {
     color: #fff;
 }
     #pollBar[value] {
-        background-color: #2ecc71;
-        color: #d56969;
+        background-color: #fff;
+        color: #fff;
     }
 
         #pollBar[value]::-webkit-progress-bar {
-            background-color: #2ecc71;
+            background-color: #fff;
             border-radius: 3px;
         }
 
-
         #pollBar[value]::-webkit-progress-value {
-            background-color: #d56969;
+            background-color: #fff;
             border-radius: 3px;
         }
 
         #pollBar[value]::-moz-progress-bar {
-            background-color: #d56969;
+            background-color: #fff;
             border-radius: 3px;
         }
 
@@ -359,6 +358,7 @@ a, .userName {
     display: none;
     padding: 5px;
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #pollAnswerBar {
@@ -377,6 +377,7 @@ a, .userName {
     margin-right: 12px;
     display: none;
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #pollButtonArea {
