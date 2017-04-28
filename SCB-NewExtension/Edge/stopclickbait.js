@@ -3,6 +3,17 @@ const DEBUG = true;
 var myID = chrome.runtime.id;
 var LinkTimeout;
 
+// Set the default color if it has not yet been set.
+chrome.storage.local.get('selectedColor', function (items) {
+    for(var prop in items) {
+        if(items.hasOwnProperty(prop)) return;
+    }
+    // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
+    chrome.storage.local.set({'selectedColor': "#3b5999"}, function() {
+        console.log("#3b5999" + " saved to default.");
+    });
+})
+
 function prepare() {
     var css = document.createElement("style");
     css.type = "text/css";

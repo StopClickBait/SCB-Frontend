@@ -53,6 +53,10 @@ body {
     #submitCB:-ms-input-placeholder {
         color: #bbb;
     }
+    #submitCB:focus {
+        outline-color: #fff;
+        outline-width: 0.5;
+    }
 
 #submitArea {
     margin: 10px;
@@ -103,6 +107,24 @@ body {
     flex-direction: column;
 }
 
+button {
+    box-sizing: border-box;
+    position: relative;
+    /* width: 13em;  - apply for fWixed size
+    margin: 0.2em;*/
+    padding: 0 15px 0 15px;
+    border: 2px solid;
+    text-align: center;
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: 3px;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+button:hover {
+    background-color: "black";
+}
 ::-webkit-scrollbar {
     width: 5px;
 }
@@ -275,7 +297,7 @@ a, .userName {
     margin-right: 6px;
     margin-top: 10px;
     margin-bottom: 15px;
-    width: 92%;
+    width: 94%;
     bottom: 0;
 }
 
@@ -298,18 +320,18 @@ a, .userName {
 
         #pollBar[value]::-webkit-progress-bar {
             background-color: #2ecc71;
-            border-radius: 5px;
+            border-radius: 3px;
         }
 
 
         #pollBar[value]::-webkit-progress-value {
             background-color: #d56969;
-            border-radius: 5px;
+            border-radius: 3px;
         }
 
         #pollBar[value]::-moz-progress-bar {
             background-color: #d56969;
-            border-radius: 5px;
+            border-radius: 2em;
         }
 
     #pollBar:not([value]) {
@@ -359,12 +381,10 @@ a, .userName {
     width: inherit;
     line-height: 40px;
     display: inline-block;
-    color: white;
     font-size: 12pt;
 }
 
 #pollBttns {
-    width: 87px;
     float: right;
     margin-right: 10px;
     display: inline-block;
@@ -376,11 +396,13 @@ a, .userName {
         border: 0;
         background-color: transparent;
         cursor: pointer;
-        color: #ffffff;
     }
-
+    
+    #pollBttns button:focus {
+        outline: 0;
+    }
 #pollText {
-    margin-left: 27px;
+    margin-left: 10px;
     float: left;
     position: absolute;
 }
@@ -439,12 +461,9 @@ a, .userName {
 }
 
 #btnClose, #btnSubmit {
-    color: white;
-    border: 0;
     cursor: pointer;
-    /*margin-top: 18px;*/
-    border-radius: 3px;
     height: 30px;
+    line-height: 30px;
     width: 80px;
     font-size: 12pt;
     top: 25px;
@@ -452,12 +471,10 @@ a, .userName {
 }
 
 #btnClose {
-    background-color: #828282;
     left: 9%;
 }
 
 #btnSubmit {
-    background-color: #3b5998;
     margin-left: 10px;
     left: 27%;
 }
