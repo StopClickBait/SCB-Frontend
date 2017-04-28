@@ -380,6 +380,7 @@ function setElementColors(color) {
             if(b[j].selectorText === "#pollBar:not([value])" ||
                b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
                b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
+               b[j].selectorText === ":not([value])#pollBar" ||
                b[j].selectorText === "button") {
                 b[j].style.backgroundColor = "#fff";
                 b[j].style.border = "1px solid";
@@ -392,8 +393,8 @@ function setElementColors(color) {
                 b[j].style.color = color;
             }
             if(b[j].selectorText === "#pollBar:not([value]):hover" ||
-            b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
-             b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
+              b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
+               b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
                b[j].selectorText === "button:hover") {
                 b[j].style.backgroundColor = color;
                 b[j].style.color = "white";
