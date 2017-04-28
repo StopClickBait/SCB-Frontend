@@ -399,6 +399,12 @@ function setElementColors(color) {
                 b[j].style.borderRadius = "3px";
             }
 
+            // Change hover style for button:
+            if(b[j].selectorText === "button:hover") {
+                b[j].style.backgroundColor = color;
+                b[j].style.color = "#fff";
+            }
+            
             // Change text color for these areas:
             if(b[j].selectorText === "#pollBttns button" ||
                b[j].selectorText === "#pollButtonArea") {
