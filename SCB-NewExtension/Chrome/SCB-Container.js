@@ -345,7 +345,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     deleteIcon.innerText = "c";
 
     upvoteStar.classList.add('upvoteStar');
-    upvoteStar.innerText = "a";
+    upvoteStar.innerText = "";
 
     upvotes.classList.add('upvotes');
     upvotes.innerText = voteNumber;
