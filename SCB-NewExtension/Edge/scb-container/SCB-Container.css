@@ -110,6 +110,7 @@ body {
 button {
     box-sizing: border-box;
     position: relative;
+    color: #3b5998;
     /* width: 13em;  - apply for fWixed size
     margin: 0.2em;*/
     padding: 0 15px 0 15px;
@@ -297,8 +298,9 @@ a, .userName {
     margin-right: 6px;
     margin-top: 10px;
     margin-bottom: 15px;
-    width: 94%;
+    width: calc(100% - 30px);
     bottom: 0;
+    color: #3b5999;
 }
 
 #pollBar {
@@ -310,8 +312,8 @@ a, .userName {
     width: inherit;
     -webkit-appearance: none;
     -moz-appearance: none;;
+    color: #3b5999;
 }
-
     #pollBar[value] {
         background-color: #2ecc71;
         color: #d56969;
@@ -330,24 +332,24 @@ a, .userName {
 
         #pollBar[value]::-moz-progress-bar {
             background-color: #d56969;
-            border-radius: 2em;
+            border-radius: 3px;
         }
 
     #pollBar:not([value]) {
-        color: #e4ae48;
-        background-color: #e4ae48;
+        background-color: #fff;
+        border: 1px solid #3b5999;
+        border-radius: 3px;
     }
-
         #pollBar:not([value])::-webkit-progress-bar {
-            color: #e4ae48;
-            background-color: #e4ae48;
-            border-radius: 5px;
+            background-color: #fff;
+            border: 1px solid #3b5999;
+            border-radius: 3px;
         }
 
         #pollBar:not([value])::-moz-progress-bar {
-            color: #e4ae48;
-            background-color: #e4ae48;
-            border-radius: 5px;
+            background-color: #fff;
+            border: 1px solid #3b5999;
+            border-radius: 3px;
         }
 
 #pollAnswerYes {
@@ -356,6 +358,7 @@ a, .userName {
     margin-left: 12px;
     display: none;
     padding: 5px;
+    color: #fff;
 }
 
 #pollAnswerBar {
@@ -365,7 +368,6 @@ a, .userName {
     line-height: 15px;
     font-size: 9pt;
     justify-content: center;
-    color: #ffffff;
 }
 
 #pollAnswerNo {
@@ -374,6 +376,7 @@ a, .userName {
     text-align: right;
     margin-right: 12px;
     display: none;
+    color: #fff;
 }
 
 #pollButtonArea {
@@ -381,6 +384,7 @@ a, .userName {
     line-height: 40px;
     display: inline-block;
     font-size: 12pt;
+    color: #3b5999;
 }
 
 #pollBttns {

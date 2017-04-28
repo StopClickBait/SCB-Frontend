@@ -387,18 +387,17 @@ function setElementColors(color) {
                 b[j].style.borderColor = color;
                 b[j].style.color = color;
                 b[j].style.borderRadius = "3px";
-                document.getElementById("pollButtonArea").style.color = color;
             }
-            if(b[j].selectorText === "#pollBttns button") {
+            if(b[j].selectorText === "#pollBttns button" ||
+               b[j].selectorText === "#pollButtonArea") {
                 b[j].style.color = color;
             }
             if(b[j].selectorText === "#pollBar:not([value]):hover" ||
-            b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
-             b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
+               b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar:hover" ||
+               b[j].selectorText === " #pollBar:not([value])::-moz-progress-bar:hover" ||
                b[j].selectorText === "button:hover") {
                 b[j].style.backgroundColor = color;
                 b[j].style.color = "white";
-                document.getElementById("pollButtonArea").style.color = "white";
             }
             if(b[j].selectorText === "#submitCB:focus") {
                 b[j].style.outlineColor = color;
