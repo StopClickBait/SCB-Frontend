@@ -217,7 +217,7 @@ function addEventHandlers() {
                 targ = targ.parentNode;
             console.log(targ);
             var deleteButtons = targ.parentNode;
-            deleteButtons.innerHTML = '<span style="top: 35%; left: 35%; position: absolute; color: #828282 !important">' + chrome.i18n.getMessage('postDeleted') + '</span>';
+            deleteButtons.innerHTML = '<span style="color: #828282 !important">' + chrome.i18n.getMessage('postDeleted') + '</span>';
         };
     }
 

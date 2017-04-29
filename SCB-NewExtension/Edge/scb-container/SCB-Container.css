@@ -261,6 +261,7 @@ a, .userName {
     width: 100%;
     display: none;
     border-radius: 3px;
+    text-align: center;
 }
 
 .deleteButton {
