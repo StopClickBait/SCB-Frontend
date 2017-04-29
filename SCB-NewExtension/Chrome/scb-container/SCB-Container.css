@@ -239,7 +239,7 @@ a, .userName {
     font-size: 12px;
     background-color: transparent;
     border: 0;
-    /*font-family: stopclickbait;*/
+    font-family: stopclickbait;
 }
 
 .deleteIcon:focus {

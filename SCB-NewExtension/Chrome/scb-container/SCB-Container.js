@@ -217,7 +217,11 @@ function addEventHandlers() {
                 targ = targ.parentNode;
             console.log(targ);
             var deleteButtons = targ.parentNode;
-            deleteButtons.innerHTML = '<span style="color: #828282 !important">' + chrome.i18n.getMessage('postDeleted') + '</span>';
+            deleteButtons.style.display = "flex";
+            deleteButtons.style.justifyContent = "center";
+            deleteButtons.style.verticalAlign = "middle";
+            deleteButtons.style.alignItems = "center";
+            deleteButtons.innerHTML = '<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>';
         };
     }
 
@@ -345,10 +349,10 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     voteArea.classList.add('voteArea');
 
     deleteIcon.classList.add('deleteIcon');
-    deleteIcon.innerText = "X";
+    deleteIcon.innerText = "c";
 
     upvoteStar.classList.add('upvoteStar');
-    upvoteStar.innerText = "";
+    upvoteStar.innerText = "a";
 
     upvotes.classList.add('upvotes');
     upvotes.innerText = voteNumber;
