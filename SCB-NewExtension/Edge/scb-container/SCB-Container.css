@@ -24,6 +24,40 @@ body {
     color: #828282;
 }
 
+a {
+    color: #828282;
+}
+
+button {
+    box-sizing: border-box;
+    position: relative;
+    color: #3b5998;
+    /* width: 13em;  - apply for fWixed size
+    margin: 0.2em;*/
+    padding: 0 15px 0 15px;
+    border: 2px solid;
+    text-align: center;
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: 3px;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+button:hover {
+    background-color: "black";
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #828282;
+    border-radius: 3px;
+    width: 6px;
+}
+
 #submitCB {
     background-color: white;
     border: 0;
@@ -107,34 +141,7 @@ body {
     flex-direction: column;
 }
 
-button {
-    box-sizing: border-box;
-    position: relative;
-    color: #3b5998;
-    /* width: 13em;  - apply for fWixed size
-    margin: 0.2em;*/
-    padding: 0 15px 0 15px;
-    border: 2px solid;
-    text-align: center;
-    line-height: 34px;
-    white-space: nowrap;
-    border-radius: 3px;
-    font-size: 16px;
-    background-color: transparent;
-}
 
-button:hover {
-    background-color: "black";
-}
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #828282;
-    border-radius: 3px;
-    width: 6px;
-}
 
 .commentBox {
     background-color: white;
@@ -150,12 +157,12 @@ button:hover {
 
     .commentBox:hover {
         background-color: #3b5998;
+        color: white;
         box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
     }
-
-        .commentBox:hover * {
-            color: white !important;
-        }
+    .commentBox:hover a {
+        color: white;
+    }
 
 .blockedCommentBox:hover {
     background-color: white;
@@ -168,19 +175,21 @@ button:hover {
 
 .clickedCommentBox, .ownComment {
     background-color: #3b5998;
+    color: white;
     margin: 0px 5px 5px 10px;
     border-radius: 3px;
     display: flex;
     box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
 }
-
-    .clickedCommentBox *, .ownComment *:not(.blockedCommentBox) {
-        color: white !important;
-    }
+.clickedCommentBox a, .ownComment a {
+    color: white;
+}
+    /*.clickedCommentBox, .ownComment *:not(.blockedCommentBox) {
+        color: white;
+    }*/
 
 .commentText {
     margin-top: 15px;
-    color: #828282;
     padding-left: 4px;
     padding-top: 2px;
     margin-bottom: 8px;
@@ -197,11 +206,9 @@ button:hover {
 }
 
     .userArea a, .userArea span {
-        color: #a4a4a4;
     }
 
 a, .userName {
-    color: #828282;
     text-decoration: none;
     padding-left: 4px;
     padding-top: 2px;
@@ -213,7 +220,6 @@ a, .userName {
     float: right;
     text-align: right;
     padding-right: 4px;
-    color: #828282;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -222,17 +228,22 @@ a, .userName {
 }
 
 .deleteIcon {
-    right: 0%;
-    color: #bbb;
-    top: 1%;
     position: absolute;
-    margin-right: 0px;
-    margin-top: 0px;
     cursor: pointer;
-    height: 20px;
+    right: 0;
+    top: 0;
+    margin-right: 8px;
+    margin-top: 8px;
+    line-height: 12px;
+    height: 12px;
+    font-size: 12px;
     background-color: transparent;
     border: 0;
-    font-family: stopclickbait;
+    /*font-family: stopclickbait;*/
+}
+
+.deleteIcon:focus {
+    outline: 0;
 }
 
 .upvoteStar {
@@ -253,12 +264,12 @@ a, .userName {
 }
 
 .deleteButton {
-    background-color: #3b5998;
+    /*background-color: #3b5998;
     color: white;
-    border: 0;
+    border: 0;*/
     height: 40px;
     margin-right: 10px;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     cursor: pointer;
     top: 25%;
     left: 31%;
@@ -269,15 +280,15 @@ a, .userName {
 }
 
     .deleteButton:hover {
-        background-color: #2a4887;
+        /*background-color: #2a4887;*/
     }
 
 .cancelButton {
-    background-color: #828282;
+    /*background-color: #828282;
     color: white;
-    border: 0;
+    border: 0;*/
     height: 40px;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     top: 25%;
     left: 51%;
     cursor: pointer;
@@ -288,7 +299,7 @@ a, .userName {
 }
 
     .cancelButton:hover {
-        background-color: #707070;
+        /*background-color: #707070;*/
     }
 
 #pollArea {

@@ -121,6 +121,7 @@ function addEventHandlers() {
     var commentArray = document.getElementsByClassName('commentBox');
     for (var i = 0; i < commentArray.length; i++) {
         if (!commentArray[i].classList.contains('ownComment')) {
+            // Set the style for the selected cards.
             commentArray[i].addEventListener("click", function (e) {
                 var targ;
                 if (!e) e = window.event;
@@ -141,6 +142,7 @@ function addEventHandlers() {
                 }
             });
 
+            // Set the style for when the card is clicked
             commentArray[i].addEventListener("mousedown", function (e) {
                 var targ;
                 if (!e) e = window.event;
@@ -159,6 +161,7 @@ function addEventHandlers() {
         }
     }
 
+    // Set the event listener and actions for the delete buttons.
     var deleteIcons = document.getElementsByClassName("deleteIcon");
     for (i = 0; i < deleteIcons.length; i++) {
         if (deleteIcons[i].parentNode.parentNode.classList.contains('ownComment')) {
@@ -305,7 +308,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     var reportLink = userArea.appendChild(document.createElement('span'));
     var reportLinkA = reportLink.appendChild(document.createElement('a'));
     var voteArea = commentBox.appendChild(document.createElement('div'));
-    var deleteIcon = voteArea.appendChild(document.createElement('button'));
+    var deleteIcon = voteArea.appendChild(document.createElement('div'));
     var upvoteStar = voteArea.appendChild(document.createElement('span'));
     var upvotes = voteArea.appendChild(document.createElement('span'));
     var deleteButtons = commentBox.appendChild(document.createElement('div'));
@@ -342,7 +345,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     voteArea.classList.add('voteArea');
 
     deleteIcon.classList.add('deleteIcon');
-    deleteIcon.innerText = "c";
+    deleteIcon.innerText = "X";
 
     upvoteStar.classList.add('upvoteStar');
     upvoteStar.innerText = "";
@@ -373,12 +376,9 @@ function setElementColors(color) {
             // Change color:
             if (b[j].selectorText === ".commentBox:hover" ||
                 b[j].selectorText === ".clickedCommentBox, .ownComment" ||
-                b[j].selectorText === ".deleteButton" ||
                 b[j].selectorText === "#pollBar[value]::-webkit-progress-value" ||
                 b[j].selectorText === "#pollBar[value]::-moz-progress-bar" ||
                 b[j].selectorText === "#pollBar[value]") {
-                b[j].style.backgroundColor = color;
-            } else if (b[j].selectorText === ".deleteButton:hover") {
                 b[j].style.backgroundColor = color;
             }
 
