@@ -211,7 +211,7 @@ function setElementColors(c) {
             if(b[j].selectorText === "#YourPosts") {
                setBackgroundColor(b[j], c);
             }
-            if(b[j].selectorText === "#star_icon") {
+            if(b[j].selectorText === "#star_area") {
                 setTextColor(b[j], c);
             }
         }
