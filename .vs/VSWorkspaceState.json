@@ -1,8 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\SCB-NewExtension"
+    "\\SCB-NewExtension",
+    "\\SCB-NewExtension\\Chrome",
+    "\\SCB-NewExtension\\Chrome\\popup",
+    "\\SCB-NewExtension\\Edge",
+    "\\SCB-NewExtension\\Edge\\popup",
+    "\\SCB-NewExtension\\Edge\\scb-container"
   ],
-  "SelectedNode": "\\SCB-NewExtension\\SCB-NewExtension.sln",
+  "SelectedNode": "\\SCB-NewExtension\\Edge\\popup\\popup.js",
   "PreviewInSolutionExplorer": false
 }

@@ -26,9 +26,10 @@ body {
 
 #header_text {
     text-align: center;
-    font-size: 20px;
+    font-size: 24pt;
     padding-top: 15px;
     font-family: 'Anton', sans-serif;
+    color: dimgrey;
     font-weight: normal;
 }
 
@@ -255,4 +256,9 @@ body {
     -webkit-box-shadow: 0px 0px 2px 1px rgba(0,187,255,1);
     -moz-box-shadow: 0px 0px 2px 1px rgba(0,187,255,1);
     box-shadow: 0px 0px 2px 1px rgba(0,187,255,1);
+}
+
+.separator {
+    margin-left: 5px;
+    margin-right: 5px;
 }
