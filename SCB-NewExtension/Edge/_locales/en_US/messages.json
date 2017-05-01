@@ -21,7 +21,7 @@
     "message": "Delete"
   },
   "postDeleted": {
-    "message": "Post deleted."
+    "message": "Post Deleted"
   },
   "yes": {
     "message": "Yes"

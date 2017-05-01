@@ -195,6 +195,7 @@ body {
 #star_number {
     background-color: white;
     padding: 0 15px 0;
+    font-weight: bold;
     position: absolute;
     left: 39%;
     top: 25px;

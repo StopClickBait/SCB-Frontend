@@ -173,6 +173,13 @@ button:hover {
     box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
 }
 
+.commentBox:active, .cancelButton:active, .deleteButton:active, .deleteIcon:active {
+    -moz-filter: brightness(80%);
+    -ms-filter: brightness(80%);
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+}
+
 .clickedCommentBox, .ownComment {
     background-color: #3b5998;
     color: white;
@@ -366,7 +373,7 @@ a, .userName {
 #pollAnswerYes {
     float: left;
     text-align: left;
-    margin-left: 12px;
+    margin-left: 25px;
     display: none;
     padding: 5px;
     color: #fff;
@@ -385,7 +392,7 @@ a, .userName {
     float: right;
     padding: 5px;
     text-align: right;
-    margin-right: 12px;
+    margin-right: 40px;
     display: none;
     color: #fff;
 }

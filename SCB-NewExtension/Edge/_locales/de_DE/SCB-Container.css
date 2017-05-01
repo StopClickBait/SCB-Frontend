@@ -13,3 +13,8 @@
 #btnSubmit {
     left: 22% !important;
 }
+
+.deleteButton {
+    left: 25% !important;
+    width: 100px !important;
+}

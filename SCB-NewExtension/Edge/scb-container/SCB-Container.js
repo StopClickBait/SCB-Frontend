@@ -231,9 +231,9 @@ function addEventHandlers() {
         submitArea.value = "";
         document.getElementById("controlBar").style.display = "none";
         document.getElementById("charCounter").style.display = "none";
-        document.getElementById("commentArea").style.height = "285px";
+        document.getElementById("commentArea").style.height = "265px";
         submitArea.style.height = "30px";
-        submitArea.setAttribute("rows", "1");
+        submitArea.style.paddingBottom = "0px";
     });
 
     var pollButtonYes = document.getElementById("pollButtonYes")

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<!-- 
+  Visual Studio global web project settings.
+-->
+<VisualWebDeveloper>
+
+  <Globals>
+    <UserProperties _3locales_4en_3US_4messages_1json__JSONSchema="i18n"/>
+  </Globals>
+</VisualWebDeveloper>
