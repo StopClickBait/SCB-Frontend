@@ -323,26 +323,26 @@ a, .userName {
     height: 40px;
     width: inherit;
     -webkit-appearance: none;
-    -moz-appearance: none;;
+    -moz-appearance: none;
     color: #fff;
 }
     #pollBar[value] {
-        background-color: #fff;
-        color: #fff;
+        background-color: #2ecc71;
+        color: #d56969;
     }
 
         #pollBar[value]::-webkit-progress-bar {
-            background-color: #fff;
+            background-color: #2ecc71;
             border-radius: 3px;
         }
 
         #pollBar[value]::-webkit-progress-value {
-            background-color: #fff;
+            background-color: #d56969;
             border-radius: 3px;
         }
 
         #pollBar[value]::-moz-progress-bar {
-            background-color: #fff;
+            background-color: #d56969;
             border-radius: 3px;
         }
 
@@ -370,7 +370,6 @@ a, .userName {
     display: none;
     padding: 5px;
     color: #fff;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #pollAnswerBar {
@@ -389,7 +388,6 @@ a, .userName {
     margin-right: 12px;
     display: none;
     color: #fff;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #pollButtonArea {
