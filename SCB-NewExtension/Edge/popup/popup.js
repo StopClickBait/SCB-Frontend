@@ -95,7 +95,8 @@ function addEventHandlers() {
         document.getElementById("Profile_Logged_Out").style.display = "block";
         document.getElementById("Profile_Logged_In").style.display = "none";
         document.getElementById("settings").style.display = "none";
-     });
+    });
+
 }
 
 ////* POSTS FUNCTIONS *////

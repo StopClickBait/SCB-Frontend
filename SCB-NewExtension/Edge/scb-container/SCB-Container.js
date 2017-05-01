@@ -281,6 +281,26 @@ function addEventHandlers() {
             processingVotingResults(JSON.parse('{ "no": "95", "yes": "5" }'));
         }
     });
+
+
+    var reportLinks = document.getElementsByClassName('reportLink');
+    for (var i in reportLinks) if (reportLinks.hasOwnProperty(i)) {
+        reportLinks[i].addEventListener('click', () => {
+            if (!DEBUG) {
+                var xhr = new XMLHttpRequest();
+                var content = "";
+                xhr.open('POST', 'https://server.stopclickbait.com/report.php');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('userID=' + userID + "&reportID=" + reportLinks[i].parentNode.parentNode.parentNode.parentNode.id);
+            } else {
+            }
+            reportLinks[i].style.color = "green";
+            reportLinks[i].childNodes[0].innerText = "Thanks!";
+        });
+
+
+    }
+
 }
 
 function processingCommentList(content) {
