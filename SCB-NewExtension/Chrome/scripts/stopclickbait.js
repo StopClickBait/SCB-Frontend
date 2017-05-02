@@ -44,7 +44,7 @@ margin-right: 5px;
 
 
 .st0 {
-        fill: #AFB4BD;
+        fill: #4B4F56;
         }
 
 .SCBcards {
