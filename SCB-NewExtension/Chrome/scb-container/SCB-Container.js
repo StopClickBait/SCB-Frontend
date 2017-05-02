@@ -15,16 +15,8 @@ if (DEBUG) {
     processingCommentList({
         "comments": [
           {
-              "id": 1,
-              "timestamp": 1490000000,
-              "commentText": "Hello!",
-              "userName": "testUser",
-              "starCount": 23,
-              "ownComment": false
-          },
-          {
               "id": 2,
-              "timestamp": 1490000000,
+              "timestamp": 14900000050,
               "commentText": "Hello!",
               "userName": "myUserName",
               "starCount": 17,
@@ -32,10 +24,18 @@ if (DEBUG) {
           },
           {
               "id": 3,
-              "timestamp": 1490000000,
+              "timestamp": 14900000051,
               "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
               "userName": "testUser3",
               "starCount": 12,
+              "ownComment": false
+          },
+          {
+              "id": 1,
+              "timestamp": 1490000001,
+              "commentText": "Hello!",
+              "userName": "testUser",
+              "starCount": 23,
               "ownComment": false
           },
           {
@@ -44,7 +44,7 @@ if (DEBUG) {
               "ownComment": false,
               "userName": "testUser4",
               "starCount": 10,
-              "timestamp": 1490000000
+              "timestamp": 1490000002
           },
           {
               "id": 5,
@@ -83,6 +83,17 @@ function addEventHandlers() {
         }
     });
     
+    // Add event listener to sort by top-voted comment.
+    var topBttn = document.getElementById("topSC");
+    topBttn.addEventListener("click", function(e) {
+        sortCommentsByVotes();
+    });
+
+    var newBttn = document.getElementById("dateSC");
+    newBttn.addEventListener("click", function(e) {
+        sortCommentsByDate();
+    });
+
     var submitCB = document.getElementById("submitCB");
     submitCB.addEventListener("focus", function () {
         var submitCB = document.getElementById("submitCB");
@@ -388,7 +399,46 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     cancelButton.classList.add('cancelButton');
     cancelButton.setAttribute('data-localize', 'cancel');
     cancelButton.innerText = 'Cancel';
+}
 
+function sortCommentsByVotes() {
+    var commentCards = document.getElementById("commentArea").children;
+    var sortCards = Array.prototype.slice.call(commentCards, 0);
+    if(sortCards.length > 1) {    
+        sortCards.sort(function (a, b) {
+            // Get the vote number for each comment:
+            var valA = parseInt(a.children[1].children[2].innerHTML);
+            var valB = parseInt(b.children[1].children[2].innerHTML);
+            return(valA - valB);
+        });
+        // Append the cards back in the correct order:
+        var commentParent = document.getElementById("commentArea");
+        commentParent.innerHTML = "";
+        for(var i = (sortCards.length - 1); i => 0; i--) {
+            commentParent.appendChild(sortCards[i]);
+        }
+    }
+    else return;
+}
+
+function sortCommentsByDate() {
+    var commentCards = document.getElementById("commentArea").children;
+    var sortCards = Array.prototype.slice.call(commentCards, 0);
+    if(sortCards.length > 1) {    
+        sortCards.sort(function (a, b) {
+            // Get the timestamp:
+            var valA = parseInt(a.dataset.timestamp);
+            var valB = parseInt(b.dataset.timestamp);
+            return(valA - valB);
+        });
+        // Append the cards back in the correct order:
+        var commentParent = document.getElementById("commentArea");
+        commentParent.innerHTML = "";
+        for(var i = (sortCards.length - 1); i => 0; i--) {
+            commentParent.appendChild(sortCards[i]);
+        }
+    }
+    else return;
 }
 
 function setElementColors(color) {
