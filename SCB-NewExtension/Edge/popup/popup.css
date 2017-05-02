@@ -181,7 +181,7 @@ body {
 }
 
 #colors {
-    height: 40px;
+    height: 20px;
     margin: 10px;
     margin-left: 20px;
     margin-right: 20px;
@@ -220,6 +220,9 @@ body {
         line-height: 20px;
         color: #3f3f3f;
         text-decoration: none;
+    }
+    .about a:hover {
+        color: black;
     }
 
 #YourPosts {
@@ -283,4 +286,12 @@ body {
 .separator {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+#logout {
+    cursor: pointer;
+}
+
+#logout:hover {
+    color: black;
 }

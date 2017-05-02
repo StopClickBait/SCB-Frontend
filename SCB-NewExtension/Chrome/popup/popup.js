@@ -7,6 +7,8 @@ document.getElementById("YourPosts").style.display = "none";
 document.getElementById("Profile_Logged_In").style.display = "none";
 document.getElementById("Profile_Logged_Out").style.display = "block";
 document.getElementById("settings").style.display = "none";
+document.getElementById("logout").style.display = "none";
+document.getElementById("seperator").style.display = "none";
 
 setupColors();
 
@@ -37,6 +39,9 @@ function processLogIn() {
     document.getElementById("Profile_Logged_In").style.display = "block";
     document.getElementById("settings").style.display = "block";
     document.getElementById('profile_name').innerText = content.name;
+    document.getElementById("logout").style.display = "inline-block";
+    document.getElementById("seperator").style.display = "inline-block";
+
     document.getElementById('showExplanation').onclick = () => {
         chrome.storage.local.set({ 'showDefaultExplanation': document.getElementById('showExplanation').checked }, () => { console.log("showExplanation: " + document.getElementById('showExplanation').checked); });
     }
@@ -83,23 +88,27 @@ function addEventHandlers() {
     });
 
     // Add handler to login button:
-    var loginButton = document.getElementById("LoginButton");
+    var loginButton = document.getElementById("login");
     loginButton.addEventListener("click", function (e) {
         e.preventDefault();
         var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
     });
 
-    var logoutButton = document.getElementById("login");
+    // Add handler to logout button:
+    var logoutButton = document.getElementById("logout");
     logoutButton.addEventListener("click", function(e) {
         e.preventDefault();
         // Remove access token from storage
-        chrome.local.remove("accessToken", function() {
+        chrome.storage.local.remove("accessToken", function() {
             console.log("Removed Facebook access key from storage.");
         });
         // Display logged out interface
         document.getElementById("Profile_Logged_Out").style.display = "block";
+        document.getElementById("YourPosts").style.display = "none";
         document.getElementById("Profile_Logged_In").style.display = "none";
         document.getElementById("settings").style.display = "none";
+        document.getElementById("logout").style.display = "none";
+        document.getElementById("seperator").style.display = "none";
     });
 
 }
