@@ -173,7 +173,7 @@ button:hover {
     box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
 }
 
-.commentBox:active, .cancelButton:active, .deleteButton:active, .deleteIcon:active {
+.commentBox:active, .cancelButton:active, .deleteButton:active, .deleteIcon {
     -moz-filter: brightness(80%);
     -ms-filter: brightness(80%);
     -webkit-filter: brightness(80%);
