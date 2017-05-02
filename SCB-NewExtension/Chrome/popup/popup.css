@@ -178,7 +178,7 @@ body {
 
 #star_icon {
     font-family: stopclickbait;
-    font-size: 55px;
+    font-size: 57px;
     position:absolute;
     width:100%;
     text-align: center;
@@ -187,7 +187,7 @@ body {
 #star_number {
     background-color: transparent;
     text-align: center;
-    font-size: 12pt;
+    font-size: 11pt;
     width: 100%;
     color: white;
     font-weight: bold;
