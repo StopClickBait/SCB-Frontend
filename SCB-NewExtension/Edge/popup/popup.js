@@ -56,7 +56,12 @@ function processLogIn() {
             }
         }
     }
-    
+    chrome.storage.local.get('showDefaultExplanation', (items) => {
+            document.getElementById('showExplanation').checked = items.showDefaultExplanation;
+    });
+    chrome.storage.local.get('hoverToOpen', (items) => {
+            document.getElementById('hoverToOpen').checked = items.hoverToOpen;
+    });
 }
 
 ////* SETUP FUNCTION: *////

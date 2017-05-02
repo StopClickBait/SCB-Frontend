@@ -151,8 +151,10 @@ function loop() {
                     document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
                     return;
                 }
-                if (CBButtonLink.classList.contains('hovered'))
+                if (CBButtonLink.classList.contains('hovered')) {
                     CBButtonLink.classList.remove('hovered');
+                    return;
+                }
                 displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, false, CBButtonLink);
             });
             if (hoverToOpen) {
