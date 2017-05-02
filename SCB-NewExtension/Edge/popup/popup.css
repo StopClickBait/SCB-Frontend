@@ -188,16 +188,17 @@ body {
     background-color: transparent;
     text-align: center;
     font-size: 11pt;
+    line-height: 57px;
+    height: 57px;
     width: 100%;
     color: white;
     font-weight: bold;
-    top: 20px;
     position:absolute;
 }
 
 #star_area {
     position: relative;
-    height: 55px;
+    height: 57px;
     margin-bottom: 10px;
     text-align: center;
 }
