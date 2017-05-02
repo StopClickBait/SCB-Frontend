@@ -179,20 +179,27 @@ body {
 #star_icon {
     font-family: stopclickbait;
     font-size: 55px;
+    position:absolute;
+    width:100%;
+    text-align: center;
 }
 
 #star_number {
-    background-color: white;
-    padding: 0 15px 0;
+    background-color: transparent;
+    text-align: center;
+    font-size: 12pt;
+    width: 100%;
+    color: white;
     font-weight: bold;
-    position: absolute;
-    left: 39%;
-    top: 25px;
+    top: 20px;
+    position:absolute;
 }
 
 #star_area {
     position: relative;
+    height: 55px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .about {
