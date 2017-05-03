@@ -22,7 +22,7 @@ body {
 }
 
 #Header {
-    height: 80px;
+    height: 60px;
     background: #f9f9f9;
     margin: 0;
     padding: 0;
@@ -36,10 +36,12 @@ body {
 
 #header_text {
     text-align: center;
-    font-size: 25pt;
+    font-size: 31pt;
     font-family: DINCondBold, sans-serif;
     color: dimgrey;
     font-weight: normal;
+    margin: 0;
+    margin-top: 5px;
 }
 
 #Profile_Logged_In, #Profile_Logged_Out {
