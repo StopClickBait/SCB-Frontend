@@ -10,7 +10,7 @@
 
 @font-face {
     font-family: "DINCondBold";
-    src: url("../fonts/DINPro-CondBold.woff");
+    src: url("../fonts/DIN-Condensed-Bold.ttf");
     font-weight: normal;
     font-style: normal;
 }
@@ -176,6 +176,13 @@ body {
         margin: 5px;
     }
 
+#star_container {
+    display: block;
+    width: auto;
+    text-align: center;
+    height: 23px;
+}
+
 #star_icon {
     font-family: stopclickbait;
     /*font-size: 57px;
@@ -183,13 +190,11 @@ body {
     width:100%;
     text-align: center;*/
     display: inline-block;
-    font-size: 22px;
-    position: absolute;
-    right: 51%;
+    font-size: 25px;
+    position: relative;
 }
 
 #star_number {
-    background-color: transparent;
     /*color: white;*/
     font-weight: bold;
     /*position:absolute;
@@ -199,16 +204,15 @@ body {
     height: 57px;
     width: 100%;*/
     display: inline-block;
-    font-size: 20px;
-    height: 23px;
-    line-height: 23px;
-    position: absolute;
-    left: 51%;
+    font-size: 18pt;
+    bottom: 3px;
+    left: 3px;
+    position: relative;
 }
 
 #star_area {
     position: relative;
-    height: 20px;
+    height: 25px;
     margin-bottom: 10px;
     text-align: center;
     height: 23px;
@@ -217,6 +221,7 @@ body {
 
 .about {
     height: 20px;
+    
     border-top: 1px solid #c6c6c6;
     color: #3f3f3f;
     background-color: #f9f9f9;
