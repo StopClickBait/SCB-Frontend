@@ -173,7 +173,7 @@ button:hover {
     box-shadow: inset 0px 0px 0px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.05);
 }
 
-.commentBox:active, .cancelButton:active, .deleteButton:active, .deleteIcon {
+.commentBox:active, .cancelButton:active, .deleteButton:active, {
     -moz-filter: brightness(80%);
     -ms-filter: brightness(80%);
     -webkit-filter: brightness(80%);
@@ -235,6 +235,7 @@ a, .userName {
 }
 
 .deleteIcon {
+    color: white;
     position: absolute;
     cursor: pointer;
     right: 0;
@@ -244,9 +245,8 @@ a, .userName {
     line-height: 12px;
     height: 12px;
     font-size: 12px;
-    background-color: transparent;
     border: 0;
-    font-family: stopclickbait;
+    font-family: "stopclickbait";
 }
 
 .deleteIcon:focus {
@@ -259,6 +259,7 @@ a, .userName {
 }
 
 .deleteButtons {
+    /*color: white;*/
     position: absolute;
     top: 0px;
     left: 0px;
@@ -273,7 +274,6 @@ a, .userName {
 
 .deleteButton {
     /*background-color: #3b5998;
-    color: white;
     border: 0;*/
     height: 40px;
     margin-right: 10px;
@@ -418,7 +418,7 @@ a, .userName {
         background-color: transparent;
         cursor: pointer;
     }
-    
+
     #pollBttns button:focus {
         outline: 0;
     }
