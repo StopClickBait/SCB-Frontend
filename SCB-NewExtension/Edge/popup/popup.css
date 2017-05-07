@@ -241,10 +241,6 @@ body {
         color: black;
     }
 
-#YourPosts {
-    height: inherit;
-}
-
 #CheckboxOptions {
     padding: 10px;
     height: 30px;
@@ -311,3 +307,138 @@ body {
 #logout:hover {
     color: black;
 }
+
+#YourPosts {
+    font-size: 10.5pt;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    background-color: white;
+    max-height: 250px;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.commentBox {
+    background-color: #3b5998;
+    margin: 2.5px 5px 2.5px 5px;
+    border-radius: 3px;
+    display: flex;
+    padding-left: 15px;
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
+    flex-shrink: 0;
+    flex-grow: 0;
+    color: white;
+    justify-content: space-between;
+}
+
+    .commentBox a {
+        color: white;
+    }
+
+.commentText {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 5px;
+}
+
+    .commentText p {
+        margin: 0;
+    }
+
+a {
+    text-decoration: none;
+    padding-left: 4px;
+    padding-top: 2px;
+    padding-right: 3px;
+}
+
+.voteArea {
+    width: 20%;
+    float: right;
+    text-align: right;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12pt;
+    margin-right: 20px;
+}
+
+.deleteIcon {
+    color: white;
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    margin-right: 8px;
+    margin-top: 8px;
+    line-height: 12px;
+    height: 12px;
+    font-size: 12px;
+    border: 0;
+    font-family: "stopclickbait";
+}
+
+    .deleteIcon:focus {
+        outline: 0;
+    }
+
+.upvoteStar {
+    font-family: stopclickbait;
+    margin-right: 5px;
+}
+
+.deleteButtons {
+    /*color: white;*/
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 402;
+    height: 100%;
+    width: 100%;
+    display: none;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.deleteButton {
+    /*background-color: #3b5998;
+    border: 0;*/
+    height: 40px;
+    margin-right: 10px;
+    /*border-radius: 3px;*/
+    cursor: pointer;
+    top: 25%;
+    left: 31%;
+    position: absolute;
+    width: 80px;
+    pointer-events: auto;
+    font-size: 12pt;
+}
+
+    .deleteButton:hover {
+        /*background-color: #2a4887;*/
+    }
+
+.cancelButton {
+    /*background-color: #828282;
+    color: white;
+    border: 0;*/
+    height: 40px;
+    /*border-radius: 3px;*/
+    top: 25%;
+    left: 51%;
+    cursor: pointer;
+    position: absolute;
+    width: 80px;
+    pointer-events: auto;
+    font-size: 12pt;
+}
+
+    .cancelButton:hover {
+        /*background-color: #707070;*/
+    }

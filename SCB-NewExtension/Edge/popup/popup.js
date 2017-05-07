@@ -75,9 +75,10 @@ function addEventHandlers() {
     var postsBttn = document.getElementById("postsBttn");
     postsBttn.addEventListener("click", function (e) {
         e.preventDefault();
-        document.getElementById("YourPosts").style.display = "block";
+        document.getElementById("YourPosts").style.display = "";
         document.getElementById("Profile_Logged_In").style.display = "none";
         document.getElementById("settings").style.display = "none";
+        getUserPosts();
     })
 
     // Add handler to changed color in storage:
@@ -115,11 +116,15 @@ function addEventHandlers() {
 
 ////* POSTS FUNCTIONS *////
 function processUserPosts(content) {
-
+    for (var i in content.comments) if (content.comments.hasOwnProperty(i)) {
+        var comment = content.comments[i];
+        createCommentBox(comment.id, comment.timestamp, comment.commentText, comment.starCount);
+    }
 }
 
 function getUserPosts() {
-
+    var commentArea = document.getElementById("YourPosts");
+    commentArea.innerHTML = "";
     processUserPosts({
         "comments": [
             {
@@ -156,6 +161,55 @@ function getUserPosts() {
     });
 
 }
+
+function createCommentBox(commentId, timestamp, content, voteNumber) {
+    var commentArea = document.getElementById("YourPosts");
+    var commentBox = commentArea.appendChild(document.createElement('div'));
+    var commentLeft = commentBox.appendChild(document.createElement('div'));
+    var commentText = commentLeft.appendChild(document.createElement('div'));
+    var commentContent = commentText.appendChild(document.createElement('p'));
+    var voteArea = commentBox.appendChild(document.createElement('div'));
+    var deleteIcon = voteArea.appendChild(document.createElement('div'));
+    var upvoteStar = voteArea.appendChild(document.createElement('span'));
+    var upvotes = voteArea.appendChild(document.createElement('span'));
+    var deleteButtons = commentBox.appendChild(document.createElement('div'));
+    var deleteButton = deleteButtons.appendChild(document.createElement('button'));
+    var cancelButton = deleteButtons.appendChild(document.createElement('button'));
+
+    commentBox.classList.add('commentBox');
+    commentBox.id = 'comment-' + commentId;
+    commentBox.setAttribute('data-timestamp', timestamp);
+
+    commentLeft.classList.add('commentLeft');
+
+    commentText.classList.add('commentText');
+
+    commentContent.innerText = content;
+
+    voteArea.classList.add('voteArea');
+
+    deleteIcon.classList.add('deleteIcon');
+    deleteIcon.innerText = "c";
+
+    upvoteStar.classList.add('upvoteStar');
+    upvoteStar.innerText = "a";
+
+    upvotes.classList.add('upvotes');
+    upvotes.innerText = voteNumber;
+
+    deleteButtons.classList.add('deleteButtons');
+    deleteButtons.onclick = function () { return false; };
+    deleteButtons.onmouseover = function () { return false; };
+
+    deleteButton.classList.add('deleteButton');
+    deleteButton.setAttribute('data-localize', 'delete');
+    deleteButton.innerText = 'Delete';
+
+    cancelButton.classList.add('cancelButton');
+    cancelButton.setAttribute('data-localize', 'cancel');
+    cancelButton.innerText = 'Cancel';
+}
+
 
 ////* COLOR FUNCTIONS: *////
 function setupColors() {
@@ -223,7 +277,7 @@ function setElementColors(c) {
             if (b[j].selectorText === ".buttons:hover") {
                 setButtonHoverColor(b[j], c);
             }
-            if(b[j].selectorText === "#YourPosts") {
+            if(b[j].selectorText === ".commentBox") {
                setBackgroundColor(b[j], c);
             }
             if(b[j].selectorText === "#star_area") {
