@@ -294,21 +294,27 @@ function addEventHandlers() {
     });
 
 
-    var reportLinks = document.getElementsByClassName('reportLink');
+    var reportLinks = document.getElementsByClassName('reportLinkA');
     for (var i in reportLinks) if (reportLinks.hasOwnProperty(i)) {
-        reportLinks[i].addEventListener('click', () => {
+        reportLinks[i].addEventListener('click', (e) => {
+            var targ;
+            if (e.target) targ = e.target;
+            else if (e.srcElement) targ = e.srcElement;
+            if (targ.nodeType == 3) // defeat Safari bug
+                targ = targ.parentNode;
             if (!DEBUG) {
                 var xhr = new XMLHttpRequest();
                 var content = "";
                 xhr.open('POST', 'https://server.stopclickbait.com/report.php');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('userID=' + userID + "&reportID=" + reportLinks[i].parentNode.parentNode.parentNode.parentNode.id);
+                xhr.send('userID=' + userID + "&reportID=" + targ.parentNode.parentNode.parentNode.parentNode.parentNode.id);
             } else {
             }
-            reportLinks[i].style.color = "green";
-            reportLinks[i].childNodes[0].innerText = "Thanks!";
+            targ.style.color = "green";
+            targ.innerHTML = chrome.i18n.getMessage("Thanks") + "!";
+            e.stopPropagation();
         });
-
+        
 
     }
 
@@ -375,6 +381,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
 
     reportLinkA.href = "#";
     reportLinkA.setAttribute('data-localize', 'report');
+    reportLinkA.classList.add('reportLinkA');
     reportLinkA.innerText = "report";
 
     voteArea.classList.add('voteArea');
