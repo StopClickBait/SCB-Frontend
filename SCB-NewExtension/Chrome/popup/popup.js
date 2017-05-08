@@ -9,6 +9,7 @@ document.getElementById("Profile_Logged_Out").style.display = "block";
 document.getElementById("settings").style.display = "none";
 document.getElementById("logout").style.display = "none";
 document.getElementById("seperator").style.display = "none";
+document.getElementById("back").style.display = "none";
 
 setupColors();
 
@@ -78,6 +79,7 @@ function addEventHandlers() {
         document.getElementById("YourPosts").style.display = "";
         document.getElementById("Profile_Logged_In").style.display = "none";
         document.getElementById("settings").style.display = "none";
+        document.getElementById("back").style.display = "block";
         getUserPosts();
     })
 
@@ -93,6 +95,15 @@ function addEventHandlers() {
     loginButton.addEventListener("click", function (e) {
         e.preventDefault();
         var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
+    });
+
+    var backButton = document.getElementById("back");
+    backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.getElementById("YourPosts").style.display = "none";
+        document.getElementById("Profile_Logged_In").style.display = "block";
+        document.getElementById("settings").style.display = "block";
+        document.getElementById("back").style.display = "none";
     });
 
     // Add handler to logout button:
