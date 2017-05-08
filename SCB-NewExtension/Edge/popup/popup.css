@@ -44,6 +44,18 @@ body {
     margin-top: 5px;
 }
 
+#back {
+    cursor: pointer;
+    font-size: 18pt;
+    margin-left: -20;
+    margin-right: 3px;
+    line-height: 50px;
+    color: dimgrey;
+}
+
+#back:hover {
+    background-color:rgba(0,0,0,0.2);
+}
 #Profile_Logged_In, #Profile_Logged_Out {
     padding-top: 10px;
     padding-bottom: 10px;
