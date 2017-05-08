@@ -14,46 +14,46 @@ chrome.storage.local.get('selectedColor', function (items) {
 if (DEBUG) {
     processingCommentList({
         "comments": [
-          {
-              "id": 2,
-              "timestamp": 14900000050,
-              "commentText": "Hello!",
-              "userName": "myUserName",
-              "starCount": 17,
-              "ownComment": true
-          },
-          {
-              "id": 3,
-              "timestamp": 14900000051,
-              "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
-              "userName": "testUser3",
-              "starCount": 12,
-              "ownComment": false
-          },
-          {
-              "id": 1,
-              "timestamp": 1490000001,
-              "commentText": "Hello!",
-              "userName": "testUser",
-              "starCount": 23,
-              "ownComment": false
-          },
-          {
-              "commentText": "Hello!",
-              "id": 4,
-              "ownComment": false,
-              "userName": "testUser4",
-              "starCount": 10,
-              "timestamp": 1490000002
-          },
-          {
-              "id": 5,
-              "timestamp": 1490000000,
-              "commentText": "Hello!",
-              "userName": "testUser5",
-              "starCount": 8,
-              "ownComment": false
-          }
+            {
+                "id": 2,
+                "timestamp": 14900000050,
+                "commentText": "Hello!",
+                "userName": "myUserName",
+                "starCount": 17,
+                "ownComment": true
+            },
+            {
+                "id": 3,
+                "timestamp": 14900000051,
+                "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
+                "userName": "testUser3",
+                "starCount": 12,
+                "ownComment": false
+            },
+            {
+                "id": 1,
+                "timestamp": 1490000001,
+                "commentText": "Hello!",
+                "userName": "testUser",
+                "starCount": 23,
+                "ownComment": false
+            },
+            {
+                "commentText": "Hello!",
+                "id": 4,
+                "ownComment": false,
+                "userName": "testUser4",
+                "starCount": 10,
+                "timestamp": 1490000002
+            },
+            {
+                "id": 5,
+                "timestamp": 1490000000,
+                "commentText": "Hello!",
+                "userName": "testUser5",
+                "starCount": 8,
+                "ownComment": false
+            }
         ]
     });
     addEventHandlers();
@@ -77,20 +77,20 @@ if (DEBUG) {
 
 function addEventHandlers() {
     // Add event listener to find selected color in settings:
-    chrome.storage.onChanged.addListener(function(changes, namespace) {
-        if(namespace === "local" && changes["selectedColor"]) {
+    chrome.storage.onChanged.addListener(function (changes, namespace) {
+        if (namespace === "local" && changes["selectedColor"]) {
             setElementColors(changes["selectedColor"].newValue);
         }
     });
-    
+
     // Add event listener to sort by top-voted comment.
     var topBttn = document.getElementById("topSC");
-    topBttn.addEventListener("click", function(e) {
+    topBttn.addEventListener("click", function (e) {
         sortCommentsByVotes();
     });
 
     var newBttn = document.getElementById("dateSC");
-    newBttn.addEventListener("click", function(e) {
+    newBttn.addEventListener("click", function (e) {
         sortCommentsByDate();
     });
 
@@ -311,10 +311,10 @@ function addEventHandlers() {
             } else {
             }
             targ.style.color = "green";
-            targ.innerHTML = "Thanks!";
+            targ.innerHTML = chrome.i18n.getMessage("Thanks") + "!";
             e.stopPropagation();
         });
-        
+
 
     }
 
@@ -411,19 +411,19 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
 function sortCommentsByVotes() {
     var commentCards = document.getElementById("commentArea").children;
     var sortCards = Array.prototype.slice.call(commentCards, 0);
-    if(sortCards.length > 1) {    
+    if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
             // Get the vote number for each comment:
             var valA = parseInt(a.children[1].children[2].innerHTML);
             var valB = parseInt(b.children[1].children[2].innerHTML);
-            return(valA - valB);
+            return (valA - valB);
         });
         // Append the cards back in the correct order:
         var commentParent = document.getElementById("commentArea");
         commentParent.innerHTML = "";
-        for(var i = (sortCards.length - 1); i => 0; i--) {
+        for (var i = (sortCards.length - 1); i => 0; i--) {
             commentParent.appendChild(sortCards[i]);
-        }
+        } 
     }
     else return;
 }
@@ -431,17 +431,17 @@ function sortCommentsByVotes() {
 function sortCommentsByDate() {
     var commentCards = document.getElementById("commentArea").children;
     var sortCards = Array.prototype.slice.call(commentCards, 0);
-    if(sortCards.length > 1) {    
+    if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
             // Get the timestamp:
             var valA = parseInt(a.dataset.timestamp);
             var valB = parseInt(b.dataset.timestamp);
-            return(valA - valB);
+            return (valA - valB);
         });
         // Append the cards back in the correct order:
         var commentParent = document.getElementById("commentArea");
         commentParent.innerHTML = "";
-        for(var i = (sortCards.length - 1); i => 0; i--) {
+        for (var i = (sortCards.length - 1); i => 0; i--) {
             commentParent.appendChild(sortCards[i]);
         }
     }
@@ -456,26 +456,23 @@ function setElementColors(color) {
         for (var j in b) if (b.hasOwnProperty(j)) {
             // Change color:
             if (b[j].selectorText === ".commentBox:hover" ||
-                b[j].selectorText === ".clickedCommentBox, .ownComment" ||
-                b[j].selectorText === "#pollBar[value]::-webkit-progress-value" ||
-                b[j].selectorText === "#pollBar[value]::-moz-progress-bar" ||
-                b[j].selectorText === "#pollBar[value]") {
+                b[j].selectorText === ".clickedCommentBox, .ownComment") {
                 b[j].style.backgroundColor = color;
             }
 
             // Change Pollbar color:
-            if(b[j].selectorText === "#pollBar:not([value])" ||
-               b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
-               b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
-               b[j].selectorText === ":not([value])#pollBar" ) {
+            if (b[j].selectorText === "#pollBar:not([value])" ||
+                b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
+                b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
+                b[j].selectorText === ":not([value])#pollBar") {
                 b[j].style.backgroundColor = "#fff";
                 b[j].style.border = "1px solid";
                 b[j].style.borderColor = color;
                 b[j].style.borderRadius = "3px";
             }
-            
+
             // Change color for button:
-            if(b[j].selectorText === "button") {
+            if (b[j].selectorText === "button") {
                 b[j].style.backgroundColor = "#fff";
                 b[j].style.border = "1px solid";
                 b[j].style.borderColor = color;
@@ -484,19 +481,19 @@ function setElementColors(color) {
             }
 
             // Change hover style for button:
-            if(b[j].selectorText === "button:hover") {
+            if (b[j].selectorText === "button:hover") {
                 b[j].style.backgroundColor = color;
                 b[j].style.color = "#fff";
             }
-            
+
             // Change text color for these areas:
-            if(b[j].selectorText === "#pollBttns button" ||
-               b[j].selectorText === "#pollButtonArea") {
+            if (b[j].selectorText === "#pollBttns button" ||
+                b[j].selectorText === "#pollButtonArea") {
                 b[j].style.color = color;
             }
 
             // Change the outline color of the textbox:
-            if(b[j].selectorText === "#submitCB:focus") {
+            if (b[j].selectorText === "#submitCB:focus") {
                 b[j].style.outlineColor = color;
             }
         }

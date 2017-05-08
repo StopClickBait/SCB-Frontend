@@ -56,7 +56,7 @@
   "AboutSCB": {
     "message": "Über"
   },
-  "Thanks": {
-    "message":  "Danke"
+  "thanks": {
+    "message": "Danke"
   }
 }
