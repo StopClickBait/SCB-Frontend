@@ -11,6 +11,8 @@ chrome.storage.local.get('selectedColor', function (items) {
     setElementColors(items.selectedColor);
 })
 
+sortCommentsByVotes();
+
 if (DEBUG) {
     processingCommentList({
         "comments": [
@@ -88,7 +90,8 @@ function addEventHandlers() {
     topBttn.addEventListener("click", function (e) {
         sortCommentsByVotes();
     });
-
+    
+    // Add event listener to sort by newest comment.
     var newBttn = document.getElementById("dateSC");
     newBttn.addEventListener("click", function (e) {
         sortCommentsByDate();
@@ -408,7 +411,12 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     cancelButton.innerText = 'Cancel';
 }
 
+
 function sortCommentsByVotes() {
+    document.getElementById("topSC").style.fontWeight = "bold";
+    document.getElementById("dateSC").style.fontWeight = "normal";
+
+    var newBttn = document.getElementById("dateSC"); 
     var commentCards = document.getElementById("commentArea").children;
     var sortCards = Array.prototype.slice.call(commentCards, 0);
     if (sortCards.length > 1) {
@@ -429,6 +437,9 @@ function sortCommentsByVotes() {
 }
 
 function sortCommentsByDate() {
+    document.getElementById("topSC").style.fontWeight = "normal";
+    document.getElementById("dateSC").style.fontWeight = "bold";
+
     var commentCards = document.getElementById("commentArea").children;
     var sortCards = Array.prototype.slice.call(commentCards, 0);
     if (sortCards.length > 1) {
