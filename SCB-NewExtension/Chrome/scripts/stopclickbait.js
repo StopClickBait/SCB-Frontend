@@ -17,59 +17,38 @@ function prepare() {
     });
     var css = document.createElement("style");
     css.type = "text/css";
-    css.innerHTML = `.__clickbait_text {
-display: inline-block;
-margin-left: 1em;
-}
-
-._42nr > span::before {
-content: "" !important;
-}
-
-._4x9_, ._a7s ._524d a, ._a7s ._50u4, ._1ysv {
-padding: 0px !important;
-}
-
-.__clickbait_btn {
-margin-right: 5px;
-}
-
-._zw3 {
-    padding: 8px 4px 4px 0 !important;
-}
-
-._3m9g {
-    padding-left: 0 !important;
-}
-
-
-.st0 {
-        fill: #4B4F56;
+    css.innerHTML =
+        `.__clickbait_text {
+            display: inline-block;
+            margin-left: 1em;
         }
 
-.SCBcards {
-    width: 500px;
-    height: 420px;
-    position: absolute;
-    z-index: 7;
-    background-color: white;
-    overflow: hidden;
-    }
+        .__clickbait_btn {
+            margin-right: 5px;
+        }
 
-    svg {
-        transform: translate(0, 2px);
-    }
+        .SCBcards {
+            width: 500px;
+            height: 420px;
+            margin-top: -3px;
+            position: absolute;
+            z-index: 7;
+            background-color: white;
+            overflow: hidden;
+        }
 
-    .__clickbait_reveal_line {
-        padding: 4px;
-        padding-left: 8px;
-    margin-top: 11px;
-    margin-bottom: 11px;
-    margin-left: 1px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
-    }
+        svg {
+            transform: translate(0, 2px);
+        }
 
-`;
+        .__clickbait_reveal_line {
+            padding: 4px;
+            padding-left: 8px;
+            margin-top: 11px;
+            margin-bottom: 11px;
+            margin-left: 1px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
+        }`;
     document.head.appendChild(css);
 
     // Set the default color if it has not yet been set.
