@@ -50,7 +50,7 @@ function processLogIn() {
         chrome.storage.local.set({ 'hoverToOpen': document.getElementById('hoverToOpen').checked }, () => { console.log("HoverToOpen: " + document.getElementById('HoverToOpen').checked); });
     }
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=square');
+    xhr.open('GET', 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=large&height=300&width=300');
     xhr.send(null);
     xhr.onreadystatechange = () => {
         if (xhr.readyState == xhr.DONE) {

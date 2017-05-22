@@ -314,7 +314,7 @@ function addEventHandlers() {
                 xhr.send('userID=' + userID + "&reportID=" + targ.parentNode.parentNode.parentNode.parentNode.parentNode.id);
             } else {
             }
-            targ.style.color = "green";
+            //targ.style.color = "green";
             targ.innerHTML = chrome.i18n.getMessage("Thanks") + "!";
             e.stopPropagation();
         });
@@ -349,9 +349,11 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     var commentContent = commentText.appendChild(document.createElement('p'));
     var userArea = commentLeft.appendChild(document.createElement('div'));
     var userName = userArea.appendChild(document.createElement('span'));
-    var separator = userArea.appendChild(document.createElement('span'));
-    var reportLink = userArea.appendChild(document.createElement('span'));
-    var reportLinkA = reportLink.appendChild(document.createElement('a'));
+    if (!ownComment) {
+        var separator = userArea.appendChild(document.createElement('span'));
+        var reportLink = userArea.appendChild(document.createElement('span'));
+        var reportLinkA = reportLink.appendChild(document.createElement('a'));
+    }
     var voteArea = commentBox.appendChild(document.createElement('div'));
     var deleteIcon = voteArea.appendChild(document.createElement('div'));
     var upvoteStar = voteArea.appendChild(document.createElement('span'));
@@ -377,17 +379,17 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
 
     userName.classList.add('userName');
     userName.innerText = userNameString;
+    if (!ownComment) {
+        separator.classList.add('separator');
+        separator.innerText = '|';
 
-    separator.classList.add('separator');
-    separator.innerText = '|';
+        reportLink.classList.add('reportLink');
 
-    reportLink.classList.add('reportLink');
-
-    reportLinkA.href = "#";
-    reportLinkA.setAttribute('data-localize', 'report');
-    reportLinkA.classList.add('reportLinkA');
-    reportLinkA.innerText = "report";
-
+        reportLinkA.href = "#";
+        reportLinkA.setAttribute('data-localize', 'report');
+        reportLinkA.classList.add('reportLinkA');
+        reportLinkA.innerText = "report";
+    }
     voteArea.classList.add('voteArea');
 
     deleteIcon.classList.add('deleteIcon');

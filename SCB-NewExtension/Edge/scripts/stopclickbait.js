@@ -10,7 +10,6 @@ function prepare() {
             showDefaultExplanation = items.showDefaultExplanation;
     });
 
-
     chrome.storage.local.get('hoverToOpen', (items) => {
         if (items.hasOwnProperty('hoverToOpen'))
             hoverToOpen = items.hoverToOpen;
@@ -87,16 +86,17 @@ var uniqueIds = 1;
 
 function loop() {
     var allLinks = document.querySelectorAll('a._52c6');
-    var qualifyingLinks = [];
     for (var i = 0; i < allLinks.length; i++) {
         var node = allLinks.item(i);
         if (!node.classList.contains("__clickbait_link")) {
             node.classList.add("__clickbait_link");
+
             var realUrl = decodeURIComponent(node.href);
             if (realUrl.indexOf('l.php?u=') != -1) {
                 realUrl = realUrl.substring(realUrl.indexOf('l.php?u=') + 'l.php?u='.length);
                 realUrl = realUrl.substring(0, realUrl.indexOf('&h='));
             }
+
             var spanContainer2 = node;
             while (!spanContainer2.classList.contains('fbUserContent')) {
                 spanContainer2 = spanContainer2.parentNode;
