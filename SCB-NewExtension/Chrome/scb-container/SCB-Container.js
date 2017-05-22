@@ -1,7 +1,8 @@
 ﻿const DEBUG = true;
+var clickBaitLink = "null";
 if (document.location.href.indexOf('?') == -1) { } else {
     var clickBaitLink = document.location.href.split('?url=')[1];
-    decodeURIComponent(clickBaitLink);
+    clickBaitLink = decodeURIComponent(clickBaitLink);
     clickBaitLink = clickBaitLink.split('?')[0];
 }
 //var userID = chrome.storage.local.get("userID");
@@ -19,7 +20,7 @@ if (DEBUG) {
             {
                 "id": 2,
                 "timestamp": 14900000050,
-                "commentText": "Hello!",
+                "commentText": clickBaitLink,
                 "userName": "myUserName",
                 "starCount": 17,
                 "ownComment": true
