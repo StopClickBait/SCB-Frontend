@@ -174,6 +174,21 @@ function loop() {
             actionBar.appendChild(CBButtonSpan);
             uniqueIds++;
 
+            // add MoveTopComment handler
+
+            actionBar.childNodes[0].addEventListener('click', (e) => {
+                moveTopComment(e);
+            });
+
+            actionBar.childNodes[1].addEventListener('click', (e) => {
+                moveTopComment(e);
+            });
+
+            actionBar.childNodes[2].addEventListener('click', (e) => {
+                moveTopComment(e);
+            });
+
+            // END add MoveTopComment handler
 
             var FBPageLink = spanContainer2.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].href;
         }
@@ -194,6 +209,7 @@ function moveTopComment(e) {
     if (targ.nodeType == 3) // defeat Safari bug
         targ = targ.parentNode;
     var TopComment = targ.parentNode.parentNode.parentNode.parentNode.parentNode;
+    console.log(TopComment);
     window.setTimeout(function () {
         if (TopComment.childNodes[0].classList.contains('_3m9g')) {
             TopComment = TopComment.childNodes[0];
@@ -201,7 +217,7 @@ function moveTopComment(e) {
             temp.removeChild(TopComment);
             temp.appendChild(TopComment);
         }
-    }, 1000);
+    }, 200);
 }
 
 function displaySCBContainer(e, hover) {
@@ -222,7 +238,6 @@ function displaySCBContainer(e, hover) {
         cardForm = cardForm.parentNode;
     }
     cardForm = cardForm.childNodes[1].childNodes[0];
-    console.log(cardForm);
     var postWidth = cardForm.offsetWidth;
 
     if (document.getElementById("SCBinterface")) {
