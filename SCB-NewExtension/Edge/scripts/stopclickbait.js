@@ -87,6 +87,7 @@ var uniqueIds = 1;
 
 function loop() {
     var allLinks = document.querySelectorAll('a._52c6');
+
     var qualifyingLinks = [];
     for (var i = 0; i < allLinks.length; i++) {
         var node = allLinks.item(i);
@@ -97,16 +98,17 @@ function loop() {
                 realUrl = realUrl.substring(realUrl.indexOf('l.php?u=') + 'l.php?u='.length);
                 realUrl = realUrl.substring(0, realUrl.indexOf('&h='));
             }
-
             var spanContainer2 = node;
             while (!spanContainer2.classList.contains('fbUserContent')) {
                 spanContainer2 = spanContainer2.parentNode;
             }
+
             var RevealLine;
             (spanContainer2.childNodes[0].childNodes[2].childNodes[3]) ? RevealLine = spanContainer2.childNodes[0].childNodes[2].childNodes[3] : RevealLine = spanContainer2.childNodes[0].childNodes[2].appendChild(document.createElement('div'));
             var actionBar = spanContainer2.childNodes[1].childNodes[0].childNodes[3];
+            var cardForm = spanContainer2.childNodes[1].childNodes[0];
             var hasBoostPostBar = false;
-            if (actionBar.childNodes.length > 1)
+            if (actionBar.childElementCount > 1)
                 hasBoostPostBar = true;
             for (var j = 0; j < actionBar.childNodes.length; j++) {
                 if (actionBar.childNodes[j].classList.contains('_37uu')) {
@@ -116,7 +118,7 @@ function loop() {
 
             actionBar = actionBar.childNodes[0].childNodes[0];
             var hasLikeCountBar = false;
-            if (actionBar.childNodes.length > 1)
+            if (actionBar.childElementCount > 1)
                 hasLikeCountBar = true;
             for (var j = 0; j < actionBar.childNodes.length; j++) {
                 if (actionBar.childNodes[j].classList.contains('clearfix')) {
@@ -137,6 +139,7 @@ function loop() {
             CBButtonSpan.classList.add('SCBButtonSpan');
             var CBButtonLink = CBButtonSpan.childNodes[0];
 
+
             CBButtonLink.classList.add('__clickbait_btn');
             CBButtonLink.href = '#';
             CBButtonLink.setAttribute('data-url', realUrl);
@@ -155,13 +158,13 @@ function loop() {
                     CBButtonLink.classList.remove('hovered');
                     return;
                 }
-                displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, false, CBButtonLink);
+                displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, false, cardForm, CBButtonLink);
             });
             if (hoverToOpen) {
                 CBButtonLink.addEventListener('mouseenter', (e) => {
                     if (!CBButtonLink.classList.contains('clicked')) {
                         CBButtonLink.classList.add('hovered');
-                        displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, CBButtonLink);
+                        displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, true, cardForm, CBButtonLink);
                     }
                 });
                 CBButtonLink.addEventListener('mouseleave', () => {
@@ -205,7 +208,7 @@ function moveTopComment(e) {
     }, 1000);
 }
 
-function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButtonLink) {
+function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, cardForm, CBButtonLink) {
     var targ;
     if (!e) e = window.event;
     if (e.target) targ = e.target;
@@ -218,31 +221,27 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     while (!targ.classList.contains('__clickbait_btn')) {
         targ = targ.parentNode;
     }
-    var postWidth = targ.parentNode.parentNode.parentNode.parentNode.parentNode.offsetWidth;
+
+    var postWidth = cardForm.offsetWidth;
+
     if (document.getElementById("SCBinterface")) {
-        for (var i = 0; i < targ.parentNode.childNodes.length; i++) {
-            if (targ.parentNode.childNodes[i].id == "SCBinterface") {
-                targ.parentNode.removeChild(targ.parentNode.childNodes[i]);
+        for (var i = 0; i < cardForm.childNodes.length; i++) {
+            if (cardForm.childNodes[i].id == "SCBinterface") {
+                cardForm.removeChild(targ.parentNode.childNodes[i]);
                 CBButtonLink.classList.remove('clicked');
                 return;
             }
         }
         document.getElementById("SCBinterface").parentNode.removeChild(document.getElementById("SCBinterface"));
     }
-    var link = targ.getAttribute('data-url');
+
     var cardDiv = document.createElement('div');
     cardDiv.classList.add('SCBcards');
-    if (hasBoostPostBar) {
-        cardDiv.style.top = "85px";
-    } else if (hasLikeCountBar) {
-        cardDiv.style.top = "65px";
-    } else {
-        cardDiv.style.top = "38.2px";
-    }
     cardDiv.style.left = "0px";
     cardDiv.style.width = postWidth + "px";
     cardDiv.id = "SCBinterface";
     cardDiv.style.backgroundColor = "#99ccff";
+
     var card = document.createElement('iframe');
     card.style.width = postWidth + "px";
     card.style.top = "0px";
@@ -251,9 +250,11 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
     card.style.left = "0px";
     card.id = "SCBinterfaceIFRAME"
     card.setAttribute('scrolling', 'no');
-    card.src = chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent(link);
-    targ.parentNode.appendChild(cardDiv);
+    card.src = chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent(targ.getAttribute('data-url'));
+
+    cardForm.insertBefore(cardDiv, cardForm.childNodes[4]);
     cardDiv.appendChild(card);
+
     card.addEventListener('mouseenter', (e) => {
         if (LinkTimeout) {
             var SCBButtonLink = document.getElementById('SCBinterface').parentNode.childNodes[0];
@@ -263,7 +264,6 @@ function displaySCBContainer(e, hasBoostPostBar, hasLikeCountBar, hover, CBButto
             LinkTimeout = null;
         }
     });
-    //window.setTimeout(function () { cardDiv.style.height = card.clientHeight; }, 2000);
 }
 
 function getURLParameter(name) {
