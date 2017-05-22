@@ -360,6 +360,13 @@ body {
         color: white;
     }
 
+.commentLeft {
+    display: flex;
+    align-items: center;
+    max-width: 160px;
+}
+
+
 .commentText {
     margin-top: 8px;
     margin-bottom: 8px;
@@ -383,11 +390,13 @@ a {
     text-align: right;
     padding-right: 4px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 12pt;
     margin-right: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .deleteIcon {
@@ -411,7 +420,6 @@ a {
 
 .upvoteStar {
     font-family: stopclickbait;
-    margin-right: 5px;
 }
 
 .deleteButtons {
