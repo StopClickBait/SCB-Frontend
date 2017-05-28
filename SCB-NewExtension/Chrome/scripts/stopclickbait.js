@@ -101,6 +101,7 @@ function loop() {
             while (!spanContainer2.classList.contains('fbUserContent')) {
                 spanContainer2 = spanContainer2.parentNode;
             }
+
             var RevealLine;
             if (spanContainer2.childNodes[0].childNodes[1].classList.length == 0) {
                 (spanContainer2.childNodes[0].childNodes[1].childNodes[3]) ? RevealLine = spanContainer2.childNodes[0].childNodes[1].childNodes[3] : RevealLine = spanContainer2.childNodes[0].childNodes[1].appendChild(document.createElement('div'));
@@ -194,7 +195,12 @@ function loop() {
 
             // END add MoveTopComment handler
 
-            var FBPageLink = spanContainer2.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].href;
+            var FBPageLink;
+            if (spanContainer2.childNodes[0].childNodes[1].classList.length == 0) {
+                FBPageLink = spanContainer2.childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes[0].href;
+            } else {
+                FBPageLink = spanContainer2.childNodes[0].childNodes[2].childNodes[0].childNodes[0].childNodes[0].href;
+            }
         }
     }
 }
