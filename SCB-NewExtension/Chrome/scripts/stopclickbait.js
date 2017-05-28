@@ -102,7 +102,11 @@ function loop() {
                 spanContainer2 = spanContainer2.parentNode;
             }
             var RevealLine;
-            (spanContainer2.childNodes[0].childNodes[2].childNodes[3]) ? RevealLine = spanContainer2.childNodes[0].childNodes[2].childNodes[3] : RevealLine = spanContainer2.childNodes[0].childNodes[2].appendChild(document.createElement('div'));
+            if (spanContainer2.childNodes[0].childNodes[1].classList.length == 0) {
+                (spanContainer2.childNodes[0].childNodes[1].childNodes[3]) ? RevealLine = spanContainer2.childNodes[0].childNodes[1].childNodes[3] : RevealLine = spanContainer2.childNodes[0].childNodes[1].appendChild(document.createElement('div'));
+            } else {
+                (spanContainer2.childNodes[0].childNodes[2].childNodes[3] && spanContainer2.childNodes[0].childNodes[2].childNodes[3].innerHTML == "") ? RevealLine = spanContainer2.childNodes[0].childNodes[2].childNodes[4] : RevealLine = spanContainer2.childNodes[0].childNodes[2].appendChild(document.createElement('div'));
+            }
             var cardForm = spanContainer2.childNodes[1].childNodes[0];
             var actionBar = cardForm.childNodes[3];
             var hasBoostPostBar = false;
