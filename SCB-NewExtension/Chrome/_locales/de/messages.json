@@ -20,7 +20,7 @@
   "delete": {
     "message": "Löschen"
   },
-    "postDeleted": {
+  "postDeleted": {
     "message": "Post gelöscht."
   },
   "yes": {
@@ -40,6 +40,9 @@
   },
   "LoginWithFB": {
     "message": "Mit Facebook anmelden"
+  },
+  "JoinUsMessage": {
+    "message": "Hilf uns beim Kampf gegen Clickbait!"
   },
   "Logout": {
     "message": "Abmelden"

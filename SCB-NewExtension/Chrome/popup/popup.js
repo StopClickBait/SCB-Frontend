@@ -5,7 +5,7 @@ var userToken;
 
 document.getElementById("YourPosts").style.display = "none";
 document.getElementById("Profile_Logged_In").style.display = "none";
-document.getElementById("Profile_Logged_Out").style.display = "block";
+document.getElementById("Profile_Logged_Out").style.display = "flex";
 document.getElementById("settings").style.display = "none";
 document.getElementById("logout").style.display = "none";
 document.getElementById("seperator").style.display = "none";
@@ -115,7 +115,7 @@ function addEventHandlers() {
             console.log("Removed Facebook access key from storage.");
         });
         // Display logged out interface
-        document.getElementById("Profile_Logged_Out").style.display = "block";
+        document.getElementById("Profile_Logged_Out").style.display = "flex";
         document.getElementById("YourPosts").style.display = "none";
         document.getElementById("Profile_Logged_In").style.display = "none";
         document.getElementById("settings").style.display = "none";

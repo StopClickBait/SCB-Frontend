@@ -41,6 +41,9 @@
   "LoginWithFB": {
     "message": "Login with Facebook"
   },
+  "JoinUsMessage": {
+    "message": "Join us in the fight against clickbait!"
+  },
   "Logout": {
     "message": "Logout"
   },

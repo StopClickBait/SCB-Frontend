@@ -72,6 +72,11 @@ body {
 
 #Profile_Logged_Out {
     height: 350px;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #profile_image {
@@ -85,6 +90,15 @@ body {
     text-align: center;
     margin: 10px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#login {
+    height: 35px;
+    cursor: pointer;
+}
+
+#JoinUsMessage {
+    color: dimgray;
 }
 
 /* Shared */
