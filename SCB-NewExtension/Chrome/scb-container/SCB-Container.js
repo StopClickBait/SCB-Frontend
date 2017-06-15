@@ -113,7 +113,7 @@ function addEventHandlers() {
             });
             jQuery('#commentArea').css('height', 265);
         }
-    }).oninput = () => {
+    }).on('input', () => {
         var submitCB = jQuery('#submitCB');
         if (submitCB.value.indexOf('\n') !== -1) {
             submitCB.value = submitCB.value.replace('\n', ' ');
@@ -126,39 +126,37 @@ function addEventHandlers() {
         if (submitCB.value.indexOf('\n') !== -1) {
             submitCB.value = submitCB.value.replace('\n', ' ');
         }
-    };
+    });
 
-    jQuery('.commentBox').each(() => {
-        var t = jQuery(this);
+    jQuery('.commentBox').each((i, elem) => {
+        var t = jQuery(elem);
         if (!t.hasClass('ownComment')) {
             t.on('click', () => {
-                var cb = t.parents('.commentBox');
+                var cb = jQuery(elem);
                 cb.css('backgroundColor', '');
                 cb.hasClass('clickedCommentBox') ? cb.removeClass('clickedCommentBox') : cb.addClass('clickedCommentBox');
             }).on('mousedown', () => {
 
             });
-
-
         }
     });
 
-    jQuery('.deleteIcon').each(() => {
-        if (jQuery(this).parents('.commentBox').eq(0).hasClass('ownComment')) {
-            jQuery(this).on('click', () => {
-                jQuery(this).parents('.commentBox').children('.deleteButtons').css({
+    jQuery('.deleteIcon').each((i, elem) => {
+        if (jQuery(elem).parents('.commentBox').eq(0).hasClass('ownComment')) {
+            jQuery(elem).on('click', () => {
+                jQuery(elem).parents('.commentBox').children('.deleteButtons').css({
                     pointerEvents: 'none',
                     display: 'unset'
                 }).addClass('blockedCommentBox').removeClass('clickedCommentBox');
             });
         } else {
-            jQuery(this).hide();
+            jQuery(elem).remove();
         }
     });
 
-    jQuery('.cancelButton').each(() => {
-        jQuery(this).on('click', () => {
-            var t = jQuery(this);
+    jQuery('.cancelButton').each((i, elem) => {
+        jQuery(elem).on('click', () => {
+            var t = jQuery(elem);
             t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox').removeClass('blockedCommentBox');
             t.parent().hide();
         });
@@ -166,9 +164,9 @@ function addEventHandlers() {
 
     });
 
-    jQuery('.deleteButton').each(() => {
-        jQuery(this).on('click', () => {
-            var deleteButtons = jQuery(this).parent();
+    jQuery('.deleteButton').each((i, elem) => {
+        jQuery(elem).on('click', () => {
+            var deleteButtons = jQuery(elem).parent();
             deleteButtons.css({
                 display: 'flex',
                 justifyContent: 'center',
@@ -239,15 +237,15 @@ function addEventHandlers() {
         }
     });
 
-    jQuery('.reportLinkA').each(() => {
-        jQuery(this).on('click', (e) => {
+    jQuery('.reportLinkA').each((i, elem) => {
+        jQuery(elem).on('click', (e) => {
             if (!DEBUG) {
                 jQuery.ajax({
                     method: 'POST',
                     url: 'https://server.stopclickbait.com/report.php',
                     data: {
                         userid: userID,
-                        reportID: jQuery(this).parents('.commentBox')[0].id
+                        reportID: jQuery(elem).parents('.commentBox')[0].id
                     },
                     success: (content) => {
                         processingVotingResults(content);
@@ -255,7 +253,7 @@ function addEventHandlers() {
                 });
 
             }
-            jQuery(this).html(chrome.i18n.getMessage("Thanks") + "!");
+            jQuery(elem).html(chrome.i18n.getMessage("Thanks") + "!");
             e.stopPropagation();
         });
     });
@@ -278,7 +276,7 @@ function processingVotingResults(results) {
 
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
     commentArea = jQuery('#commentArea');
-    commentBox = jQuery('<div class="commentBox" id="comment-"' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo(commentArea);
+    commentBox = jQuery('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo(commentArea);
     commentLeft = jQuery('<div class="commentLeft"/>').appendTo(commentBox);
     commentText = jQuery('<div class="commentText"/>').appendTo(commentLeft);
     commentContent = jQuery('<p/>').text(content).appendTo(commentText);
@@ -307,13 +305,13 @@ function sortCommentsByVotes() {
     jQuery('#topSC').css('fontWeight', 'bold');
     jQuery('#dateSC').css('fontWeight', 'normal');
 
-    commentCards = jQuery('#commentArea').children();
-    sortCards = Array.prototype.slice.call(commentCards, 0);
+    var commentCards = jQuery('#commentArea').children(),
+    sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
 
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
-            valA = parseInt(a.children(1).children(2).html());
-            valB = parseInt(b.children(1).children(2).html());
+            valA = parseInt(jQuery(a).find('.upvotes').eq(0).html());
+            valB = parseInt(jQuery(b).find('.upvotes').eq(0).html());
             return valA - valB;
         });
 
@@ -330,8 +328,8 @@ function sortCommentsByDate() {
     jQuery('#topSC').css('fontWeight', 'normal');
     jQuery('#dateSC').css('fontWeight', 'bold');
 
-    commentCards = jQuery('#commentArea').children();
-    sortCards = Array.prototype.slice.call(commentCards, 0);
+    var commentCards = jQuery('#commentArea').children(),
+        sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
             valA = parseInt(a.dataset.timestamp);
@@ -339,9 +337,9 @@ function sortCommentsByDate() {
             return valA - valB;
         });
 
-        commentParent = jQuery('#commentArea').html('');
+        var commentParent = jQuery('#commentArea').html('');
         for (i = sortCards.length - 1; i >= 0; --i) {
-            commentParent.appendChild(sortCards[i]);
+            commentParent.append(sortCards[i]);
         }
     } else {
         return;
