@@ -30,6 +30,7 @@
   ],
   "version": "0.1",
   "web_accessible_resources": [
-    "scb-container/SCB-Container.html"
+    "scb-container/SCB-Container.html",
+    "scripts/jquery.js"
   ]
 }
