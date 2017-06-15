@@ -21,7 +21,6 @@
             method: 'GET',
             url: 'https://graph.facebook.com/v2.9/me?access_token=' + accessToken.accessToken + '&fields=id%2Cname',
             success: (content) => {
-                content = JSON.parse(content);
                 if (content.error) {
                     // Not logged in.
                 } else {
@@ -50,7 +49,6 @@
             method: 'GET',
             url: 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=large&height=300&width=300',
             success: (content) => {
-                content = JSON.parse(content);
                 if (!content.error) {
                     $('#profile_image').attr('src', content.data.url);
                 }
@@ -164,7 +162,7 @@
         var
             commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo($('#YourPosts')),
             commentLeft = $('<div/>').addClass('commentLeft').appendTo(commentBox),
-            commentContent = $('<p/>').text(content).appendTo($('<div/>'.addClass('commentText').appendTo(commentLeft))),
+            commentContent = $('<p/>').text(content).appendTo($('<div/>').addClass('commentText').appendTo(commentLeft)),
             voteArea = $('<div/>').addClass('voteArea').appendTo(commentBox),
             deleteIcon = $('<div/>').addClass('deleteIcon').text('c').appendTo(voteArea),
             upvoteStar = $('<span/>').addClass('upvoteStar').text('a').appendTo(voteArea),
