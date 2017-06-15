@@ -5,6 +5,8 @@
 <VisualWebDeveloper>
 
   <Globals>
-    <UserProperties _3locales_4en_3US_4messages_1json__JSONSchema="i18n"/>
+    
+  
+    <UserProperties manifest_1json__JSONSchema="http://json.schemastore.org/chrome-manifest" _3locales_4en_3US_4messages_1json__JSONSchema="i18n"/>
   </Globals>
 </VisualWebDeveloper>

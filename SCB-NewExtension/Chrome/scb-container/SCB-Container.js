@@ -1,7 +1,7 @@
 ﻿const DEBUG = true;
 var clickBaitLink = "null";
-if (document.location.href.indexOf('?') == -1) { } else {
-    var clickBaitLink = document.location.href.split('?url=')[1];
+if (document.location.href.indexOf('?') > -1) {
+    clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
     clickBaitLink = clickBaitLink.split('?')[0];
 }
@@ -10,7 +10,7 @@ if (document.location.href.indexOf('?') == -1) { } else {
 // Get the current color from Chrome storage and set the custom colors in the document.
 chrome.storage.local.get('selectedColor', function (items) {
     setElementColors(items.selectedColor);
-})
+});
 
 sortCommentsByVotes();
 
@@ -62,18 +62,16 @@ if (DEBUG) {
     addEventHandlers();
 
 } else {
-    var xhr = new XMLHttpRequest();
-    var content = "";
-    xhr.open('POST', 'https://server.stopclickbait.com/getComments.php');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-            content = xhr.responseText;
+    jQuery.ajax({
+        method: 'POST',
+        url: 'https://server.stopclickbait.com/getComments.php',
+        data: { url: encodeURIComponent(clickBaitLink), userid: userID },
+        success: (content) => {
             processingCommentList(content);
             addEventHandlers();
         }
-    }
-    xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID);
+
+    });
 }
 
 // Add event handlers
@@ -86,242 +84,181 @@ function addEventHandlers() {
         }
     });
 
-    // Add event listener to sort by top-voted comment.
-    var topBttn = document.getElementById("topSC");
-    topBttn.addEventListener("click", function (e) {
+    jQuery('#topSC').on('click', function () {
         sortCommentsByVotes();
     });
-    
+
     // Add event listener to sort by newest comment.
-    var newBttn = document.getElementById("dateSC");
-    newBttn.addEventListener("click", function (e) {
+    jQuery('#dateSC').on('click', function () {
         sortCommentsByDate();
     });
 
-    var submitCB = document.getElementById("submitCB");
-    submitCB.addEventListener("focus", function () {
-        var submitCB = document.getElementById("submitCB");
-        document.getElementById("controlBar").style.display = "block";
-        document.getElementById("charCounter").style.display = "flex";
-        submitCB.style.height = 0;
-        submitCB.style.paddingBottom = "20px";
-        submitCB.style.height = (submitCB.scrollHeight + 20) + "px";
-        document.getElementById("commentArea").style.height = (305 - submitCB.offsetHeight) + "px";
-    });
-    submitCB.addEventListener("focusout", function () {
-        var submitCB = document.getElementById("submitCB");
-        if (submitCB.value.length == 0) {
-            document.getElementById("controlBar").style.display = "none";
-            document.getElementById("charCounter").style.display = "none";
-            submitCB.style.height = "30px";
-            submitCB.style.paddingBottom = "0px";
-            document.getElementById("commentArea").style.height = "265px";
+    var submitCB = jQuery('#submitCB');
+
+    submitCB.on('focusin', () => {
+        submitCB.height(0);
+        submitCB.css({
+            paddingBottom: 20,
+            height: submitCB[0].scrollHeight + 20
+        });
+        jQuery('#controlBar').css('display', 'block');
+        jQuery('#charCounter').css('display', 'flex');
+        jQuery('#commentArea').css('height', 305 - submitCB.offsetHeight);
+    }).on('focusout', function () {
+        if (submitCB.value.length === 0) {
+            jQuery('#controlBar, #charCounter').hide();
+            submitCB.css({
+                height: 30,
+                paddingBottom: 0
+            });
+            jQuery('#commentArea').css('height', 265);
         }
-    });
-    submitCB.oninput = () => {
-        var submitCB = document.getElementById("submitCB");
-        if (submitCB.value.indexOf('\n') != -1) {
+    }).oninput = () => {
+        var submitCB = jQuery('#submitCB');
+        if (submitCB.value.indexOf('\n') !== -1) {
             submitCB.value = submitCB.value.replace('\n', ' ');
         }
         var value = submitCB.value.length;
-        document.getElementById('charCounter').innerText = (140 - value).toString();
-        submitCB.style.height = 0;
-        submitCB.style.height = (submitCB.scrollHeight + 0) + "px";
-        document.getElementById("commentArea").style.height = (305 - submitArea.offsetHeight) + "px";
-        if (submitCB.value.indexOf('\n') != -1) {
+        jQuery('#charCounter').text(140 - value);
+        submitCB.height(0);
+        submitCB.height(submitCB.scrollHeight + 0);
+        jQuery('#commentArea').css('height', 305 - submitArea.offsetHeight);
+        if (submitCB.value.indexOf('\n') !== -1) {
             submitCB.value = submitCB.value.replace('\n', ' ');
         }
     };
 
-    var commentArray = document.getElementsByClassName('commentBox');
-    for (var i = 0; i < commentArray.length; i++) {
-        if (!commentArray[i].classList.contains('ownComment')) {
-            // Set the style for the selected cards.
-            commentArray[i].addEventListener("click", function (e) {
-                var targ;
-                if (!e) e = window.event;
-                if (e.target) targ = e.target;
-                else if (e.srcElement) targ = e.srcElement;
-                if (targ.nodeType == 3) // defeat Safari bug
-                    targ = targ.parentNode;
-                if (targ.classList.contains("deleteIcon"))
-                    return;
-                while (!targ.classList.contains('commentBox')) {
-                    targ = targ.parentNode;
-                }
-                targ.style.backgroundColor = "";
-                if (targ.classList.contains("clickedCommentBox")) {
-                    targ.classList.remove("clickedCommentBox");
-                } else {
-                    targ.classList.add("clickedCommentBox");
-                }
+    jQuery('.commentBox').each(() => {
+        var t = jQuery(this);
+        if (!t.hasClass('ownComment')) {
+            t.on('click', () => {
+                var cb = t.parents('.commentBox');
+                cb.css('backgroundColor', '');
+                cb.hasClass('clickedCommentBox') ? cb.removeClass('clickedCommentBox') : cb.addClass('clickedCommentBox');
+            }).on('mousedown', () => {
+
             });
 
-            // Set the style for when the card is clicked
-            commentArray[i].addEventListener("mousedown", function (e) {
-                var targ;
-                if (!e) e = window.event;
-                if (e.target) targ = e.target;
-                else if (e.srcElement) targ = e.srcElement;
-                if (targ.nodeType == 3) // defeat Safari bug
-                    targ = targ.parentNode;
-                if (targ.classList.contains("deleteIcon"))
-                    return;
 
-                while (!targ.classList.contains('commentBox')) {
-                    targ = targ.parentNode;
-                }
-                // Potentially darken the shade of the color here...
-            });
         }
-    }
-
-    // Set the event listener and actions for the delete buttons.
-    var deleteIcons = document.getElementsByClassName("deleteIcon");
-    for (i = 0; i < deleteIcons.length; i++) {
-        if (deleteIcons[i].parentNode.parentNode.classList.contains('ownComment')) {
-            deleteIcons[i].onclick = function (e) {
-                var targ;
-                if (!e) e = window.event;
-                if (e.target) targ = e.target;
-                else if (e.srcElement) targ = e.srcElement;
-                if (targ.nodeType == 3) // defeat Safari bug
-                    targ = targ.parentNode;
-                console.log(targ);
-                var deleteButtons = document.getElementsByClassName('deleteButtons')
-                for (i = 0; i < deleteButtons.length; i++) {
-                    if (deleteButtons[i].parentNode == targ.parentNode.parentNode) {
-                        targ.parentNode.parentNode.style.pointerEvents = "none";
-                        targ.parentNode.parentNode.classList.remove("clickedCommentBox");
-                        targ.parentNode.parentNode.classList.add("blockedCommentBox");
-                        deleteButtons[i].style.display = "unset";
-                    }
-                }
-            };
-        } else {
-            deleteIcons[i].style.display = "none";
-        }
-    }
-
-    var cancelDeleteButtons = document.getElementsByClassName("cancelButton");
-    for (i = 0; i < cancelDeleteButtons.length; i++) {
-        cancelDeleteButtons[i].onclick = function (e) {
-            var targ;
-            if (!e) e = window.event;
-            if (e.target) targ = e.target;
-            else if (e.srcElement) targ = e.srcElement;
-            if (targ.nodeType == 3) // defeat Safari bug
-                targ = targ.parentNode;
-            console.log(targ);
-            var deleteButtons = targ.parentNode;
-            targ.parentNode.parentNode.style.pointerEvents = "";
-            targ.parentNode.parentNode.classList.add("clickedCommentBox");
-            targ.parentNode.parentNode.classList.remove("blockedCommentBox");
-            deleteButtons.style.display = "none";
-        };
-    }
-
-    var cancelDeleteButtons = document.getElementsByClassName("deleteButton");
-    for (i = 0; i < cancelDeleteButtons.length; i++) {
-        cancelDeleteButtons[i].onclick = function (e) {
-            var targ;
-            if (!e) e = window.event;
-            if (e.target) targ = e.target;
-            else if (e.srcElement) targ = e.srcElement;
-            if (targ.nodeType == 3) // defeat Safari bug
-                targ = targ.parentNode;
-            console.log(targ);
-            var deleteButtons = targ.parentNode;
-            deleteButtons.style.display = "flex";
-            deleteButtons.style.justifyContent = "center";
-            deleteButtons.style.verticalAlign = "middle";
-            deleteButtons.style.alignItems = "center";
-            deleteButtons.innerHTML = '<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>';
-        };
-    }
-
-    var cancelPostButton = document.getElementById('btnClose');
-    cancelPostButton.addEventListener("click", function () {
-        var submitArea = document.getElementById("submitCB");
-        submitArea.value = "";
-        document.getElementById("controlBar").style.display = "none";
-        document.getElementById("charCounter").style.display = "none";
-        document.getElementById("commentArea").style.height = "265px";
-        submitArea.style.height = "30px";
-        submitArea.style.paddingBottom = "0px";
     });
 
-    var pollButtonYes = document.getElementById("pollButtonYes")
-    var pollButtonNo = document.getElementById("pollButtonNo")
-    pollButtonYes.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.getElementById("pollButtonArea").style.display = "none";
-        document.getElementById("pollAnswerYes").style.display = "unset";
-        document.getElementById("pollAnswerNo").style.display = "unset";
-        document.getElementById("pollAnswerBar").style.justifyContent = "space-between";
+    jQuery('.deleteIcon').each(() => {
+        if (jQuery(this).parents('.commentBox').eq(0).hasClass('ownComment')) {
+            jQuery(this).on('click', () => {
+                jQuery(this).parents('.commentBox').children('.deleteButtons').css({
+                    pointerEvents: 'none',
+                    display: 'unset'
+                }).addClass('blockedCommentBox').removeClass('clickedCommentBox');
+            });
+        } else {
+            jQuery(this).hide();
+        }
+    });
+
+    jQuery('.cancelButton').each(() => {
+        jQuery(this).on('click', () => {
+            var t = jQuery(this);
+            t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox').removeClass('blockedCommentBox');
+            t.parent().hide();
+        });
+
+
+    });
+
+    jQuery('.deleteButton').each(() => {
+        jQuery(this).on('click', () => {
+            var deleteButtons = jQuery(this).parent();
+            deleteButtons.css({
+                display: 'flex',
+                justifyContent: 'center',
+                verticalAlign: 'middle',
+                alignItems: 'center'
+            }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
+        });
+    });
+
+    jQuery('#btnClose').on('click', function () {
+        var submitArea = jQuery('#submitCB');
+        submitArea.val('');
+        jQuery('#controlBar, #charCounter').hide();
+        jQuery('#commentArea').css('height', 265);
+        submitArea.css({
+            height: 30,
+            paddingBottom: 0
+        });
+    });
+
+    jQuery('#pollButtonYes').on('click', (e) => {
+        jQuery('#pollButtonArea').hide();
+        jQuery('#pollAnswerYes').css('display', 'unset');
+        jQuery('#pollAnswerNo').css('display', 'unset');
+        jQuery('#pollAnswerBar').css('justifyContent', 'space-between');
+
         if (!DEBUG) {
-            var xhr = new XMLHttpRequest();
-            var content = "";
-            xhr.open('POST', 'https://server.stopclickbait.com/voting.php');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                    content = xhr.responseText;
+
+            jQuery.ajax({
+                method: 'POST',
+                url: 'https://server.stopclickbait.com/voting.php',
+                data: {
+                    url: encodeURIComponent(clickBaitLink),
+                    userid: userID,
+                    vote: 'yes'
+                },
+                success: (content) => {
                     processingVotingResults(content);
                 }
-            }
-            xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID + "&vote=yes");
+            });
         } else {
             processingVotingResults(JSON.parse('{ "no": "5", "yes": "95" }'));
         }
+        e.preventDefault();
     });
-    pollButtonNo.addEventListener("click", function () {
-        document.getElementById("pollButtonArea").style.display = "none";
-        document.getElementById("pollAnswerYes").style.display = "unset";
-        document.getElementById("pollAnswerNo").style.display = "unset";
-        document.getElementById("pollAnswerBar").style.justifyContent = "space-between";
+
+    jQuery('#pollButtonNo').on('click', function () {
+        jQuery('#pollButtonArea').hide();
+        jQuery('#pollAnswerYes').css('display', 'unset');
+        jQuery('#pollAnswerNo').css('display', 'unset');
+        jQuery('#pollAnswerBar').css('justifyContent', 'space-between');
+
         if (!DEBUG) {
-            var xhr = new XMLHttpRequest();
-            var content = "";
-            xhr.open('POST', 'https://server.stopclickbait.com/voting.php');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                    content = xhr.responseText;
+            jQuery.ajax({
+                method: 'POST',
+                url: 'https://server.stopclickbait.com/voting.php',
+                data: {
+                    url: encodeURIComponent(clickBaitLink),
+                    userid: userID,
+                    vote: 'no'
+                },
+                success: (content) => {
                     processingVotingResults(content);
                 }
-            }
-            xhr.send("url=" + encodeURIComponent(clickBaitLink) + "&userid=" + userID + "&vote=no");
+            });
         } else {
             processingVotingResults(JSON.parse('{ "no": "95", "yes": "5" }'));
         }
     });
 
-
-    var reportLinks = document.getElementsByClassName('reportLinkA');
-    for (var i in reportLinks) if (reportLinks.hasOwnProperty(i)) {
-        reportLinks[i].addEventListener('click', (e) => {
-            var targ;
-            if (e.target) targ = e.target;
-            else if (e.srcElement) targ = e.srcElement;
-            if (targ.nodeType == 3) // defeat Safari bug
-                targ = targ.parentNode;
+    jQuery('.reportLinkA').each(() => {
+        jQuery(this).on('click', (e) => {
             if (!DEBUG) {
-                var xhr = new XMLHttpRequest();
-                var content = "";
-                xhr.open('POST', 'https://server.stopclickbait.com/report.php');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('userID=' + userID + "&reportID=" + targ.parentNode.parentNode.parentNode.parentNode.parentNode.id);
-            } else {
+                jQuery.ajax({
+                    method: 'POST',
+                    url: 'https://server.stopclickbait.com/report.php',
+                    data: {
+                        userid: userID,
+                        reportID: jQuery(this).parents('.commentBox')[0].id
+                    },
+                    success: (content) => {
+                        processingVotingResults(content);
+                    }
+                });
+
             }
-            //targ.style.color = "green";
-            targ.innerHTML = chrome.i18n.getMessage("Thanks") + "!";
+            jQuery(this).html(chrome.i18n.getMessage("Thanks") + "!");
             e.stopPropagation();
         });
-
-
-    }
-
+    });
 }
 
 function processingCommentList(content) {
@@ -333,140 +270,89 @@ function processingCommentList(content) {
 
 
 function processingVotingResults(results) {
-    var pollAnswerNo = document.getElementById('pollAnswerNo');
-    var pollAnswerYes = document.getElementById('pollAnswerYes');
-    var pollBar = document.getElementById('pollBar');
-    pollBar.value = results.yes;
-    pollAnswerNo.innerText = chrome.i18n.getMessage("notClickbait") + "\n" + results.no + "%";
-    pollAnswerYes.innerText = "CLICKBAIT\n" + results.yes + "%";
+    jQuery('#pollAnswerNo').html(chrome.i18n.getMessage('notClickbait') + "\n" + results.no + "%");
+    jQuery('#pollAnswerYes').html("CLICKBAIT\n" + results.yes + "%");
+    jQuery('#pollBar').val(results.yes);
+
 }
 
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
-    var commentArea = document.getElementById("commentArea");
-    var commentBox = commentArea.appendChild(document.createElement('div'));
-    var commentLeft = commentBox.appendChild(document.createElement('div'));
-    var commentText = commentLeft.appendChild(document.createElement('div'));
-    var commentContent = commentText.appendChild(document.createElement('p'));
-    var userArea = commentLeft.appendChild(document.createElement('div'));
-    var userName = userArea.appendChild(document.createElement('span'));
-    if (!ownComment) {
-        var separator = userArea.appendChild(document.createElement('span'));
-        var reportLink = userArea.appendChild(document.createElement('span'));
-        var reportLinkA = reportLink.appendChild(document.createElement('a'));
+    commentArea = jQuery('#commentArea');
+    commentBox = jQuery('<div class="commentBox" id="comment-"' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo(commentArea);
+    commentLeft = jQuery('<div class="commentLeft"/>').appendTo(commentBox);
+    commentText = jQuery('<div class="commentText"/>').appendTo(commentLeft);
+    commentContent = jQuery('<p/>').text(content).appendTo(commentText);
+    userArea = jQuery('<div class="userArea"/>').appendTo(commentLeft);
+    userName = jQuery('<span class="userName"/>').text(userNameString).appendTo(userArea);
+    voteArea = jQuery('<div class="voteArea">').appendTo(commentBox);
+    deleteIcon = jQuery('<div class="deleteIcon">c</div>').appendTo(voteArea);
+    upvoteStar = jQuery('<span class="upvoteStar">a</span>').appendTo(voteArea);
+    upvotes = jQuery('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);
+    deleteButtons = jQuery('<div class="deleteButtons">').on('click', function () { return false; }).on('mouseover', function () { return false; }).appendTo(commentBox);
+    deleteButton = jQuery('<button class="deleteButton" data-localize="delete">delete</button>').appendTo(deleteButtons);
+    cancelButton = jQuery('<button class="cancenButton" data-localize="cancel">cancel</button>').appendTo(deleteButtons);
+
+    if (ownComment) {
+        commentBox.addClass('ownComment');
+
+    } else {
+        separator = jQuery('<span class="separator">|</span>').appendTo(userArea);
+        reportLink = jQuery('<span class="reportLink">').appendTo(userArea);
+        reportLinkA = jQuery('<a href="#" class="reportLinkA" data-localize="report">report</a>').appendTo(reportLink);
     }
-    var voteArea = commentBox.appendChild(document.createElement('div'));
-    var deleteIcon = voteArea.appendChild(document.createElement('div'));
-    var upvoteStar = voteArea.appendChild(document.createElement('span'));
-    var upvotes = voteArea.appendChild(document.createElement('span'));
-    var deleteButtons = commentBox.appendChild(document.createElement('div'));
-    var deleteButton = deleteButtons.appendChild(document.createElement('button'));
-    var cancelButton = deleteButtons.appendChild(document.createElement('button'));
-
-    commentBox.classList.add('commentBox');
-    commentBox.id = 'comment-' + commentId;
-    commentBox.setAttribute('data-timestamp', timestamp);
-
-    if (ownComment)
-        commentBox.classList.add('ownComment');
-
-    commentLeft.classList.add('commentLeft');
-
-    commentText.classList.add('commentText');
-
-    commentContent.innerText = content;
-
-    userArea.classList.add('userArea');
-
-    userName.classList.add('userName');
-    userName.innerText = userNameString;
-    if (!ownComment) {
-        separator.classList.add('separator');
-        separator.innerText = '|';
-
-        reportLink.classList.add('reportLink');
-
-        reportLinkA.href = "#";
-        reportLinkA.setAttribute('data-localize', 'report');
-        reportLinkA.classList.add('reportLinkA');
-        reportLinkA.innerText = "report";
-    }
-    voteArea.classList.add('voteArea');
-
-    deleteIcon.classList.add('deleteIcon');
-    deleteIcon.innerText = "c";
-
-    upvoteStar.classList.add('upvoteStar');
-    upvoteStar.innerText = "a";
-
-    upvotes.classList.add('upvotes');
-    upvotes.innerText = voteNumber;
-
-    deleteButtons.classList.add('deleteButtons');
-    deleteButtons.onclick = function () { return false; };
-    deleteButtons.onmouseover = function () { return false; };
-
-    deleteButton.classList.add('deleteButton');
-    deleteButton.setAttribute('data-localize', 'delete');
-    deleteButton.innerText = 'Delete';
-
-    cancelButton.classList.add('cancelButton');
-    cancelButton.setAttribute('data-localize', 'cancel');
-    cancelButton.innerText = 'Cancel';
 }
 
 
 function sortCommentsByVotes() {
-    document.getElementById("topSC").style.fontWeight = "bold";
-    document.getElementById("dateSC").style.fontWeight = "normal";
+    jQuery('#topSC').css('fontWeight', 'bold');
+    jQuery('#dateSC').css('fontWeight', 'normal');
 
-    var newBttn = document.getElementById("dateSC"); 
-    var commentCards = document.getElementById("commentArea").children;
-    var sortCards = Array.prototype.slice.call(commentCards, 0);
+    commentCards = jQuery('#commentArea').children();
+    sortCards = Array.prototype.slice.call(commentCards, 0);
+
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
-            // Get the vote number for each comment:
-            var valA = parseInt(a.children[1].children[2].innerHTML);
-            var valB = parseInt(b.children[1].children[2].innerHTML);
-            return (valA - valB);
+            valA = parseInt(a.children(1).children(2).html());
+            valB = parseInt(b.children(1).children(2).html());
+            return valA - valB;
         });
-        // Append the cards back in the correct order:
-        var commentParent = document.getElementById("commentArea");
-        commentParent.innerHTML = "";
-        for (var i = (sortCards.length - 1); i => 0; i--) {
-            commentParent.appendChild(sortCards[i]);
-        } 
+
+        commentParent = jQuery('#commentArea').html('');
+        for (i = sortCards.length - 1; i >= 0; --i) {
+            commentParent.append(sortCards[i]);
+        }
+    } else {
+        return;
     }
-    else return;
 }
 
 function sortCommentsByDate() {
-    document.getElementById("topSC").style.fontWeight = "normal";
-    document.getElementById("dateSC").style.fontWeight = "bold";
+    jQuery('#topSC').css('fontWeight', 'normal');
+    jQuery('#dateSC').css('fontWeight', 'bold');
 
-    var commentCards = document.getElementById("commentArea").children;
-    var sortCards = Array.prototype.slice.call(commentCards, 0);
+    commentCards = jQuery('#commentArea').children();
+    sortCards = Array.prototype.slice.call(commentCards, 0);
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
-            // Get the timestamp:
-            var valA = parseInt(a.dataset.timestamp);
-            var valB = parseInt(b.dataset.timestamp);
-            return (valA - valB);
+            valA = parseInt(a.dataset.timestamp);
+            valB = parseInt(b.dataset.timestamp);
+            return valA - valB;
         });
-        // Append the cards back in the correct order:
-        var commentParent = document.getElementById("commentArea");
-        commentParent.innerHTML = "";
-        for (var i = (sortCards.length - 1); i => 0; i--) {
+
+        commentParent = jQuery('#commentArea').html('');
+        for (i = sortCards.length - 1; i >= 0; --i) {
             commentParent.appendChild(sortCards[i]);
         }
+    } else {
+        return;
     }
-    else return;
 }
 
 function setElementColors(color) {
     var a = document.styleSheets;
     for (var i in a) if (a.hasOwnProperty(i)) {
         var b;
-        (a[i].cssRules) ? b = a[i].cssRules : b = a[i].rules;
+        a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
         for (var j in b) if (b.hasOwnProperty(j)) {
             // Change color:
             if (b[j].selectorText === ".commentBox:hover" ||
