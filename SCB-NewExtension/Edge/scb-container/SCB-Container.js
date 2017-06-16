@@ -4,6 +4,30 @@ if (document.location.href.indexOf('?') > -1) {
     clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
     clickBaitLink = clickBaitLink.split('?')[0];
+
+	var strlen = clickBaitLink.length;
+	var maxlen = 38;
+
+	if(strlen > maxlen){
+		var diff = strlen / maxlen;
+		var newstr = [];
+		var i = 0;
+		var newLink = '';
+		var start;
+
+		// break up string into segments based on the `maxlen` variable and string legth
+		for(i = 0; i < diff; i++){
+			start = i * maxlen;
+			newstr.push(clickBaitLink.substr(start, maxlen));
+		}
+
+		// stitches segments back together with a space between them so they will wrap
+		for(i = 0; i < newstr.length; i++){
+			newLink += newstr[i] +' ';
+		}
+
+		clickBaitLink = newLink;
+	}
 }
 //var userID = chrome.storage.local.get("userID");
 
@@ -75,7 +99,6 @@ if (DEBUG) {
 }
 
 // Add event handlers
-
 function addEventHandlers() {
     // Add event listener to find selected color in settings:
     chrome.storage.onChanged.addListener(function (changes, namespace) {
@@ -266,7 +289,6 @@ function processingCommentList(content) {
     }
 }
 
-
 function processingVotingResults(results) {
     jQuery('#pollAnswerNo').html(chrome.i18n.getMessage('notClickbait') + "\n" + results.no + "%");
     jQuery('#pollAnswerYes').html("CLICKBAIT\n" + results.yes + "%");
@@ -299,7 +321,6 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
         reportLinkA = jQuery('<a href="#" class="reportLinkA" data-localize="report">report</a>').appendTo(reportLink);
     }
 }
-
 
 function sortCommentsByVotes() {
     jQuery('#topSC').css('fontWeight', 'bold');
