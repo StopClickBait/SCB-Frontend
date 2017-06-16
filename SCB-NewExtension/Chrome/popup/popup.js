@@ -1,4 +1,6 @@
-﻿$.noConflict();
+﻿const DEBUG = true;
+
+$.noConflict();
 
 (($) => {
 
@@ -19,7 +21,7 @@
         userToken = accessToken.accessToken;
         $.ajax({
             method: 'GET',
-            url: 'https://graph.facebook.com/v2.9/me?access_token=' + accessToken.accessToken + '&fields=id%2Cname',
+            url: 'https://graph.facebook.com/v2.9/me?access_token=' + accessToken.accessToken + '&fields=id',
             success: (content) => {
                 if (content.error) {
                     // Not logged in.
@@ -33,9 +35,27 @@
 
     ////* LOGIN FUNCTIONS: *////
     function processLogIn(content) {
+        var username = '';
+        if (!DEBUG) {
+            $.ajax({
+                method: 'POST',
+                url: 'https://server.stopclickbait.com/getUserData.php',
+                data: { fbid: chrome.storage.local.get('user_id') },
+                success: (content2) => {
+                    if (content2.username !== '') {
+                        username = content2.username;
+                    } else {
+                        username = registerUser();
+                    }
+                }
+            });
+        } else {
+            username = "BetaUser";
+        }
+
         $('#Profile_Logged_Out').hide();
         $('#Profile_Logged_In, #settings').css('display', 'block');
-        $('#profile_name').text(content.name); 
+        $('#profile_name').text(username); 
         $('#logout, #separator').css('display', 'inline-block');
 
         $('#showExplanation').on('click', () => {
@@ -62,6 +82,28 @@
             document.getElementById('hoverToOpen').checked = items.hoverToOpen;
         });
     }
+
+    function registerUser() {
+        var fbid = chrome.storage.local.get('user_id');
+
+        if (!DEBUG) {
+            $.ajax({
+                method: 'POST',
+                url: 'https://server.stopclickbait.com/registerUser.php',
+                data: { fbid: chrome.storage.local.get('user_id') },
+                success: (content2) => {
+                    if (content2.username !== '') {
+                        return content2.username;
+                    } else if (content.error) {
+                        // TODO: Error handling
+                    }
+                }
+            });
+        } else {
+            return "BetaUser";
+        }
+    }
+
 
     ////* SETUP FUNCTION: *////
     function addEventHandlers() {

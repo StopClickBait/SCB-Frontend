@@ -1,5 +1,6 @@
 ﻿const DEBUG = true;
 var clickBaitLink = "null";
+var $ = jQuery;
 if (document.location.href.indexOf('?') > -1) {
     clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
@@ -83,16 +84,16 @@ function addEventHandlers() {
         }
     });
 
-    jQuery('#topSC').on('click', function () {
+    $('#topSC').on('click', function () {
         sortCommentsByVotes();
     });
 
     // Add event listener to sort by newest comment.
-    jQuery('#dateSC').on('click', function () {
+    $('#dateSC').on('click', function () {
         sortCommentsByDate();
     });
 
-    var submitCB = jQuery('#submitCB');
+    var submitCB = $('#submitCB');
 
     submitCB.on('focusin', () => {
         submitCB.height(0);
@@ -100,38 +101,38 @@ function addEventHandlers() {
             paddingBottom: 20,
             height: submitCB[0].scrollHeight + 20
         });
-        jQuery('#controlBar').css('display', 'block');
-        jQuery('#charCounter').css('display', 'flex');
-        jQuery('#commentArea').css('height', 305 - submitCB[0].offsetHeight);
+        $('#controlBar').css('display', 'block');
+        $('#charCounter').css('display', 'flex');
+        $('#commentArea').css('height', 305 - submitCB[0].offsetHeight);
     }).on('focusout', function () {
         if (submitCB.val().length === 0) {
-            jQuery('#controlBar, #charCounter').hide();
+            $('#controlBar, #charCounter').hide();
             submitCB.css({
                 height: 30,
                 paddingBottom: 0
             });
-            jQuery('#commentArea').css('height', 265);
+            $('#commentArea').css('height', 265);
         }
     }).on('input', () => {
-        var submitCB = jQuery('#submitCB');
+        var submitCB = $('#submitCB');
         if (submitCB.val().indexOf('\n') !== -1) {
             submitCB.val(submitCB.val().replace('\n', ' '));
         }
         var value = submitCB.val().length;
-        jQuery('#charCounter').text(140 - value);
+        $('#charCounter').text(140 - value);
         submitCB.height(0);
         submitCB.height(submitCB.scrollHeight + 0);
-        jQuery('#commentArea').css('height', 305 - submitArea.offsetHeight);
+        $('#commentArea').css('height', 305 - submitArea.offsetHeight);
         if (submitCB.val().indexOf('\n') !== -1) {
             submitCB.val(submitCB.val().replace('\n', ' '));
         }
     });
 
-    jQuery('.commentBox').each((i, elem) => {
-        var t = jQuery(elem);
+    $('.commentBox').each((i, elem) => {
+        var t = $(elem);
         if (!t.hasClass('ownComment')) {
             t.on('click', () => {
-                var cb = jQuery(elem);
+                var cb = $(elem);
                 cb.css('backgroundColor', '');
                 cb.hasClass('clickedCommentBox') ? cb.removeClass('clickedCommentBox') : cb.addClass('clickedCommentBox');
             }).on('mousedown', () => {
@@ -140,22 +141,22 @@ function addEventHandlers() {
         }
     });
 
-    jQuery('.deleteIcon').each((i, elem) => {
-        if (jQuery(elem).parents('.commentBox').eq(0).hasClass('ownComment')) {
-            jQuery(elem).on('click', () => {
-                jQuery(elem).parents('.commentBox').children('.deleteButtons').css({
+    $('.deleteIcon').each((i, elem) => {
+        if ($(elem).parents('.commentBox').eq(0).hasClass('ownComment')) {
+            $(elem).on('click', () => {
+                $(elem).parents('.commentBox').children('.deleteButtons').css({
                     pointerEvents: 'none',
                     display: 'unset'
                 }).addClass('blockedCommentBox').removeClass('clickedCommentBox');
             });
         } else {
-            jQuery(elem).remove();
+            $(elem).remove();
         }
     });
 
-    jQuery('.cancelButton').each((i, elem) => {
-        jQuery(elem).on('click', () => {
-            var t = jQuery(elem);
+    $('.cancelButton').each((i, elem) => {
+        $(elem).on('click', () => {
+            var t = $(elem);
             t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox').removeClass('blockedCommentBox');
             t.parent().hide();
         });
@@ -163,9 +164,9 @@ function addEventHandlers() {
 
     });
 
-    jQuery('.deleteButton').each((i, elem) => {
-        jQuery(elem).on('click', () => {
-            var deleteButtons = jQuery(elem).parent();
+    $('.deleteButton').each((i, elem) => {
+        $(elem).on('click', () => {
+            var deleteButtons = $(elem).parent();
             deleteButtons.css({
                 display: 'flex',
                 justifyContent: 'center',
@@ -175,26 +176,26 @@ function addEventHandlers() {
         });
     });
 
-    jQuery('#btnClose').on('click', function () {
-        var submitArea = jQuery('#submitCB');
+    $('#btnClose').on('click', function () {
+        var submitArea = $('#submitCB');
         submitArea.val('');
-        jQuery('#controlBar, #charCounter').hide();
-        jQuery('#commentArea').css('height', 265);
+        $('#controlBar, #charCounter').hide();
+        $('#commentArea').css('height', 265);
         submitArea.css({
             height: 30,
             paddingBottom: 0
         });
     });
 
-    jQuery('#pollButtonYes').on('click', (e) => {
-        jQuery('#pollButtonArea').hide();
-        jQuery('#pollAnswerYes').css('display', 'unset');
-        jQuery('#pollAnswerNo').css('display', 'unset');
-        jQuery('#pollAnswerBar').css('justifyContent', 'space-between');
+    $('#pollButtonYes').on('click', (e) => {
+        $('#pollButtonArea').hide();
+        $('#pollAnswerYes').css('display', 'unset');
+        $('#pollAnswerNo').css('display', 'unset');
+        $('#pollAnswerBar').css('justifyContent', 'space-between');
 
         if (!DEBUG) {
 
-            jQuery.ajax({
+            $.ajax({
                 method: 'POST',
                 url: 'https://server.stopclickbait.com/voting.php',
                 data: {
@@ -212,14 +213,14 @@ function addEventHandlers() {
         e.preventDefault();
     });
 
-    jQuery('#pollButtonNo').on('click', function () {
-        jQuery('#pollButtonArea').hide();
-        jQuery('#pollAnswerYes').css('display', 'unset');
-        jQuery('#pollAnswerNo').css('display', 'unset');
-        jQuery('#pollAnswerBar').css('justifyContent', 'space-between');
+    $('#pollButtonNo').on('click', function () {
+        $('#pollButtonArea').hide();
+        $('#pollAnswerYes').css('display', 'unset');
+        $('#pollAnswerNo').css('display', 'unset');
+        $('#pollAnswerBar').css('justifyContent', 'space-between');
 
         if (!DEBUG) {
-            jQuery.ajax({
+            $.ajax({
                 method: 'POST',
                 url: 'https://server.stopclickbait.com/voting.php',
                 data: {
@@ -236,15 +237,15 @@ function addEventHandlers() {
         }
     });
 
-    jQuery('.reportLinkA').each((i, elem) => {
-        jQuery(elem).on('click', (e) => {
+    $('.reportLinkA').each((i, elem) => {
+        $(elem).on('click', (e) => {
             if (!DEBUG) {
-                jQuery.ajax({
+                $.ajax({
                     method: 'POST',
                     url: 'https://server.stopclickbait.com/report.php',
                     data: {
                         userid: userID,
-                        reportID: jQuery(elem).parents('.commentBox')[0].id
+                        reportID: $(elem).parents('.commentBox')[0].id
                     },
                     success: (content) => {
                         processingVotingResults(content);
@@ -252,7 +253,7 @@ function addEventHandlers() {
                 });
 
             }
-            jQuery(elem).html(chrome.i18n.getMessage("Thanks") + "!");
+            $(elem).html(chrome.i18n.getMessage("Thanks") + "!");
             e.stopPropagation();
         });
     });
@@ -266,53 +267,53 @@ function processingCommentList(content) {
 }
 
 function processingVotingResults(results) {
-    jQuery('#pollAnswerNo').html(chrome.i18n.getMessage('notClickbait') + "\n" + results.no + "%");
-    jQuery('#pollAnswerYes').html("CLICKBAIT\n" + results.yes + "%");
-    jQuery('#pollBar').val(results.yes);
+    $('#pollAnswerNo').html(chrome.i18n.getMessage('notClickbait') + "\n" + results.no + "%");
+    $('#pollAnswerYes').html("CLICKBAIT\n" + results.yes + "%");
+    $('#pollBar').val(results.yes);
 
 }
 
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
-    commentArea = jQuery('#commentArea');
-    commentBox = jQuery('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo(commentArea);
-    commentLeft = jQuery('<div class="commentLeft"/>').appendTo(commentBox);
-    commentText = jQuery('<div class="commentText"/>').appendTo(commentLeft);
-    commentContent = jQuery('<p/>').text(content).appendTo(commentText);
-    userArea = jQuery('<div class="userArea"/>').appendTo(commentLeft);
-    userName = jQuery('<span class="userName"/>').text(userNameString).appendTo(userArea);
-    voteArea = jQuery('<div class="voteArea">').appendTo(commentBox);
-    deleteIcon = jQuery('<div class="deleteIcon">c</div>').appendTo(voteArea);
-    upvoteStar = jQuery('<span class="upvoteStar">a</span>').appendTo(voteArea);
-    upvotes = jQuery('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);
-    deleteButtons = jQuery('<div class="deleteButtons">').on('click', function () { return false; }).on('mouseover', function () { return false; }).appendTo(commentBox);
-    deleteButton = jQuery('<button class="deleteButton" data-localize="delete">delete</button>').appendTo(deleteButtons);
-    cancelButton = jQuery('<button class="cancenButton" data-localize="cancel">cancel</button>').appendTo(deleteButtons);
+    commentArea = $('#commentArea');
+    commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo(commentArea);
+    commentLeft = $('<div class="commentLeft"/>').appendTo(commentBox);
+    commentText = $('<div class="commentText"/>').appendTo(commentLeft);
+    commentContent = $('<p/>').text(content).appendTo(commentText);
+    userArea = $('<div class="userArea"/>').appendTo(commentLeft);
+    userName = $('<span class="userName"/>').text(userNameString).appendTo(userArea);
+    voteArea = $('<div class="voteArea">').appendTo(commentBox);
+    deleteIcon = $('<div class="deleteIcon">c</div>').appendTo(voteArea);
+    upvoteStar = $('<span class="upvoteStar">a</span>').appendTo(voteArea);
+    upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);
+    deleteButtons = $('<div class="deleteButtons">').on('click', function () { return false; }).on('mouseover', function () { return false; }).appendTo(commentBox);
+    deleteButton = $('<button class="deleteButton" data-localize="delete">delete</button>').appendTo(deleteButtons);
+    cancelButton = $('<button class="cancenButton" data-localize="cancel">cancel</button>').appendTo(deleteButtons);
 
     if (ownComment) {
         commentBox.addClass('ownComment');
 
     } else {
-        separator = jQuery('<span class="separator">|</span>').appendTo(userArea);
-        reportLink = jQuery('<span class="reportLink">').appendTo(userArea);
-        reportLinkA = jQuery('<a href="#" class="reportLinkA" data-localize="report">report</a>').appendTo(reportLink);
+        separator = $('<span class="separator">|</span>').appendTo(userArea);
+        reportLink = $('<span class="reportLink">').appendTo(userArea);
+        reportLinkA = $('<a href="#" class="reportLinkA" data-localize="report">report</a>').appendTo(reportLink);
     }
 }
 
 function sortCommentsByVotes() {
-    jQuery('#topSC').css('fontWeight', 'bold');
-    jQuery('#dateSC').css('fontWeight', 'normal');
+    $('#topSC').css('fontWeight', 'bold');
+    $('#dateSC').css('fontWeight', 'normal');
 
-    var commentCards = jQuery('#commentArea').children(),
+    var commentCards = $('#commentArea').children(),
     sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
 
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
-            valA = parseInt(jQuery(a).find('.upvotes').eq(0).html());
-            valB = parseInt(jQuery(b).find('.upvotes').eq(0).html());
+            valA = parseInt($(a).find('.upvotes').eq(0).html());
+            valB = parseInt($(b).find('.upvotes').eq(0).html());
             return valA - valB;
         });
 
-        commentParent = jQuery('#commentArea').html('');
+        commentParent = $('#commentArea').html('');
         for (i = sortCards.length - 1; i >= 0; --i) {
             commentParent.append(sortCards[i]);
         }
@@ -322,10 +323,10 @@ function sortCommentsByVotes() {
 }
 
 function sortCommentsByDate() {
-    jQuery('#topSC').css('fontWeight', 'normal');
-    jQuery('#dateSC').css('fontWeight', 'bold');
+    $('#topSC').css('fontWeight', 'normal');
+    $('#dateSC').css('fontWeight', 'bold');
 
-    var commentCards = jQuery('#commentArea').children(),
+    var commentCards = $('#commentArea').children(),
         sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
@@ -334,7 +335,7 @@ function sortCommentsByDate() {
             return valA - valB;
         });
 
-        var commentParent = jQuery('#commentArea').html('');
+        var commentParent = $('#commentArea').html('');
         for (i = sortCards.length - 1; i >= 0; --i) {
             commentParent.append(sortCards[i]);
         }
