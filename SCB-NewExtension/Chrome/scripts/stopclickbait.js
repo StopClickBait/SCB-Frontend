@@ -38,7 +38,7 @@ jQuery.fn.hasClasses = function () {
 };
 
 (function($){
-    
+
 'use strict';
 const DEBUG = true;
 var
@@ -155,6 +155,18 @@ function hideSCBContainer() {
     c.l('container closed');
 }
 
+function findActionBar(cardForm){
+	var it;
+	$('span', cardForm).each(function(){
+		$(this).each(function() {
+			if(this.attributes.length === 0)
+				it = $(this);
+		});
+	});
+
+	return it.parent();
+};
+
 function loop() {
 	// select all anchor elements WITH a class of '_52c6' which is the post's image if it links out of facebook
     var allLinks = $('a._52c6');
@@ -182,7 +194,7 @@ function loop() {
                 },
                 RevealLine = $(node).parents('[data-ft]').eq(1).parent().next()[0], // element where 
                 // actionBar = $('div', cardForm).eq(0),
-                actionBar = $('span', cardForm).eq(0).parent(),
+                actionBar = findActionBar(cardForm),
                 hasBoostPostBar = actionBar.children().length > 1 ? true : false,
                 hasLikeCountBar = $('span', actionBar).eq(0).parent().children($(':contains(Like)')).length > 1 ? true : false,
                 span = $('<span>').appendTo(actionBar),
