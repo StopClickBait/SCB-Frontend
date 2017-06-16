@@ -3,15 +3,15 @@
 }
 
 #btnClose, #btnSubmit {
-    width: 115px !important;
+    width: 110px !important;
 }
 
 #btnClose {
-    left: 0% !important;
+    left: -7% !important;
 }
 
 #btnSubmit {
-    left: 22% !important;
+    left: 19% !important;
 }
 
 .deleteButton {

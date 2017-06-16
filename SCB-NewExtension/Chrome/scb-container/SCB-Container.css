@@ -101,7 +101,7 @@ button:hover {
 
 #charCounter {
     left: -51%;
-    top: 42px;
+    top: 30px;
     display: none;
     float: left;
     position: absolute;
@@ -110,8 +110,8 @@ button:hover {
 
 
 .commentLeft {
-    width: 85%;
-    max-width: 85%;
+    width: 75%;
+    max-width: 75%;
 }
 
 #sortingArea {
