@@ -102,9 +102,9 @@ function addEventHandlers() {
         });
         jQuery('#controlBar').css('display', 'block');
         jQuery('#charCounter').css('display', 'flex');
-        jQuery('#commentArea').css('height', 305 - submitCB.offsetHeight);
+        jQuery('#commentArea').css('height', 305 - submitCB[0].offsetHeight);
     }).on('focusout', function () {
-        if (submitCB.value.length === 0) {
+        if (submitCB.val().length === 0) {
             jQuery('#controlBar, #charCounter').hide();
             submitCB.css({
                 height: 30,
@@ -114,16 +114,16 @@ function addEventHandlers() {
         }
     }).on('input', () => {
         var submitCB = jQuery('#submitCB');
-        if (submitCB.value.indexOf('\n') !== -1) {
-            submitCB.value = submitCB.value.replace('\n', ' ');
+        if (submitCB.val().indexOf('\n') !== -1) {
+            submitCB.val(submitCB.val().replace('\n', ' '));
         }
-        var value = submitCB.value.length;
+        var value = submitCB.val().length;
         jQuery('#charCounter').text(140 - value);
         submitCB.height(0);
         submitCB.height(submitCB.scrollHeight + 0);
         jQuery('#commentArea').css('height', 305 - submitArea.offsetHeight);
-        if (submitCB.value.indexOf('\n') !== -1) {
-            submitCB.value = submitCB.value.replace('\n', ' ');
+        if (submitCB.val().indexOf('\n') !== -1) {
+            submitCB.val(submitCB.val().replace('\n', ' '));
         }
     });
 
