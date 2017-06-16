@@ -14,8 +14,8 @@
         "https://*.facebook.com/*"
       ],
       "js": [
-        "scripts/stopclickbait.js",
-        "scripts/jquery.js"
+        "scripts/jquery.js",
+        "scripts/stopclickbait.js"
       ]
     },
     {
