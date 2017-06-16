@@ -17,7 +17,7 @@ body {
 #card {
     padding: 5px;
     background-color: #e9ebee;
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Droid Sans Mono', monospace;
     /*border: 1px solid #cfcfcf;
             box-shadow: 2px 2px 0 0 #cfcfcf, 0 0 1px 1px #cfcfcf inset; */
     height: 450px;
