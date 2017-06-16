@@ -277,7 +277,7 @@ a, .userName {
     border: 0;*/
     height: 40px;
     margin-right: 10px;
-    /*border-radius: 3px;*/
+    border-radius: 3px;
     cursor: pointer;
     top: 25%;
     left: 31%;
@@ -296,7 +296,7 @@ a, .userName {
     color: white;
     border: 0;*/
     height: 40px;
-    /*border-radius: 3px;*/
+    border-radius: 3px;
     top: 25%;
     left: 51%;
     cursor: pointer;

@@ -55,7 +55,7 @@ $.noConflict();
 
         $('#Profile_Logged_Out').hide();
         $('#Profile_Logged_In, #settings').css('display', 'block');
-        $('#profile_name').text(username); 
+        $('#profile_name').text(username);
         $('#logout, #separator').css('display', 'inline-block');
 
         $('#showExplanation').on('click', () => {
@@ -197,7 +197,7 @@ $.noConflict();
                 }
             ]
         });
-
+        addUserPostsEvents();
     }
 
     function createCommentBox(commentId, timestamp, content, voteNumber) {
@@ -212,6 +212,39 @@ $.noConflict();
             deleteButtons = $('<div/>').addClass('deleteButtons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
             deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('deleteButton').appendTo(deleteButtons),
             cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancelButton').appendTo(deleteButtons);
+    }
+
+    function addUserPostsEvents() {
+        $('.deleteIcon').each((i, elem) => {
+            $(elem).on('click', () => {
+                $(elem).parents('.commentBox').children('.deleteButtons').css({
+                    pointerEvents: 'none',
+                    display: 'unset'
+                });
+                $(elem).parents('.commentBox').addClass('blockedCommentBox').removeClass('clickedCommentBox');
+            });
+        });
+
+        $('.cancelButton').each((i, elem) => {
+            $(elem).on('click', () => {
+                var t = $(elem);
+                t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox').removeClass('blockedCommentBox');
+                t.parent().hide();
+            });
+        });
+
+        $('.deleteButton').each((i, elem) => {
+            $(elem).on('click', () => {
+                var deleteButtons = $(elem).parent();
+                deleteButtons.css({
+                    display: 'flex',
+                    justifyContent: 'center',
+                    verticalAlign: 'middle',
+                    alignItems: 'center'
+                }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
+            });
+        });
+
     }
 
 
@@ -273,7 +306,7 @@ $.noConflict();
             var b;
             a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
             for (var j in b) if (b.hasOwnProperty(j)) {
-                if (b[j].selectorText === ".buttons") {
+                if (b[j].selectorText === ".buttons" || b[j].selectorText === ".deleteButton" || b[j].selectorText === ".cancelButton") {
                     setButtonNormalColor(b[j], c);
                 }
                 if (b[j].selectorText === ".buttons:hover") {

@@ -61,6 +61,7 @@ if (DEBUG) {
         ]
     });
     addEventHandlers();
+    
 
 } else {
     jQuery.ajax({
