@@ -210,8 +210,8 @@ $.noConflict();
             upvoteStar = $('<span/>').addClass('upvoteStar').text('a').appendTo(voteArea),
             upvotes = $('<span/>').addClass('upvotes').text(voteNumber).appendTo(voteArea),
             deleteButtons = $('<div/>').addClass('deleteButtons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
-            deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('deleteButton').appendTo(deleteButtons),
-            cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancelButton').appendTo(deleteButtons);
+            deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('deleteButton buttons').appendTo(deleteButtons),
+            cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancelButton buttons').appendTo(deleteButtons);
     }
 
     function addUserPostsEvents() {
@@ -221,14 +221,14 @@ $.noConflict();
                     pointerEvents: 'none',
                     display: 'unset'
                 });
-                $(elem).parents('.commentBox').addClass('blockedCommentBox').removeClass('clickedCommentBox');
+                $(elem).parents('.commentBox').addClass('blockedCommentBox');
             });
         });
 
         $('.cancelButton').each((i, elem) => {
             $(elem).on('click', () => {
                 var t = $(elem);
-                t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox').removeClass('blockedCommentBox');
+                t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox');
                 t.parent().hide();
             });
         });
@@ -306,7 +306,7 @@ $.noConflict();
             var b;
             a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
             for (var j in b) if (b.hasOwnProperty(j)) {
-                if (b[j].selectorText === ".buttons" || b[j].selectorText === ".deleteButton" || b[j].selectorText === ".cancelButton") {
+                if (b[j].selectorText === ".buttons") {
                     setButtonNormalColor(b[j], c);
                 }
                 if (b[j].selectorText === ".buttons:hover") {

@@ -446,6 +446,7 @@ a {
     display: none;
     border-radius: 3px;
     text-align: center;
+    
 }
 
 .deleteButton {
@@ -456,7 +457,7 @@ a {
     /*border-radius: 3px;*/
     cursor: pointer;
     top: 25%;
-    left: 31%;
+    left: 25%;
     position: absolute;
     width: 80px;
     pointer-events: auto;

@@ -61,7 +61,7 @@ if (DEBUG) {
         ]
     });
     addEventHandlers();
-    
+
 
 } else {
     jQuery.ajax({
@@ -136,8 +136,14 @@ function addEventHandlers() {
                 var cb = $(elem);
                 cb.css('backgroundColor', '');
                 cb.hasClass('clickedCommentBox') ? cb.removeClass('clickedCommentBox') : cb.addClass('clickedCommentBox');
-            }).on('mousedown', () => {
-
+            }).on('mousedown', (e) => {
+                $(elem).css({
+                    filter: 'brightness(80%)'
+                });
+            }).on('mouseup', (e) => {
+                $(elem).css({
+                    filter: ''
+                });
             });
         }
     });
@@ -148,7 +154,8 @@ function addEventHandlers() {
                 $(elem).parents('.commentBox').children('.deleteButtons').css({
                     pointerEvents: 'none',
                     display: 'unset'
-                }).addClass('blockedCommentBox').removeClass('clickedCommentBox');
+                });
+                $(elem).parents('.commentBox').addClass('blockedCommentBox');
             });
         } else {
             $(elem).remove();
@@ -158,8 +165,16 @@ function addEventHandlers() {
     $('.cancelButton').each((i, elem) => {
         $(elem).on('click', () => {
             var t = $(elem);
-            t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox').removeClass('blockedCommentBox');
+            t.parents('.commentBox').css('pointerEvents', '').removeClass('blockedCommentBox');
             t.parent().hide();
+        }).on('mousedown', (e) => {
+            $(elem).css({
+                filter: 'brightness(80%)'
+            });
+        }).on('mouseup', (e) => {
+            $(elem).css({
+                filter: ''
+            });
         });
 
 
@@ -174,6 +189,14 @@ function addEventHandlers() {
                 verticalAlign: 'middle',
                 alignItems: 'center'
             }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
+        }).on('mousedown', (e) => {
+            $(elem).css({
+                filter: 'brightness(80%)'
+            });
+        }).on('mouseup', (e) => {
+            $(elem).css({
+                filter: ''
+            });
         });
     });
 
@@ -288,7 +311,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);
     deleteButtons = $('<div class="deleteButtons">').on('click', function () { return false; }).on('mouseover', function () { return false; }).appendTo(commentBox);
     deleteButton = $('<button class="deleteButton" data-localize="delete">delete</button>').appendTo(deleteButtons);
-    cancelButton = $('<button class="cancenButton" data-localize="cancel">cancel</button>').appendTo(deleteButtons);
+    cancelButton = $('<button class="cancelButton" data-localize="cancel">cancel</button>').appendTo(deleteButtons);
 
     if (ownComment) {
         commentBox.addClass('ownComment');
@@ -305,7 +328,7 @@ function sortCommentsByVotes() {
     $('#dateSC').css('fontWeight', 'normal');
 
     var commentCards = $('#commentArea').children(),
-    sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
+        sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
 
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
