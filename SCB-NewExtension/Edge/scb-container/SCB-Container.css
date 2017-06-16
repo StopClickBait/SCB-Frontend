@@ -403,7 +403,7 @@ a, .userName {
 }
 
 #pollBttns {
-    /* float: right; */
+    float: right;
     margin-right: 10px;
     display: inline-block;
 }
