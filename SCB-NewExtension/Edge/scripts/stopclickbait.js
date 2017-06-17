@@ -180,7 +180,7 @@ margin-right: 5px;
                                 return;
                             }
                             if (anchor.hasClass('hovered')) { anchor.removeClass('hovered'); return; }
-                            displaySCBContainer(jQuery(elem), false);
+                            displaySCBContainer(anchor, false);
                         })
                         .appendTo(span),
                     FBPageLink = spanContainer.find('span.fwb').eq(0)[0].childNodes[0].href.split('?')[0]
@@ -207,12 +207,13 @@ margin-right: 5px;
                 }
 
                 uniqueIds++;
-
+/*
                 actionBar.children().each((i, elem) => {
                     jQuery(elem).on('click', () => {
                         moveTopComment(elem);
                     });
                 });
+*/
             }
         });
     }

@@ -4,67 +4,75 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono">
+<link rel="stylesheet" href="reset.css">
 <link rel="stylesheet" href="SCB-Container.css">
 <title></title>
 </head>
 
 <body>
-	<div id="card">
-		<div id="submitArea">
-			<textarea name="submitCB" id="submitCB" data-localize-placeholder="submitExplanation" placeholder="Submit your explanation..." rows="10" maxlength="140"></textarea>
+    <div id="card">
+        <div class="cardInner">
+            <div id="submitArea">
+                <textarea name="submitCB" id="submitCB" data-localize-placeholder="submitExplanation" placeholder="Submit your explanation..." rows="10" maxlength="140"></textarea>
 
-			<div id="controlBar">
-				<span id="charCounter">140</span>
+                <!--<div id="controlBar">-->
+                    <span id="charCounter">140</span>
 
-				<div id="leftBar">
-					<button id="btnPhoto">&#x1F4F7;</button>
-					<button id="btnEmoji">&#x1F642;</button>
-				</div><!-- #leftBar -->
+                    <!--<div id="leftBar">
+                        <button id="btnPhoto">&#x1F4F7;</button>
+                        <button id="btnEmoji">&#x1F642;</button>
+                    </div><!-- #leftBar -->
 
-				<button data-localize="cancel" id="btnClose">Cancel</button>
-				<button data-localize="submit" id="btnSubmit" type="submit">Submit</button>
-			</div><!-- #controlBar -->
-		</div><!-- #submitArea -->
+                    <div id="controlBarButtons">
+                        <button data-localize="cancel" id="btnClose">Cancel</button>
+                        <button data-localize="submit" id="btnSubmit" type="submit">Submit</button>
+                    </div><!-- #controlBarButtons -->
+                <!--</div><!-- #controlBar -->
+            </div><!-- #submitArea -->
+        
+            <div id="sortingArea">
+                <div id="TopNew">
+                    <a id="topSC" href="#">top</a>
+                    <span class="separator">|</span>
+                    <a id="dateSC" href="#">new</a>
+                </div>
+            </div><!-- #sortingArea -->
+        </div><!-- .cardInner -->
 
-		<div id="sortingArea">
-			<div id="TopNew">
-				<a id="topSC" href="#">top</a>
-				<span class="separator">|</span>
-				<a id="dateSC" href="#">new</a>
-			</div>
-		</div><!-- #sortingArea -->
+        <div id="commentArea"></div><!-- #commentArea -->
 
-		<div id="commentArea"></div><!-- #commentArea -->
+        <div class="cardInner">
+            <div id="pollArea">
+                <progress id="pollBar" max="100"></progress>
 
-		<div id="pollArea">
-			<progress id="pollBar" max="100"></progress>
+                <div id="pollAnswerBar">
+                    <div id="pollAnswers">
+                        <span id="pollAnswerYes"></span>
+                        <span id="pollAnswerNo"></span>
+                    </div><!-- #pollAnswers -->
 
-			<div id="pollAnswerBar">
-				<span id="pollAnswerYes"></span>
+                    <div id="pollButtonArea">
+                        <span data-localize="isItClickbait" id="pollText">Is it clickbait?</span>
 
-				<div id="pollButtonArea">
-					<span data-localize="isItClickbait" id="pollText">Is it clickbait?</span>
+                        <div id="pollBttns">
+                            <button data-localize="yes" id="pollButtonYes">Yes</button>
+                            <span class="separator">|</span>
+                            <button data-localize="no" id="pollButtonNo">No</button>
+                        </div><!-- pollBttns -->
+                    </div><!-- #pollButtonArea -->
+                </div><!-- #pollAnswerBar -->
+            </div><!-- #pollArea -->
 
-					<div id="pollBttns">
-						<button data-localize="yes" id="pollButtonYes">YES</button>
-						<span class="separator">|</span>
-						<button data-localize="no" id="pollButtonNo">NO</button>
-					</div><!-- pollBttns -->
-				</div><!-- pollButtonArea -->
+            <div id="pictureBar">
+                <canvas class="pictureBox"></canvas>
+                <canvas class="pictureBox"></canvas>
+                <canvas class="pictureBox"></canvas>
+            </div><!-- #pictureBar -->
+        </div><!-- .cardInner -->
+    </div><!-- #card -->
 
-				<span id="pollAnswerNo"></span>
-			</div><!-- #pollAnswerBar -->
-		</div><!-- #pollArea -->
-
-		<div id="pictureBar">
-			<canvas class="pictureBox"></canvas>
-			<canvas class="pictureBox"></canvas>
-			<canvas class="pictureBox"></canvas>
-		</div><!-- #pictureBar -->
-	</div><!-- #card -->
-
-	<script src="../scripts/jquery.js"></script>
-	<script src="SCB-Container.js"></script>
-	<script src="../scripts/i18n.js"></script>
+    <script src="../scripts/jquery.js"></script>
+    <script src="SCB-Container.js"></script>
+    <script src="../scripts/i18n.js"></script>
 </body>
 </html>
