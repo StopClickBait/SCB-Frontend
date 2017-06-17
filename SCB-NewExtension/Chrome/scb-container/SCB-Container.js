@@ -61,7 +61,7 @@ if (DEBUG) {
         ]
     });
     addEventHandlers();
-
+    
 
 } else {
     jQuery.ajax({
@@ -95,21 +95,22 @@ function addEventHandlers() {
     });
 
     var submitCB = $('#submitCB');
+    var submitHeight = submitCB[0].offsetHeight;
 
     submitCB.on('focusin', () => {
         submitCB.height(0);
         submitCB.css({
             paddingBottom: 20,
-            height: submitCB[0].scrollHeight + 20
+            height: submitCB[0].scrollHeight + 50
         });
-        $('#controlBar').css('display', 'block');
+        $('#controlBar, #controlBarButtons').css('display', 'block');
         $('#charCounter').css('display', 'flex');
         $('#commentArea').css('height', 305 - submitCB[0].offsetHeight);
     }).on('focusout', function () {
         if (submitCB.val().length === 0) {
-            $('#controlBar, #charCounter').hide();
+            $('#controlBar, #charCounter, #controlBarButtons').hide();
             submitCB.css({
-                height: 30,
+                height: submitHeight,
                 paddingBottom: 0
             });
             $('#commentArea').css('height', 265);
@@ -154,7 +155,7 @@ function addEventHandlers() {
                 $(elem).parents('.commentBox').children('.deleteButtons').css({
                     pointerEvents: 'none',
                     display: 'unset'
-                });
+                })
                 $(elem).parents('.commentBox').addClass('blockedCommentBox');
             });
         } else {
@@ -165,6 +166,7 @@ function addEventHandlers() {
     $('.cancelButton').each((i, elem) => {
         $(elem).on('click', () => {
             var t = $(elem);
+            
             t.parents('.commentBox').css('pointerEvents', '').removeClass('blockedCommentBox');
             t.parent().hide();
         }).on('mousedown', (e) => {
@@ -176,8 +178,6 @@ function addEventHandlers() {
                 filter: ''
             });
         });
-
-
     });
 
     $('.deleteButton').each((i, elem) => {
@@ -189,14 +189,6 @@ function addEventHandlers() {
                 verticalAlign: 'middle',
                 alignItems: 'center'
             }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
-        }).on('mousedown', (e) => {
-            $(elem).css({
-                filter: 'brightness(80%)'
-            });
-        }).on('mouseup', (e) => {
-            $(elem).css({
-                filter: ''
-            });
         });
     });
 
@@ -212,6 +204,7 @@ function addEventHandlers() {
     });
 
     $('#pollButtonYes').on('click', (e) => {
+        $('#pollAnswers').show();
         $('#pollButtonArea').hide();
         $('#pollAnswerYes').css('display', 'unset');
         $('#pollAnswerNo').css('display', 'unset');
@@ -238,6 +231,7 @@ function addEventHandlers() {
     });
 
     $('#pollButtonNo').on('click', function () {
+        $('#pollAnswers').show();
         $('#pollButtonArea').hide();
         $('#pollAnswerYes').css('display', 'unset');
         $('#pollAnswerNo').css('display', 'unset');
@@ -288,6 +282,8 @@ function processingCommentList(content) {
         var comment = content.comments[i];
         createCommentBox(comment.id, comment.timestamp, comment.commentText, comment.userName, comment.starCount, comment.ownComment);
     }
+
+    $('#commentArea').wrapInner($('<div id="commentInner">'));
 }
 
 function processingVotingResults(results) {
@@ -306,7 +302,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     userArea = $('<div class="userArea"/>').appendTo(commentLeft);
     userName = $('<span class="userName"/>').text(userNameString).appendTo(userArea);
     voteArea = $('<div class="voteArea">').appendTo(commentBox);
-    deleteIcon = $('<div class="deleteIcon">c</div>').appendTo(voteArea);
+    deleteIcon = $('<div class="deleteIcon">c</div>').appendTo(commentBox);
     upvoteStar = $('<span class="upvoteStar">a</span>').appendTo(voteArea);
     upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);
     deleteButtons = $('<div class="deleteButtons">').on('click', function () { return false; }).on('mouseover', function () { return false; }).appendTo(commentBox);
