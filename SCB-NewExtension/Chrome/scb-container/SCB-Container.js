@@ -301,7 +301,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     commentContent = $('<p/>').text(content).appendTo(commentText);
     userArea = $('<div class="userArea"/>').appendTo(commentLeft);
     userName = $('<span class="userName"/>').text(userNameString).appendTo(userArea);
-    voteArea = $('<div class="voteArea">').appendTo(commentBox);
+    voteArea = $('<div class="voteArea">').prependTo(commentLeft);
     deleteIcon = $('<div class="deleteIcon">c</div>').appendTo(commentBox);
     upvoteStar = $('<span class="upvoteStar">a</span>').appendTo(voteArea);
     upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);

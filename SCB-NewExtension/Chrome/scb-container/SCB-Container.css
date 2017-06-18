@@ -17,7 +17,9 @@ body { margin: 0; padding: 0; }
     height: 450px;
     color: #828282;
 }
-.cardInner { padding-right: 10px; }
+.cardInner {
+    padding-right: 10px;
+}
 
 a {
     color: #828282;
@@ -58,7 +60,7 @@ button:hover {
     border-radius: 4px;
     height: 40px;
     width: 100%;
-    padding: 10px 0 0 25px;
+    padding: 10px 0 0 15px;
     font-family: Tahoma, Geneva, Verdana, sans-serif;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
     font-size: 12pt;
@@ -98,14 +100,13 @@ button:hover {
 
 
 .commentLeft {
-    width: 74%;
-    padding-left: 30px;
+    width: calc(100% - 27px);
 }
 
 #TopNew {
     font-size: 9pt;
     text-align: right;
-    padding-right: 2px;
+    padding-right: 4px;
 }
 
 #TopNew .separator { padding: 0 5px; }
@@ -126,6 +127,7 @@ button:hover {
     margin-bottom: 5px;
     border-radius: 3px;
     position: relative;
+    padding: 15px 30px 21px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
     flex-shrink: 0;
     flex-grow: 0;
@@ -169,7 +171,7 @@ button:hover {
 }
 
 .commentText {
-    padding: 15px 4px 10px 0;
+    
 }
 
     .commentText p {
@@ -181,8 +183,7 @@ button:hover {
 
 .userArea {
     font-size: 9pt;
-    padding-bottom: 15px;
-    padding-top: 7px;
+    margin-top: 15px;
 }
 
 .userArea .separator { margin: 0 5px; }
@@ -193,15 +194,18 @@ a, .userName {
 }
 
 .voteArea {
-    width: 20%;
-    float: right;
-    text-align: right;
+    /* float: right; */
+    /* margin-right: -12px; */
+    width: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 12pt;
-    margin-left: -20px;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .deleteIcon {
@@ -281,7 +285,7 @@ a, .userName {
     height: 40px;
     color: #3b5999;
     position: relative;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 #pollBar {
@@ -353,6 +357,7 @@ a, .userName {
     position: absolute;
     top: 0;
     width: 100%;
+    padding: 0 29px;
 }
 
 #pollAnswerNo {
@@ -373,16 +378,15 @@ a, .userName {
 }
 
 #pollText {
-    padding-left: 25px;
+
 }
 
 #pollBttns {
     float: right;
-    margin-right: 40px;
 }
 
     #pollBttns .separator { 
-        margin: 0 15px;
+        margin: 0 10px;
     }
 
     #pollBttns button {
@@ -474,4 +478,8 @@ a, .userName {
     position: absolute;
     bottom: 10px;
     right: 10px;
+}
+
+#sortingArea {
+    margin-top: 10px;
 }
