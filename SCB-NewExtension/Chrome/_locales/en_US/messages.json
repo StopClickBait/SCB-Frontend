@@ -1,0 +1,65 @@
+﻿{
+  "app_title": {
+    "message": "Stop Clickbait!"
+  },
+  "appDescription": {
+    "message": "Prevents you from being clickbaited!"
+  },
+  "submitExplanation": {
+    "message": "Submit your explanation..."
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "submit": {
+    "message": "Submit"
+  },
+  "report": {
+    "message": "report"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "postDeleted": {
+    "message": "Post Deleted"
+  },
+  "yes": {
+    "message": "Yes"
+  },
+  "no": {
+    "message": "No"
+  },
+  "notClickbait": {
+    "message": "NOT CLICKBAIT"
+  },
+  "isItClickbait": {
+    "message": "Is it clickbait?"
+  },
+  "MyPosts": {
+    "message": "My Posts"
+  },
+  "LoginWithFB": {
+    "message": "Login with Facebook"
+  },
+  "JoinUsMessage": {
+    "message": "Join us in the fight against clickbait!"
+  },
+  "Logout": {
+    "message": "Logout"
+  },
+  "primaryColor": {
+    "message": "Primary Color"
+  },
+  "ShowExplanationByDefault": {
+    "message": "Show explanation by default:"
+  },
+  "HoverToOpen": {
+    "message": "Hover to open:"
+  },
+  "AboutSCB": {
+    "message": "About"
+  },
+  "thanks": {
+    "message": "thanks"
+  }
+}
