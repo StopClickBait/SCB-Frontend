@@ -1,4 +1,4 @@
-﻿const DEBUG = true;
+const DEBUG = true;
 var clickBaitLink = "null";
 var $ = jQuery;
 if (document.location.href.indexOf('?') > -1) {
@@ -22,40 +22,56 @@ if (DEBUG) {
                 "id": 2,
                 "timestamp": 14900000050,
                 "commentText": clickBaitLink,
-                "userName": "myUserName",
-                "starCount": 17,
+                "userName": "SCB Admin",
+                "starCount": '17k',
                 "ownComment": true
             },
             {
                 "id": 3,
                 "timestamp": 14900000051,
-                "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
-                "userName": "testUser3",
-                "starCount": 12,
+                "commentText": "Ever since that boy became a man, he made a promise to himself to be honest and always pursue the knowledge that can free the mind and he...",
+                "userName": "DISL Automatic",
+                "starCount": 670,
                 "ownComment": false
             },
             {
                 "id": 1,
                 "timestamp": 1490000001,
-                "commentText": "Hello!",
-                "userName": "testUser",
-                "starCount": 23,
+                "commentText": "She's held down by the transcripts my hands grip; tried to tie her wings back on before they're once again clipped",
+                "userName": "Sage Francis",
+                "starCount": 256,
                 "ownComment": false
             },
             {
-                "commentText": "Hello!",
+                "commentText": "we could learn a thing or two to dispossess exist between things that suck life from us and give life to us and telling us who we are...",
                 "id": 4,
                 "ownComment": false,
-                "userName": "testUser4",
-                "starCount": 10,
+                "userName": "SoleOneDotOrg",
+                "starCount": 128,
                 "timestamp": 1490000002
             },
             {
                 "id": 5,
                 "timestamp": 1490000000,
-                "commentText": "Hello!",
-                "userName": "testUser5",
-                "starCount": 8,
+                "commentText": "Everything I feel they've tought, since little, has faught with me and my struggle's to find larger self, larger meaning",
+                "userName": "nolly-d",
+                "starCount": 99,
+                "ownComment": false
+            },
+            {
+                "id": 67,
+                "timestamp": 1490000000,
+                "commentText": "Matter is what you don't to me, he don't to she, we don't to we but hopefully we can gather together and figure out what life's about",
+                "userName": "Eyedea",
+                "starCount": 67,
+                "ownComment": false
+            },
+            {
+                "id": 24,
+                "timestamp": 1490000000,
+                "commentText": "We set sail without an anchor, we count upon that never stop; [because] an anchor's just a coffin nail, waiting for that hammer drop",
+                "userName": "Astronautalis",
+                "starCount": 33,
                 "ownComment": false
             }
         ]
