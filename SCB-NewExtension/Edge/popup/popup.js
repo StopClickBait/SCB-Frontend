@@ -110,7 +110,7 @@ $.noConflict();
         // Add handler to posts button:
         $("#postsBttn").on("click", (e) => {
             e.preventDefault();
-            $('#containers').animate({left: -250});
+            $('#containers').animate({left: -250}, "fast");
             $('#back').css('display', 'block');
             getUserPosts();
         });
@@ -133,7 +133,7 @@ $.noConflict();
             e.preventDefault();
 
             $('#back').hide();
-            $('#containers').animate({left: 0});
+            $('#containers').animate({left: 0}, "fast");
         });
 
         // Add handler to logout button:
