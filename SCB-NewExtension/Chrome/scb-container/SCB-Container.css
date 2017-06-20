@@ -8,11 +8,10 @@
     font-style: normal;
 }
 
-body { margin: 0; padding: 0; }
+body { margin: 0; padding: 0; background-color: #e9ebee; }
 
 #card {
     padding: 15px 5px 15px 15px;
-    background-color: #e9ebee;
     font-family: 'Droid Sans Mono', monospace;
     height: 450px;
     color: #828282;

@@ -243,37 +243,51 @@ margin-right: 5px;
             return;
         }
         c.l('container opened');
+		c.l(chrome.runtime.getURL('images/loading.gif'));
         var
+            card,
+            loadImg = $('<div><img src="' +chrome.runtime.getURL('images/loading.gif') +'"></div>').css({
+                maxWidth: '100%',
+                width: 'auto'
+            }).find('img').css({
+                height: 'auto',
+                width: 'auto',
+                maxWidth: '100%'
+            }),
             cardForm = jQuery(e).parents('.fbUserContent').eq(0).child(1).child(0),
             postWidth = cardForm[0].offsetWidth,
-            cardDiv = $('<div>').addClass('SCBcards').id('SCBinterface').css({
+            cardDiv = $('<div>').addClass('SCBcards').id('SCBinterface').insertBefore(cardForm.child(4)).css({
                 left: 0,
                 width: postWidth,
-                backgroundColor: '#99ccff'
-                //marginTop: 38
-            }).insertBefore(cardForm.child(4)),
-            card = $('<iframe>').addClass('SCBcards').id('SCBinterfaceIFRAME').attr('scrolling', 'no').attr('src', chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent(jQuery(e).attr('data-url'))).css({
-                width: postWidth,
-                top: 0,
-                border: 0,
-                left: 0
-            }).on('mouseenter', () => {
-                if (LinkTimeout) {
-                    jQuery(jQuery('#SCBinterface')[0].parentNode.childNodes[0]).addClass('clicked').removeClass('hovered');
-                    clearTimeout(LinkTimeout);
-                    LinkTimeout = null;
-                }
-            }).appendTo(cardDiv)
-            ;
+                backgroundColor: '#e9ebee'
+            }).html(loadImg).hide().stop().slideDown(400, function(){
+                card = $('<iframe>').addClass('SCBcards').id('SCBinterfaceIFRAME').attr('scrolling', 'no').attr('src', chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent(jQuery(e).attr('data-url'))).css({
+                    width: postWidth,
+                    top: 0,
+                    border: 0,
+                    left: 0
+                }).on('mouseenter', () => {
+                    if (LinkTimeout) {
+                        jQuery(jQuery('#SCBinterface')[0].parentNode.childNodes[0]).addClass('clicked').removeClass('hovered');
+                        clearTimeout(LinkTimeout);
+                        LinkTimeout = null;
+                    }
+                }).appendTo($(this)).hide().on('load', function(){
+                    var t = $(this);
 
-        if (!hover) {
-            var intface = jQuery('#SCBinterface');
-            var ifHeight = intface.height();
-            var commentSection = intface.parents('form').eq(0);
-            var csHeight = commentSection.height();
-            commentSection.find('.UFIContainer').css('minHeight', csHeight + (ifHeight - csHeight) + 25);
-        }
+                    loadImg.fadeOut(400, function(){
+                        $(this).remove();
+                        t.fadeIn();
+                    });
+                });
+            })
+        ;
 
+        // listener for container size changes
+        new ResizeSensor(cardDiv, function(){ // when cardDiv changes size
+            // find container containing the post's comments and resize it to the card's height continuously as it slides up and down
+            cardDiv.parents('form').eq(0).find('.UFIContainer').css('minHeight', cardDiv.height());
+        });
     }
 
     function hideSCBContainer() {
@@ -284,7 +298,13 @@ margin-right: 5px;
 
         $('a.__clickbait_btn').removeClass('clicked hovered');
         $('.SCBButtonSpan').removeClass('clicked hovered');
-        $('#SCBinterface').remove();
+        $('#SCBinterface').stop().slideUp(400, function(){
+            $(this).remove();
+            $('div.SCBcards').each(function(){
+                ResizeSensor.detach($(this));
+            });
+        });
+
         clearTimeout(LinkTimeout);
         LinkTimeout = null;
 

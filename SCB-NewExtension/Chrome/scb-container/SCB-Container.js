@@ -431,3 +431,9 @@ function setElementColors(color) {
         }
     }
 }
+
+$(document).ready(function(){
+    setTimeout(function(){
+        $('#card').fadeIn();
+    }, 500);
+});
