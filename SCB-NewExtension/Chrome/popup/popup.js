@@ -54,7 +54,7 @@ $.noConflict();
         }
 
         $('#Profile_Logged_Out').hide();
-        $('#Profile_Logged_In, #settings').css('display', 'block');
+        $('#Profile_Logged_In, #settings, #YourPosts').show();
         $('#profile_name').text(username);
         $('#logout, #separator').css('display', 'inline-block');
 
@@ -110,8 +110,7 @@ $.noConflict();
         // Add handler to posts button:
         $("#postsBttn").on("click", (e) => {
             e.preventDefault();
-            $('#YourPosts').css('display', '');
-            $("#Profile_Logged_In, #settings").hide();
+            $('#containers').animate({left: -250});
             $('#back').css('display', 'block');
             getUserPosts();
         });
@@ -133,8 +132,8 @@ $.noConflict();
         $('#back').on("click", (e) => {
             e.preventDefault();
 
-            $('#YourPosts, #back').hide();
-            $('#Profile_Logged_In, #settings').css('display', 'block');
+            $('#back').hide();
+            $('#containers').animate({left: 0});
         });
 
         // Add handler to logout button:

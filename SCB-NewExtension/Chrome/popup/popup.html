@@ -1,59 +1,73 @@
-﻿<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
+﻿<!doctype html>
+
+<html>
+<head>
     <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-    <link href="popup.css" rel="stylesheet" type="text/css" />
-    <script src="../scripts/jquery.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton">
+    <link rel="stylesheet" href="popup.css">
+    <title></title>
 </head>
 
 <body>
     <div id="Header">
         <div id="back">&lt;</div>
-        <h1 id="header_text">
-            #STOPCLICKBAIT
-        </h1>
-    </div>
-    <div id="Profile_Logged_In">
-        <div id="star_area">
-            <div id="star_container">
-                <div id="star_icon">a</div>
-                <div id="star_number">9999</div>
-            </div>
-        </div>
-        <img id="profile_image" src="../images/test_profile.png" />
-        <div id="profile_name">YourNameHere</div>
-        <div class="button_container">
-            <button data-localize="MyPosts" class="buttons" id="postsBttn">My Posts</button>
-            <!--<button data-localize="Logout" class="buttons" id="login">Logout</button>-->
-        </div>
-    </div>
+        <h1 id="header_text">#STOPCLICKBAIT</h1>
+    </div><!-- #Header -->
 
-    <div id="Profile_Logged_Out">
-        <button data-localize="LoginWithFB" class="buttons" id="login">
-            Login with Facebook
-        </button>
-        <p id="JoinUsMessage" data-localize="JoinUsMessage" style="color: dimgray;">Join us in the fight against clickbait!</p>
-    </div>
+    <div id="containers">
+        <div id="main">
+            <div id="Profile_Logged_In">
+                <div id="star_area">
+                    <div id="star_container">
+                        <div id="star_icon">a</div>
+                        <div id="star_number">9999</div>
+                    </div><!-- #starContainer -->
+                </div><!-- #starArea -->
 
-    <div id="YourPosts">
-        Your Posts
-    </div>
+                <img id="profile_image" src="../images/test_profile.png" alt="" />
 
-    <div id="settings">
-        <h1 data-localize="primaryColor" id="colorHeader">Primary Color</h1>
-        <div id="colors"></div>
+                <div id="profile_name">YourNameHere</div>
 
-        <div id="CheckboxOptions">
-            <div class="checkboxLine"><label for="showExplanation" data-localize="ShowExplanationByDefault">Show expanation by default:</label><input id="showExplanation" type="checkbox" checked="checked" /></div>
-            <div class="checkboxLine"><label for="hoverToOpen" data-localize="HoverToOpen">Hover to open:</label><input id="hoverToOpen" type="checkbox" checked="checked" /></div>
-        </div>
-    </div>
+                <div class="button_container">
+                    <button data-localize="MyPosts" class="buttons" id="postsBttn">My Posts</button>
+                    <!--<button data-localize="Logout" class="buttons" id="login">Logout</button>-->
+                </div>
+            </div><!-- Profile_Logged_In -->
+
+            <div id="settings">
+                <h1 data-localize="primaryColor" id="colorHeader">Primary Color</h1>
+                <div id="colors"></div>
+
+                <div id="CheckboxOptions">
+                    <div class="checkboxLine">
+                        <label for="showExplanation" data-localize="ShowExplanationByDefault">Show expanation by default:</label>
+                        <input id="showExplanation" type="checkbox" checked="checked" />
+                    </div>
+
+                    <div class="checkboxLine">
+                        <label for="hoverToOpen" data-localize="HoverToOpen">Hover to open:</label>
+                        <input id="hoverToOpen" type="checkbox" checked="checked" />
+                    </div>
+                </div><!-- #CheckbocOptions -->
+            </div><!-- #settings -->
+        
+            <div id="Profile_Logged_Out">
+                <button data-localize="LoginWithFB" class="buttons" id="login">Login with Facebook</button>
+                <p id="JoinUsMessage" data-localize="JoinUsMessage" style="color: dimgray;">Join us in the fight against clickbait!</p>
+            </div><!-- Profile_Logged_Out -->
+        </div><!-- #main -->
+
+        <div id="YourPosts"></div><!-- #yourPosts -->
+    </div><!-- #containers -->
+
     <div class="about">
         <a href="http://stopclickbait.com/" data-localize="AboutSCB" target="_blank">About</a>
         <span id="seperator" class="separator">|</span>
         <span data-localize="Logout" id="logout">Logout</span>
-    </div>
+    </div><!-- .about -->
+
+    <script src="../scripts/jquery.js"></script>
     <script src="popup.js"></script>
     <script src="../scripts/i18n.js"></script>
 </body>
+</html>

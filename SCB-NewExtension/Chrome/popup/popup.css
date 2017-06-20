@@ -25,7 +25,17 @@ body {
     padding: 0;
     height: 450px;
     overflow: hidden;
+    position: relative;
 }
+
+#containers {
+    width: 500px;
+    position: absolute;
+}
+
+#main { float: left; }
+
+#main, #yourPosts { width: 250px; }
 
 #Header {
     height: 60px;
@@ -38,6 +48,7 @@ body {
     border-bottom-color: #c6c6c6;
     vertical-align: middle;
     justify-content: center;
+    cursor: default;
 }
 
 #header_text {
@@ -259,13 +270,15 @@ body {
 
 .about {
     height: 20px;
-    
     border-top: 1px solid #c6c6c6;
     color: #3f3f3f;
     background-color: #f9f9f9;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 9pt;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
     .about a {
