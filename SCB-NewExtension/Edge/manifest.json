@@ -15,7 +15,7 @@
       ],
       "js": [
         "scripts/jquery.js",
-        "scripts/resizeSensor.js,
+        "scripts/resizeSensor.js",
         "scripts/stopclickbait.js"
       ]
     },
