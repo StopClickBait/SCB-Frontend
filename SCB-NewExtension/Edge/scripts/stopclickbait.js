@@ -142,7 +142,7 @@ margin-right: 5px;
         // for each element selected above
         $('a._52c6').each(function (i, elem) {
             // if current element is WITHOUT a class of '__clickbait_link'
-            if (!$(elem).hasClass('__clickbait_link')) {
+            if (!$(elem).hasClass('__clickbait_link') && $(elem).parents('._3c21').length == 0) {
                 var
                     node = $(elem).addClass('__clickbait_link'),
                     spanContainer = $(node).parents('.fbUserContent'), // whole post container
