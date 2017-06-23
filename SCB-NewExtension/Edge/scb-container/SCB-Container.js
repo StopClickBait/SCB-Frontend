@@ -339,7 +339,7 @@ function sortCommentsByVotes() {
     $('#topSC').css('fontWeight', 'bold');
     $('#dateSC').css('fontWeight', 'normal');
 
-    var commentCards = $('#commentArea').children(),
+    var commentCards = $('#commentInner').children(),
         sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
 
     if (sortCards.length > 1) {
@@ -349,7 +349,7 @@ function sortCommentsByVotes() {
             return valA - valB;
         });
 
-        commentParent = $('#commentArea').html('');
+        commentParent = $('#commentInner').html('');
         for (i = sortCards.length - 1; i >= 0; --i) {
             commentParent.append(sortCards[i]);
         }
@@ -362,7 +362,7 @@ function sortCommentsByDate() {
     $('#topSC').css('fontWeight', 'normal');
     $('#dateSC').css('fontWeight', 'bold');
 
-    var commentCards = $('#commentArea').children(),
+    var commentCards = $('#commentInner').children(),
         sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
     if (sortCards.length > 1) {
         sortCards.sort(function (a, b) {
@@ -371,7 +371,7 @@ function sortCommentsByDate() {
             return valA - valB;
         });
 
-        var commentParent = $('#commentArea').html('');
+        var commentParent = $('#commentInner').html('');
         for (i = sortCards.length - 1; i >= 0; --i) {
             commentParent.append(sortCards[i]);
         }
