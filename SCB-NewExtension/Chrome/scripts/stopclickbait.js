@@ -185,7 +185,7 @@ margin-right: 5px;
                             displaySCBContainer(anchor, false);
                         })
                         .appendTo(span),
-                    FBPageLink = spanContainer.find('span.fwb').eq(0)[0].childNodes[0].href.split('?')[0],
+                    FBPageLink = spanContainer.find('span.fwb').eq(0)[0].childNodes[0].href.split('?')[0]
                     ;
 
                 if (showDefaultExplanation)
@@ -267,7 +267,7 @@ margin-right: 5px;
                     .addClass('SCBcards')
                     .id('SCBinterfaceIFRAME')
                     .attr('scrolling', 'no')
-                    .attr('src', chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent($(e).attr('data-url') + '&fburl=' + encodeURIComponent($(e).attr('data-fburl')))
+                    .attr('src', chrome.runtime.getURL('scb-container/SCB-Container.html') + '?url=' + encodeURIComponent($(e).attr('data-url') + '&fburl=' + encodeURIComponent($(e).attr('data-fburl'))))
                     .css({
                     width: postWidth,
                     top: 0,

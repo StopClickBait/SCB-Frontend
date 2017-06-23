@@ -32,8 +32,8 @@
   "notClickbait": {
     "message": "NOT CLICKBAIT"
   },
-  "isItClickbait": {
-    "message": "Is it clickbait?"
+  "isThisClickbait": {
+    "message": "Is this clickbait?"
   },
   "MyPosts": {
     "message": "My Posts"
