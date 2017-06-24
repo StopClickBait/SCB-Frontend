@@ -61,19 +61,6 @@ body {
     margin-top: 5px;
 }
 
-#back {
-    cursor: pointer;
-    /* font-size: 18pt; */
-    /* margin-left: -20px; */
-    /* margin-right: 3px; */
-    /* line-height: 50px; */
-    /* color: dimgrey; */
-}
-
-#back:hover {
-    background-color:rgba(0,0,0,0.2);
-}
-
 #profile-logged-in, #profile-logged-out {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -83,7 +70,8 @@ body {
 }
 
 #profile-logged-in {
-	display: none;
+    display: none;
+	cursor: default;
 }
 
 #profile-logged-out {
@@ -214,7 +202,7 @@ body {
 
     .button-container button {
         width: 100px;
-		cursor: pointer;
+        cursor: pointer;
     }
 
 #settings {
@@ -227,7 +215,8 @@ body {
     padding: 0;
     border-top: 1px solid #c6c6c6;
     font-size: 9pt;
-	display: none;
+    display: none;
+	cursor: default;
 }
 
     #settings div {
@@ -276,14 +265,28 @@ body {
     line-height: 23px;
 }
 
-.back {
-	color: #3f3f3f;
+#actions {
 	background-color: #f9f9f9;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 100%;
-	margin: 5px;
+	color: #3f3f3f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    margin: 5px 5px 10px;
+	position: relative;
 }
-.back span { cursor: pointer; padding: 5px; font-weight: bold; }
+
+#back  { cursor: pointer; padding: 5px; font-weight: bold; }
+
+#sorting {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 90%;
+	cursor: default;
+}
+
+	#sorting span { cursor: pointer; }
+	#sorting .separator { margin: 0; cursor: default; }
+	#sorting .selected { font-weight: bold; }
 
 .about {
     height: 20px;
@@ -296,6 +299,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
+	cursor: default;
 }
 
     .about a {
@@ -329,6 +333,7 @@ body {
     height: 15px;
     display: block;
 }
+input[type=checkbox] { cursor: pointer; }
 
 #color-header {
     font-size: 12pt;
@@ -353,6 +358,7 @@ body {
     -webkit-box-shadow: 0 0 6px -2px rgba(0,0,0,1);
     -moz-box-shadow: 0 0 6px -2px rgba(0,0,0,1);
     box-shadow: 0 0 6px -2px rgba(0,0,0,1);
+	cursor: pointer;
 }
 
 .selected-color-button {
@@ -361,15 +367,16 @@ body {
     box-shadow: 0 0 2px 1px rgba(0,187,255,1);
 }
 
+#separator { display: none; }
+
 .separator {
     margin-left: 5px;
     margin-right: 5px;
-	display: none;
 }
 
 #logout {
     cursor: pointer;
-	display: none;
+    display: none;
 }
 
 ::-webkit-scrollbar {
@@ -396,14 +403,16 @@ body {
     font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
-	#your-posts .inner {
-		height: 335px;
-		overflow: auto;
-	}
+    #your-posts .inner {
+        height: 335px;
+        overflow: auto;
+		width: calc(100% - 2px);
+    }
 
+.comment-box:first-of-type { margin-top: 0; }
 .comment-box {
     background-color: #3b5998;
-    margin: 2.5px 5px 2.5px 5px;
+    margin: 4px;
     border-radius: 3px;
     display: flex;
     padding-left: 15px;
@@ -477,8 +486,10 @@ a {
         outline: 0;
     }
 
+.upvotes { cursor: default; }
 .upvote-star {
     font-family: stopclickbait;
+	cursor: default;
 }
 
 .delete-buttons {

@@ -3,29 +3,63 @@
 $.noConflict();
 
 (($) => {
-
     var colors = ["#3b5999", "#00acee", "#c83b6f", "#1bbc9b", "#34495e", "#e84c3d", "#2dcc70", "#9b58b5"];
     var userToken;
-	var yourPosts = $('#your-posts');
-	var settings = $('#settings');
-	var separator = $('.separator');
-	var pLoggedOut = $('#profile-logged-out');
-	var pLoggedIn = $('#profile-logged-in');
-	var pName = $('#profile-name');
-	var pImage = $('#profile-image');
-	var hoverToOpen = $('#hover-to-open');
-	var showExplanation = $('#show-explanation');
-	var viewPosts = $('#view-posts');
-	var containers = $('#containers');
-	var login = $('#login');
-	var logout = $('#logout');
+    var yourPosts = $('#your-posts');
+    var settings = $('#settings');
+    var separator = $('#separator');
+    var pLoggedOut = $('#profile-logged-out');
+    var pLoggedIn = $('#profile-logged-in');
+    var pName = $('#profile-name');
+    var pImage = $('#profile-image');
+    var hoverToOpen = $('#hover-to-open');
+    var showExplanation = $('#show-explanation');
+    var viewPosts = $('#view-posts').on('click', function (e) {
+		// load users scb comments
+		getUserPosts();
+		containers.animate({left: -250}, 'fast');
+		e.preventDefault();
+	});
+    var containers = $('#containers');
+    var login = $('#login').on('click', function (e) {
+		// log user into facebook through scb
+		var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
+		e.preventDefault();
+	});
+    var logout = $('#logout').on('click', function (e) {
+		// remove access token from storage
+		chrome.storage.local.remove('accessToken', function () {
+			console.log('Removed Facebook access key from storage.');
+		});
 
-	// yourPosts.add(settings).add(logout).add(separator).add(pLoggedIn).hide()
-    // $('#profile-logged-out').css('display', 'flex');
-
-	$('<div class="back"/>').html($('<span title="Go Back">&lt; Back</span>').css('fontSize', '90%').on('click', function () {
+		// display logged out interface
 		containers.animate({left: 0}, 'fast');
-	})).prependTo(yourPosts);
+		yourPosts.add(settings).add(logout).add(pLoggedIn).hide();
+		pLoggedOut.css('display', 'flex');
+		e.preventDefault();
+	});
+	var back = $('#back').on('click', function () {
+		// bring user back to main scb window
+		containers.animate({left: 0}, 'fast');
+	});
+	var sorting = $('#sorting');
+	var sortNew = $('#sort-new').on('click', function () {
+		if(!$(this).hasClass('selected')){
+			// sort comments by date
+			sortComments('new');
+		}
+	});
+	var sortVotes = $('#sort-votes').addClass('selected').on('click', function () {
+		if(!$(this).hasClass('selected')){
+			// sort comments by votes
+			sortComments('votes');
+		}
+	});
+
+	if($('.selected', sorting).length > 0){
+		var sortBy = $('.selected', sorting).text() == 'new' ? 'new' : 'votes';
+		sortComments(sortBy)
+	}
 
     setupColors();
 
@@ -47,6 +81,27 @@ $.noConflict();
             }
         });
     });
+
+	function sortComments(by){
+		if(typeof by == 'undefined') return;
+
+		if(by == 'new'){
+			$('.selected', sorting).removeClass('selected');
+			sortNew.addClass('selected');
+
+			$('.comment-box', yourPosts).sort(function (a, b) {
+				return parseInt($(a).attr('data-timestamp')) < parseInt($(b).attr('data-timestamp'));
+			}).appendTo('.inner', yourPosts);
+
+		}else if( by == 'votes'){
+			$('.selected', sorting).removeClass('selected');
+			sortVotes.addClass('selected');
+
+			$('.comment-box', yourPosts).sort(function (a, b) {
+				return parseInt($('.upvotes', a).text()) < parseInt($('.upvotes', b).text());
+			}).appendTo('.inner', yourPosts);
+		}
+	}
 
     ////* LOGIN FUNCTIONS: *////
     function processLogIn(content) {
@@ -94,6 +149,7 @@ $.noConflict();
         chrome.storage.local.get('showDefaultExplanation', (items) => {
             $('#' +showExplanation.attr('id'))[0].checked = items.showDefaultExplanation;
         });
+
         chrome.storage.local.get('hoverToOpen', (items) => {
             $('#' +hoverToOpen.attr('id'))[0].checked = items.hoverToOpen;
         });
@@ -123,39 +179,12 @@ $.noConflict();
 
     ////* SETUP FUNCTION: *////
     function addEventHandlers() {
-        // Add handler to posts button:
-        viewPosts.on("click", (e) => {
-            e.preventDefault();
-            containers.animate({left: -250}, "fast");
-            getUserPosts();
-        });
-
         // Add handler to changed color in storage:
         chrome.storage.onChanged.addListener(function (changes, namespace) {
             if (namespace === "local" && changes["selectedColor"]) {
                 setElementColors(changes["selectedColor"].newValue);
             }
         });
-
-        // Add handler to login button:
-        login.on("click", (e) => {
-            e.preventDefault();
-            var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
-        });
-
-        // Add handler to logout button:
-        logout.on("click", (e) => {
-            e.preventDefault();
-            // Remove access token from storage
-            chrome.storage.local.remove("accessToken", function () {
-                console.log("Removed Facebook access key from storage.");
-            });
-            // Display logged out interface
-			containers.animate({left: 0}, 'fast');
-            $('#your-posts, #settings, #logout, .separator, #profile-logged-in').hide();
-            $('#profile-logged-out').css('display', 'flex');
-        });
-
     }
 
     ////* POSTS FUNCTIONS *////
@@ -167,109 +196,91 @@ $.noConflict();
     }
 
     function getUserPosts() {
-        processUserPosts({
+		$('.inner', yourPosts).html('');
+
+		processUserPosts({
             "comments": [
                 {
                     "id": 1,
-                    "timestamp": 1490000000,
-                    "commentText": "Hello!",
-                    "starCount": 23
+                    "timestamp": 1090836201,
+                    "commentText": "Stop defining flower pedals; sit and observe. No more giving labels to another life that it doesn't deserve",
+                    "starCount": 67
                 },
                 {
                     "id": 2,
-                    "timestamp": 1490000000,
-                    "commentText": "Hello!",
+                    "timestamp": 1038405057,
+                    "commentText": "Everything is worth fighting for; violence never got me anywhere; free thought doesn't cost that much; living is the only thing worth anything",
                     "starCount": 17
                 },
                 {
                     "id": 3,
-                    "timestamp": 1490000000,
+                    "timestamp": 1010098458,
                     "commentText": "This is a comment which is the maximum length of 140 characters long. So the design of the longest comment a user can make can be seen. #SCB",
-                    "starCount": 12
+                    "starCount": 2
                 },
                 {
-                    "commentText": "Hello!",
                     "id": 4,
-                    "starCount": 10,
-                    "timestamp": 1490000000
+                    "timestamp": 1490000000,
+                    "commentText": "You don't know you're wearing a leash, if you sit by the peg all day",
+                    "starCount": 10
                 },
                 {
                     "id": 5,
-                    "timestamp": 1490000000,
-                    "commentText": "Hello!",
-                    "starCount": 8
+                    "timestamp": 1219450809,
+                    "commentText": "Starring at a clock waiting for its time to pass; sudden time-lapse and space passes me by as I feel my body collapse.",
+                    "starCount": 18
                 }
             ]
         });
-        addUserPostsEvents();
     }
 
     function createCommentBox(commentId, timestamp, content, voteNumber) {
-		var
+        var
             commentBox = $('<div class="comment-box" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo($('.inner', yourPosts)),
             commentLeft = $('<div class="comment-left"/>').appendTo(commentBox),
             commentContent = $('<p/>').text(content).appendTo($('<div class="comment-text"/>').appendTo(commentLeft)),
             voteArea = $('<div class="vote-area"/>').appendTo(commentBox),
-            deleteIcon = $('<div class="delete-icon"/>').text('c').appendTo(voteArea),
-            upvoteStar = $('<span class="upvote-star"/>').text('a').appendTo(voteArea),
-            upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea),
-            deleteButtons = $('<div/>').addClass('delete-buttons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
-            deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('delete-button buttons').appendTo(deleteButtons),
-            cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancel-button buttons').appendTo(deleteButtons);
-    }
-
-    function addUserPostsEvents() {
-        $('.delete-icon').each((i, elem) => {
-            $(elem).on('click', () => {
-                $(elem).parents('.comment-box').children('.delete-buttons').css({
+            deleteIcon = $('<div class="delete-icon"/>').text('c').appendTo(voteArea).on('click', function () {
+				$(this).parents('.comment-box').children('.delete-buttons').css({
                     pointerEvents: 'none',
                     display: 'unset'
                 });
-                $(elem).parents('.commentBox').addClass('blocked-comment-box');
-            });
-        });
-
-        $('.cancel-button').each((i, elem) => {
-            $(elem).on('click', () => {
-                var t = $(elem);
-                t.parents('.comment-box').css('pointerEvents', '').addClass('clicked-comment-box');
-                t.parent().hide();
-            });
-        });
-
-        $('.delete-button').each((i, elem) => {
-            $(elem).on('click', () => {
-                var deleteButtons = $(elem).parent();
-                deleteButtons.css({
+                $(this).parents('.commentBox').addClass('blocked-comment-box');
+			}),
+            upvoteStar = $('<span class="upvote-star"/>').text('a').appendTo(voteArea),
+            upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea),
+            deleteButtons = $('<div/>').addClass('delete-buttons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
+            deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('delete-button buttons').on('click', function () {
+				$(this).parent().css({
                     display: 'flex',
                     justifyContent: 'center',
                     verticalAlign: 'middle',
                     alignItems: 'center'
                 }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
-            });
-        });
-
+			}).appendTo(deleteButtons),
+            cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancel-button buttons').on('click', function () {
+				var t = $(this);
+                t.parents('.comment-box').css('pointerEvents', '').addClass('clicked-comment-box');
+                t.parent().hide();
+			}).appendTo(deleteButtons)
+		;
     }
 
     ////* COLOR FUNCTIONS: *////
     function setupColors() {
         // Put the color divs out there
-        for (i = 0; i < colors.length; i++) {
-            var colorDiv = document.createElement("div");
-            colorDiv.className = "color-button";
-            colorDiv.id = colors[i];
-            colorDiv.style.backgroundColor = colors[i];
-            colorDiv.addEventListener("click", function (e) {
-                e.preventDefault();
-                var caller = e.target || e.srcElement;
+        for (var i = 0; i < colors.length; i++) {
+            $('<div class="color-button">').attr('id', colors[i]).css('backgroundColor', colors[i]).on("click", function (e) {
+                var caller = $(this);
 
                 // Set the color to the same as the background color. 
-                chrome.storage.local.set({ 'selectedColor': rgb2hex(caller.style.backgroundColor) }, function () {
-                    console.log(rgb2hex(caller.style.backgroundColor) + " saved to default.");
+                chrome.storage.local.set({ 'selectedColor': rgb2hex(caller.css('backgroundColor')) }, function () {
+                    console.log(rgb2hex(caller.css('backgroundColor')) + " saved to default.");
                 });
-                changeSelectedStyleTo(caller);
-            });
-            document.getElementById("colors").appendChild(colorDiv);
+
+                changeSelectedStyleTo(caller[0]);
+                e.preventDefault();
+            }).appendTo('#colors');
         }
 
         // Get (or set) the color div based on the currently stored setting.
@@ -283,10 +294,12 @@ $.noConflict();
                     return;
                 }
             }
+
             // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
             chrome.storage.local.set({ 'selectedColor': colors[0] }, function () {
                 console.log(colors[0] + " saved to default.");
             });
+
             changeSelectedStyleTo(document.getElementById(colors[0]));
             setElementColors(colors[0]);
         });
@@ -294,55 +307,14 @@ $.noConflict();
 
     function changeSelectedStyleTo(element) {
         // Remove selection styling:
-        var colors = document.getElementById("colors").getElementsByTagName("div");
-        for (i = 0; i < colors.length; i++) {
-            if (colors[i].classList.contains("selected-color-button"))
-                colors[i].classList.remove("selected-color-button");
-        }
-        // Add selection styling to selected div:
-        element.className += " selected-color-button";
+        $('#colors div').removeClass('selected-color-button')
+		// Add selection styling to selected div:
+		$(element).addClass('selected-color-button');
     }
 
     function setElementColors(c) {
-        var a = document.styleSheets;
-        for (var i in a) if (a.hasOwnProperty(i)) {
-            var b;
-            a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
-            for (var j in b) if (b.hasOwnProperty(j)) {
-                if (b[j].selectorText === ".buttons") {
-                    setButtonNormalColor(b[j], c);
-                }
-                if (b[j].selectorText === ".buttons:hover") {
-                    setButtonHoverColor(b[j], c);
-                }
-                if (b[j].selectorText === ".comment-box") {
-                    setBackgroundColor(b[j], c);
-                }
-                if (b[j].selectorText === "#star-area") {
-                    setTextColor(b[j], c);
-                }
-            }
-        }
-    }
-
-    function setButtonNormalColor(bttn, c) {
-        bttn.style.borderColor = c;
-        bttn.style.backgroundColor = "transparent";
-        bttn.style.color = c;
-    }
-
-    function setButtonHoverColor(bttn, c) {
-        bttn.style.backgroundColor = c;
-        bttn.style.borderColor = "transparent";
-        bttn.style.color = "white";
-    }
-
-    function setTextColor(textElm, c) {
-        textElm.style.color = c;
-    }
-
-    function setBackgroundColor(elm, c) {
-        elm.style.backgroundColor = c;
+		var styleSheet = $('style#set-element-colors').length > 0 ? $('style#set-element-colors') : $('<style id="set-element-colors"/>');
+		styleSheet.html('.buttons, #star-area { color: ' +c +'; } .buttons:hover, .comment-box { background-color: ' +c +'; } .buttons { border-color: ' +c +'; background-color: transparent; } .buttons:hover { border-color: transparent; color: #ffffff; }').appendTo('body');
     }
 
     function rgb2hex(rgb) {
