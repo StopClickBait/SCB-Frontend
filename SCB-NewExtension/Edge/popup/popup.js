@@ -5,12 +5,27 @@ $.noConflict();
 (($) => {
 
     var colors = ["#3b5999", "#00acee", "#c83b6f", "#1bbc9b", "#34495e", "#e84c3d", "#2dcc70", "#9b58b5"];
-
-    //var content = null;
     var userToken;
+	var yourPosts = $('#your-posts');
+	var settings = $('#settings');
+	var separator = $('.separator');
+	var pLoggedOut = $('#profile-logged-out');
+	var pLoggedIn = $('#profile-logged-in');
+	var pName = $('#profile-name');
+	var pImage = $('#profile-image');
+	var hoverToOpen = $('#hover-to-open');
+	var showExplanation = $('#show-explanation');
+	var viewPosts = $('#view-posts');
+	var containers = $('#containers');
+	var login = $('#login');
+	var logout = $('#logout');
 
-    $('#YourPosts, #settings, #logout, #separator, #back, #Profile_Logged_In').hide();
-    $('#Profile_Logged_Out').css('display', 'flex');
+	// yourPosts.add(settings).add(logout).add(separator).add(pLoggedIn).hide()
+    // $('#profile-logged-out').css('display', 'flex');
+
+	$('<div class="back"/>').html($('<span title="Go Back">&lt; Back</span>').css('fontSize', '90%').on('click', function () {
+		containers.animate({left: 0}, 'fast');
+	})).prependTo(yourPosts);
 
     setupColors();
 
@@ -53,16 +68,17 @@ $.noConflict();
             username = "BetaUser";
         }
 
-        $('#Profile_Logged_Out').hide();
-        $('#Profile_Logged_In, #settings, #YourPosts').show();
-        $('#profile_name').text(username);
-        $('#logout, #separator').css('display', 'inline-block');
+        pLoggedOut.hide();
+        pLoggedIn.add(settings).add(yourPosts).show();
+        pName.text(username);
+        logout.add(separator).css('display', 'inline-block');
 
-        $('#showExplanation').on('click', () => {
-            chrome.storage.local.set({ 'showDefaultExplanation': document.getElementById('showExplanation').checked }, () => { console.log("showExplanation: " + document.getElementById('showExplanation').checked); });
+        showExplanation.on('click', () => {
+            chrome.storage.local.set({ 'showDefaultExplanation': $('#' +showExplanation.attr('id'))[0].checked }, () => { console.log("showExplanation: " + $('#' +showExplanation.attr('id'))[0].checked); });
         });
-        $('#hoverToOpen').on('click', () => {
-            chrome.storage.local.set({ 'hoverToOpen': document.getElementById('hoverToOpen').checked }, () => { console.log("HoverToOpen: " + document.getElementById('HoverToOpen').checked); });
+
+        hoverToOpen.on('click', () => {
+            chrome.storage.local.set({ 'hoverToOpen': $('#' +hoverToOpen.attr('id'))[0].checked }, () => { console.log("HoverToOpen: " + $('#' +hoverToOpen.attr('id'))[0].checked); });
         });
 
         $.ajax({
@@ -70,16 +86,16 @@ $.noConflict();
             url: 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=large&height=300&width=300',
             success: (content) => {
                 if (!content.error) {
-                    $('#profile_image').attr('src', content.data.url);
+                    pImage.attr('src', content.data.url);
                 }
             }
         });
 
         chrome.storage.local.get('showDefaultExplanation', (items) => {
-            document.getElementById('showExplanation').checked = items.showDefaultExplanation;
+            $('#' +showExplanation.attr('id'))[0].checked = items.showDefaultExplanation;
         });
         chrome.storage.local.get('hoverToOpen', (items) => {
-            document.getElementById('hoverToOpen').checked = items.hoverToOpen;
+            $('#' +hoverToOpen.attr('id'))[0].checked = items.hoverToOpen;
         });
     }
 
@@ -108,10 +124,9 @@ $.noConflict();
     ////* SETUP FUNCTION: *////
     function addEventHandlers() {
         // Add handler to posts button:
-        $("#postsBttn").on("click", (e) => {
+        viewPosts.on("click", (e) => {
             e.preventDefault();
-            $('#containers').animate({left: -250}, "fast");
-            $('#back').css('display', 'block');
+            containers.animate({left: -250}, "fast");
             getUserPosts();
         });
 
@@ -123,30 +138,22 @@ $.noConflict();
         });
 
         // Add handler to login button:
-        $("#login").on("click", (e) => {
+        login.on("click", (e) => {
             e.preventDefault();
             var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
         });
 
-        var backButton = document.getElementById("back");
-        $('#back').on("click", (e) => {
-            e.preventDefault();
-
-            $('#back').hide();
-            $('#containers').animate({left: 0}, "fast");
-        });
-
         // Add handler to logout button:
-        var logoutButton = document.getElementById("logout");
-        $('#logout').on("click", (e) => {
+        logout.on("click", (e) => {
             e.preventDefault();
             // Remove access token from storage
             chrome.storage.local.remove("accessToken", function () {
                 console.log("Removed Facebook access key from storage.");
             });
             // Display logged out interface
-            $('#YourPosts, #settings, #logout, #separator, #back, #Profile_Logged_In').hide();
-            $('#Profile_Logged_Out').css('display', 'flex');
+			containers.animate({left: 0}, 'fast');
+            $('#your-posts, #settings, #logout, .separator, #profile-logged-in').hide();
+            $('#profile-logged-out').css('display', 'flex');
         });
 
     }
@@ -160,8 +167,6 @@ $.noConflict();
     }
 
     function getUserPosts() {
-        var commentArea = document.getElementById("YourPosts");
-        commentArea.innerHTML = "";
         processUserPosts({
             "comments": [
                 {
@@ -200,39 +205,39 @@ $.noConflict();
     }
 
     function createCommentBox(commentId, timestamp, content, voteNumber) {
-        var
-            commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo($('#YourPosts')),
-            commentLeft = $('<div/>').addClass('commentLeft').appendTo(commentBox),
-            commentContent = $('<p/>').text(content).appendTo($('<div/>').addClass('commentText').appendTo(commentLeft)),
-            voteArea = $('<div/>').addClass('voteArea').appendTo(commentBox),
-            deleteIcon = $('<div/>').addClass('deleteIcon').text('c').appendTo(voteArea),
-            upvoteStar = $('<span/>').addClass('upvoteStar').text('a').appendTo(voteArea),
-            upvotes = $('<span/>').addClass('upvotes').text(voteNumber).appendTo(voteArea),
-            deleteButtons = $('<div/>').addClass('deleteButtons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
-            deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('deleteButton buttons').appendTo(deleteButtons),
-            cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancelButton buttons').appendTo(deleteButtons);
+		var
+            commentBox = $('<div class="comment-box" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo($('.inner', yourPosts)),
+            commentLeft = $('<div class="comment-left"/>').appendTo(commentBox),
+            commentContent = $('<p/>').text(content).appendTo($('<div class="comment-text"/>').appendTo(commentLeft)),
+            voteArea = $('<div class="vote-area"/>').appendTo(commentBox),
+            deleteIcon = $('<div class="delete-icon"/>').text('c').appendTo(voteArea),
+            upvoteStar = $('<span class="upvote-star"/>').text('a').appendTo(voteArea),
+            upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea),
+            deleteButtons = $('<div/>').addClass('delete-buttons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
+            deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('delete-button buttons').appendTo(deleteButtons),
+            cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancel-button buttons').appendTo(deleteButtons);
     }
 
     function addUserPostsEvents() {
-        $('.deleteIcon').each((i, elem) => {
+        $('.delete-icon').each((i, elem) => {
             $(elem).on('click', () => {
-                $(elem).parents('.commentBox').children('.deleteButtons').css({
+                $(elem).parents('.comment-box').children('.delete-buttons').css({
                     pointerEvents: 'none',
                     display: 'unset'
                 });
-                $(elem).parents('.commentBox').addClass('blockedCommentBox');
+                $(elem).parents('.commentBox').addClass('blocked-comment-box');
             });
         });
 
-        $('.cancelButton').each((i, elem) => {
+        $('.cancel-button').each((i, elem) => {
             $(elem).on('click', () => {
                 var t = $(elem);
-                t.parents('.commentBox').css('pointerEvents', '').addClass('clickedCommentBox');
+                t.parents('.comment-box').css('pointerEvents', '').addClass('clicked-comment-box');
                 t.parent().hide();
             });
         });
 
-        $('.deleteButton').each((i, elem) => {
+        $('.delete-button').each((i, elem) => {
             $(elem).on('click', () => {
                 var deleteButtons = $(elem).parent();
                 deleteButtons.css({
@@ -246,13 +251,12 @@ $.noConflict();
 
     }
 
-
     ////* COLOR FUNCTIONS: *////
     function setupColors() {
         // Put the color divs out there
         for (i = 0; i < colors.length; i++) {
             var colorDiv = document.createElement("div");
-            colorDiv.className = "colorButton";
+            colorDiv.className = "color-button";
             colorDiv.id = colors[i];
             colorDiv.style.backgroundColor = colors[i];
             colorDiv.addEventListener("click", function (e) {
@@ -292,11 +296,11 @@ $.noConflict();
         // Remove selection styling:
         var colors = document.getElementById("colors").getElementsByTagName("div");
         for (i = 0; i < colors.length; i++) {
-            if (colors[i].classList.contains("selectedColorButton"))
-                colors[i].classList.remove("selectedColorButton");
+            if (colors[i].classList.contains("selected-color-button"))
+                colors[i].classList.remove("selected-color-button");
         }
         // Add selection styling to selected div:
-        element.className += " selectedColorButton";
+        element.className += " selected-color-button";
     }
 
     function setElementColors(c) {
@@ -311,10 +315,10 @@ $.noConflict();
                 if (b[j].selectorText === ".buttons:hover") {
                     setButtonHoverColor(b[j], c);
                 }
-                if (b[j].selectorText === ".commentBox") {
+                if (b[j].selectorText === ".comment-box") {
                     setBackgroundColor(b[j], c);
                 }
-                if (b[j].selectorText === "#star_area") {
+                if (b[j].selectorText === "#star-area") {
                     setTextColor(b[j], c);
                 }
             }

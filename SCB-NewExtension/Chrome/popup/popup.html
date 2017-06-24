@@ -9,55 +9,58 @@
 </head>
 
 <body>
-    <div id="Header">
-        <div id="back">&lt;</div>
-        <h1 id="header_text">#STOPCLICKBAIT</h1>
-    </div><!-- #Header -->
+    <div id="header">
+        <!--<div id="back">&lt;</div>-->
+        <h1 id="header-text">#STOPCLICKBAIT</h1>
+    </div><!-- #header -->
 
     <div id="containers">
         <div id="main">
-            <div id="Profile_Logged_In">
-                <div id="star_area">
-                    <div id="star_container">
-                        <div id="star_icon">a</div>
-                        <div id="star_number">9999</div>
-                    </div><!-- #starContainer -->
-                </div><!-- #starArea -->
+            <div id="profile-logged-in">
+                <div id="star-area">
+                    <div id="star-container">
+                        <div id="star-icon">a</div>
+                        <div id="star-number">9999</div>
+                    </div><!-- #star-container -->
+                </div><!-- #star-area -->
 
-                <img id="profile_image" src="../images/test_profile.png" alt="" />
+                <img id="profile-image" src="../images/test_profile.png" alt="" />
 
-                <div id="profile_name">YourNameHere</div>
+                <div id="profile-name">YourNameHere</div>
 
-                <div class="button_container">
-                    <button data-localize="MyPosts" class="buttons" id="postsBttn">My Posts</button>
-                    <!--<button data-localize="Logout" class="buttons" id="login">Logout</button>-->
+                <div class="button-container">
+                    <button data-localize="MyPosts" class="buttons" id="view-posts">My Posts</button>
                 </div>
-            </div><!-- Profile_Logged_In -->
+            </div><!-- #profile-logged-in -->
 
             <div id="settings">
-                <h1 data-localize="primaryColor" id="colorHeader">Primary Color</h1>
+                <h1 data-localize="primaryColor" id="color-header">Primary Color</h1>
                 <div id="colors"></div>
 
-                <div id="CheckboxOptions">
-                    <div class="checkboxLine">
-                        <label for="showExplanation" data-localize="ShowExplanationByDefault">Show expanation by default:</label>
-                        <input id="showExplanation" type="checkbox" checked="checked" />
+                <div id="checkbox-options">
+                    <div class="checkbox-line">
+                        <label for="show-explanation" data-localize="ShowExplanationByDefault">Show expanation by default:</label>
+                        <input id="show-explanation" type="checkbox" checked="checked" />
                     </div>
 
-                    <div class="checkboxLine">
-                        <label for="hoverToOpen" data-localize="HoverToOpen">Hover to open:</label>
-                        <input id="hoverToOpen" type="checkbox" checked="checked" />
+                    <div class="checkbox-line">
+                        <label for="hover-to-open" data-localize="HoverToOpen">Hover to open:</label>
+                        <input id="hover-to-open" type="checkbox" checked="checked" />
                     </div>
-                </div><!-- #CheckbocOptions -->
+                </div><!-- #checkbox-options -->
             </div><!-- #settings -->
         
-            <div id="Profile_Logged_Out">
+            <div id="profile-logged-out">
                 <button data-localize="LoginWithFB" class="buttons" id="login">Login with Facebook</button>
-                <p id="JoinUsMessage" data-localize="JoinUsMessage" style="color: dimgray;">Join us in the fight against clickbait!</p>
-            </div><!-- Profile_Logged_Out -->
+                <p id="join-us" data-localize="JoinUsMessage" style="color: dimgray;">Join us in the fight against clickbait!</p>
+            </div><!-- #profile-logged-out -->
         </div><!-- #main -->
 
-        <div id="YourPosts"></div><!-- #yourPosts -->
+        <div id="your-posts">
+            <div class="inner">
+            
+            </div>
+        </div><!-- #your-posts -->
     </div><!-- #containers -->
 
     <div class="about">

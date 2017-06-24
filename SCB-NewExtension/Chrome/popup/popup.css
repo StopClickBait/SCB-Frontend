@@ -35,9 +35,9 @@ body {
 
 #main { float: left; }
 
-#main, #yourPosts { width: 250px; }
+#main, #your-posts { width: 250px; }
 
-#Header {
+#header {
     height: 60px;
     background: #f9f9f9;
     margin: 0;
@@ -51,7 +51,7 @@ body {
     cursor: default;
 }
 
-#header_text {
+#header-text {
     text-align: center;
     font-size: 31pt;
     font-family: DINCondBold, sans-serif;
@@ -63,17 +63,18 @@ body {
 
 #back {
     cursor: pointer;
-    font-size: 18pt;
-    margin-left: -20px;
-    margin-right: 3px;
-    line-height: 50px;
-    color: dimgrey;
+    /* font-size: 18pt; */
+    /* margin-left: -20px; */
+    /* margin-right: 3px; */
+    /* line-height: 50px; */
+    /* color: dimgrey; */
 }
 
 #back:hover {
     background-color:rgba(0,0,0,0.2);
 }
-#Profile_Logged_In, #Profile_Logged_Out {
+
+#profile-logged-in, #profile-logged-out {
     padding-top: 10px;
     padding-bottom: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -81,7 +82,11 @@ body {
     height: 220px;
 }
 
-#Profile_Logged_Out {
+#profile-logged-in {
+    display: none;
+}
+
+#profile-logged-out {
     height: 350px;
     display: flex;
     vertical-align: middle;
@@ -90,14 +95,14 @@ body {
     flex-direction: column;
 }
 
-#profile_image {
+#profile-image {
     border-radius: 50%;
     height: 90px;
     margin: auto;
     display: block;
 }
 
-#profile_name {
+#profile-name {
     text-align: center;
     margin: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -108,12 +113,12 @@ body {
     cursor: pointer;
 }
 
-#JoinUsMessage {
+#join-us {
     color: dimgray;
 }
 
 /* Shared */
-.loginBtn {
+.login-btn {
     box-sizing: border-box;
     position: relative;
     /* width: 13em;  - apply for fixed size */
@@ -129,7 +134,7 @@ body {
     background-color: transparent;
 }
 
-    .loginBtn:before {
+    .login-btn:before {
         content: "";
         box-sizing: border-box;
         position: absolute;
@@ -139,13 +144,14 @@ body {
         height: 100%;
     }
 
-    .loginBtn:focus {
+    .login-btn:focus {
         outline: none;
     }
 
-    .loginBtn:active {
+    .login-btn:active {
         box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
     }
+
 .buttons {
     box-sizing: border-box;
     position: relative;
@@ -168,12 +174,12 @@ body {
     .buttons:focus {
         outline: 0;
     }
-#Profile_Logged_Out button {
+#profile-logged-out button {
     color: #3b5999;
     background-color: transparent;
     border-color: #3b5999;
 }
-#Profile_Logged_Out button:hover {
+#profile-logged-out button:hover {
     color: #fff;
     background-color: #3b5999;
     border-color: transparent;
@@ -197,17 +203,18 @@ body {
         background-image: linear-gradient(#5B7BD5, #4864B1);
     }*/
 
-#profile_name {
+#profile-name {
     margin: 10px;
     font-size: 20px;
 }
 
-.button_container {
+.button-container {
     text-align: center;
 }
 
-    .button_container button {
+    .button-container button {
         width: 100px;
+        cursor: pointer;
     }
 
 #settings {
@@ -220,20 +227,21 @@ body {
     padding: 0;
     border-top: 1px solid #c6c6c6;
     font-size: 9pt;
+    display: none;
 }
 
     #settings div {
         margin: 5px;
     }
 
-#star_container {
+#star-container {
     display: block;
     width: auto;
     text-align: center;
     height: 23px;
 }
 
-#star_icon {
+#star-icon {
     font-family: stopclickbait;
     /*font-size: 57px;
     position:absolute;
@@ -244,7 +252,7 @@ body {
     position: relative;
 }
 
-#star_number {
+#star-number {
     /*color: white;*/
     font-weight: bold;
     /*position:absolute;
@@ -260,13 +268,22 @@ body {
     position: relative;
 }
 
-#star_area {
+#star-area {
     position: relative;
     margin-bottom: 10px;
     text-align: center;
     height: 23px;
     line-height: 23px;
 }
+
+.back {
+    color: #3f3f3f;
+    background-color: #f9f9f9;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    margin: 5px;
+}
+.back span { cursor: pointer; padding: 5px; font-weight: bold; }
 
 .about {
     height: 20px;
@@ -290,30 +307,30 @@ body {
         color: black;
     }
 
-#CheckboxOptions {
+#checkbox-options {
     padding: 10px;
     height: 30px;
 }
 
-.checkboxline {
+.checkbox-line {
     width: inherit;
 }
 
-.checkboxline label {
+.checkbox-line label {
     float: left;
 }
 
-.checkboxline input {
+.checkbox-line input {
     float: right;
 }
 
-.checkboxline {
+.checkbox-line {
     width: auto;
     height: 15px;
     display: block;
 }
 
-#colorHeader {
+#color-header {
     font-size: 12pt;
     margin-bottom: 0;
 }
@@ -326,7 +343,7 @@ body {
     text-align: center;
 }
 
-.colorButton {
+.color-button {
     border: 1px solid white;
     display: inline-block;
     border-radius: 2px;
@@ -338,7 +355,7 @@ body {
     box-shadow: 0 0 6px -2px rgba(0,0,0,1);
 }
 
-.selectedColorButton {
+.selected-color-button {
     -webkit-box-shadow: 0 0 2px 1px rgba(0,187,255,1);
     -moz-box-shadow: 0 0 2px 1px rgba(0,187,255,1);
     box-shadow: 0 0 2px 1px rgba(0,187,255,1);
@@ -347,27 +364,44 @@ body {
 .separator {
     margin-left: 5px;
     margin-right: 5px;
+    display: none;
 }
 
 #logout {
     cursor: pointer;
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #828282;
+    border-radius: 3px;
+    width: 6px;
 }
 
 #logout:hover {
     color: black;
 }
 
-#YourPosts {
+#your-posts {
     font-size: 10.5pt;
-    overflow: auto;
+    /* overflow: auto; */
     display: flex;
     flex-direction: column;
     background-color: white;
-    height: 371px;
+    /* height: 371px; */
     font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.commentBox {
+    #your-posts .inner {
+        height: 335px;
+        overflow: auto;
+    }
+
+.comment-box {
     background-color: #3b5998;
     margin: 2.5px 5px 2.5px 5px;
     border-radius: 3px;
@@ -381,24 +415,24 @@ body {
     justify-content: space-between;
 }
 
-    .commentBox a {
+    .comment-box a {
         color: white;
     }
 
-.commentLeft {
+.comment-left {
     display: flex;
     align-items: center;
     max-width: 160px;
 }
 
 
-.commentText {
+.comment-text {
     margin-top: 8px;
     margin-bottom: 8px;
     margin-right: 5px;
 }
 
-    .commentText p {
+    .comment-text p {
         margin: 0;
     }
 
@@ -409,7 +443,7 @@ a {
     padding-right: 3px;
 }
 
-.voteArea {
+.vote-area {
     width: 20%;
     float: right;
     text-align: right;
@@ -424,7 +458,7 @@ a {
     margin-bottom: 8px;
 }
 
-.deleteIcon {
+.delete-icon {
     color: white;
     position: absolute;
     cursor: pointer;
@@ -439,15 +473,15 @@ a {
     font-family: "stopclickbait";
 }
 
-    .deleteIcon:focus {
+    .delete-icon:focus {
         outline: 0;
     }
 
-.upvoteStar {
+.upvote-star {
     font-family: stopclickbait;
 }
 
-.deleteButtons {
+.delete-buttons {
     /*color: white;*/
     position: absolute;
     top: 0;
@@ -462,7 +496,7 @@ a {
     
 }
 
-.deleteButton {
+.delete-button {
     /*background-color: #3b5998;
     border: 0;*/
     height: 40px;
@@ -477,11 +511,11 @@ a {
     font-size: 12pt;
 }
 
-    .deleteButton:hover {
+    .delete-button:hover {
         /*background-color: #2a4887;*/
     }
 
-.cancelButton {
+.cancel-button {
     /*background-color: #828282;
     color: white;
     border: 0;*/
@@ -496,6 +530,6 @@ a {
     font-size: 12pt;
 }
 
-    .cancelButton:hover {
+    .cancel-button:hover {
         /*background-color: #707070;*/
     }
