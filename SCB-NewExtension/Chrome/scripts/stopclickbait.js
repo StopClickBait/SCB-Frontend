@@ -38,8 +38,8 @@ jQuery.fn.hasClasses = function () {
 };
 
 (function ($) {
-
     'use strict';
+
     const DEBUG = true;
     var
         showDefaultExplanation = true,
@@ -245,7 +245,6 @@ margin-right: 5px;
             return;
         }
         c.l('container opened');
-		c.l(chrome.runtime.getURL('images/loading.gif'));
         var
             card,
             loadImg = $('<div><img src="' +chrome.runtime.getURL('images/loading.gif') +'"></div>').css({
@@ -336,17 +335,19 @@ margin-right: 5px;
         realURL = realURL.substring(0, realURL.indexOf('?'));
         element.addClass('_5pbx __clickbait_reveal_line').id('__clickbait_reveal_line_' + id);
 
-        if (!DEBUG) {
-            $.ajax({
-                method: 'POST',
-                url: 'https://server.stopclickbait.com/getTopComment.php',
-                data: { url: encodeURIComponent(realURL), userid: userID },
-                success: function (content) {
-                    element.text(content);
-                }
-            });
-        } else {
-            element.text('This is a StopClickBait test.');
+        if(showDefaultExplanation){
+            if (!DEBUG) {
+                $.ajax({
+                    method: 'POST',
+                    url: 'https://server.stopclickbait.com/getTopComment.php',
+                    data: { url: encodeURIComponent(realURL), userid: userID },
+                    success: function (content) {
+                        element.text(content);
+                    }
+                });
+            } else {
+                element.text('This is a StopClickBait test.');
+            }
         }
     }
 

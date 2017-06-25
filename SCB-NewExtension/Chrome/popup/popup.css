@@ -87,9 +87,17 @@ body {
 #profile-image {
     border-radius: 50%;
     height: 90px;
+    width: 90px;
     margin: auto;
     display: block;
+    border: 2px solid transparent;
+    overflow: hidden;
 }
+    #profile-image img {
+        height: auto;
+        width: auto;
+        max-width: 100%;
+    }
 
 #profile-name {
     text-align: center;
