@@ -94,7 +94,7 @@ $.noConflict();
             sortNew.addClass('selected');
 
             $('.comment-box', yourPosts).sort(function (a, b) {
-                return parseInt($(a).attr('data-timestamp')) < parseInt($(b).attr('data-timestamp'));
+                return parseInt($(b).attr('data-timestamp')) - parseInt($(a).attr('data-timestamp'));
             }).appendTo('.inner', yourPosts);
 
         }else if( by == 'votes'){
@@ -102,7 +102,7 @@ $.noConflict();
             sortVotes.addClass('selected');
 
             $('.comment-box', yourPosts).sort(function (a, b) {
-                return parseInt($('.upvotes', a).text()) < parseInt($('.upvotes', b).text());
+                return parseInt($('.upvotes', b).text()) - parseInt($('.upvotes', a).text());
             }).appendTo('.inner', yourPosts);
         }
     }
