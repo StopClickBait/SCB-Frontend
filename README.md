@@ -13,7 +13,7 @@ Stopping clickbait one line at a time
   * navigate to `chrome://extensions/`
   * check 'Developer Mode' box (Opera users: click 'Developer Mode')
   * click 'Load unpacked extension...'
-  * locate unpacked location and choose `Chrome/` or `Edge/` folder
+  * locate unpacked location and choose `Chrome/` folder
 
 ### Loading User Extension in Edge
   * download and unpack `SCB-Frontend-master.zip`
