@@ -12,21 +12,25 @@ $.noConflict();
     var pLoggedIn = $('#profile-logged-in');
     var pName = $('#profile-name');
     var pImage = $('#profile-image');
-    var hoverToOpen = $('#hover-to-open');
-    var showExplanation = $('#show-explanation');
-    var viewPosts = $('#view-posts').on('click', function (e) {
+    var hoverToOpen = $('#hover-to-open').on('click', () => {
+        chrome.storage.local.set({ 'hoverToOpen': hoverToOpen[0].checked }, () => { console.log("HoverToOpen: " + hoverToOpen[0].checked); });
+    });
+    var showExplanation = $('#show-explanation').on('click', () => {
+        chrome.storage.local.set({ 'showDefaultExplanation': showExplanation[0].checked }, () => { console.log("showExplanation: " + showExplanation[0].checked); });
+    });
+    var viewPosts = $('#view-posts').on('click', (e) => {
         // load users scb comments
         getUserPosts();
         containers.animate({left: -250}, 'fast');
         e.preventDefault();
     });
     var containers = $('#containers');
-    var login = $('#login').on('click', function (e) {
+    var login = $('#login').on('click', (e) => {
         // log user into facebook through scb
         var win = window.open('https://www.facebook.com/v2.9/dialog/oauth?client_id=137575509998503&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html');
         e.preventDefault();
     });
-    var logout = $('#logout').on('click', function (e) {
+    var logout = $('#logout').on('click', (e) => {
         // remove access token from storage
         chrome.storage.local.remove('accessToken', function () {
             console.log('Removed Facebook access key from storage.');
@@ -38,7 +42,7 @@ $.noConflict();
         pLoggedOut.css('display', 'flex');
         e.preventDefault();
     });
-    var back = $('#back').on('click', function () {
+    var back = $('#back').on('click', () => {
         // bring user back to main scb window
         containers.animate({left: 0}, 'fast');
     });
@@ -128,20 +132,12 @@ $.noConflict();
         pName.text(username);
         logout.add(separator).css('display', 'inline-block');
 
-        showExplanation.on('click', () => {
-            chrome.storage.local.set({ 'showDefaultExplanation': $('#' +showExplanation.attr('id'))[0].checked }, () => { console.log("showExplanation: " + $('#' +showExplanation.attr('id'))[0].checked); });
-        });
-
-        hoverToOpen.on('click', () => {
-            chrome.storage.local.set({ 'hoverToOpen': $('#' +hoverToOpen.attr('id'))[0].checked }, () => { console.log("HoverToOpen: " + $('#' +hoverToOpen.attr('id'))[0].checked); });
-        });
-
         $.ajax({
             method: 'GET',
             url: 'https://graph.facebook.com/v2.9/me/picture?access_token=' + userToken + '&redirect=false&type=large&height=300&width=300',
             success: (content) => {
                 if (!content.error) {
-                    pImage.attr('src', content.data.url);
+                    $('img', pImage).attr('src', content.data.url);
                 }
             }
         });
@@ -175,7 +171,6 @@ $.noConflict();
             return "BetaUser";
         }
     }
-
 
     ////* SETUP FUNCTION: *////
     function addEventHandlers() {
@@ -326,7 +321,7 @@ $.noConflict();
 
     function setElementColors(c) {
         var styleSheet = $('style#set-element-colors').length > 0 ? $('style#set-element-colors') : $('<style id="set-element-colors"/>');
-        styleSheet.html('.buttons, #star-area, .comment-text p::selection { color: ' +c +'; } .buttons:hover, .comment-box { background-color: ' +c +'; } .buttons { border-color: ' +c +'; background-color: transparent; } .buttons:hover { border-color: transparent; color: #ffffff; }').appendTo('body');
+        styleSheet.html('.buttons, #star-area, .comment-text p::selection { color: ' +c +'; } .buttons:hover, .comment-box { background-color: ' +c +'; } .buttons, #profile-image { border-color: ' +c +'; background-color: transparent; } .buttons:hover { border-color: transparent; color: #ffffff; }').appendTo('body');
     }
 
     function rgb2hex(rgb) {
