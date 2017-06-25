@@ -112,16 +112,16 @@ function addEventHandlers() {
 
     var submitCB = $('#submitCB');
     var submitHeight = submitCB[0].offsetHeight;
+    var commentArea = $('#commentArea');
 
     submitCB.on('focusin', () => {
-        submitCB.height(0);
-        submitCB.css({
+        submitCB.attr('style', '').css({
             paddingBottom: 20,
             height: submitCB[0].scrollHeight + 50
         });
         $('#controlBar, #controlBarButtons').css('display', 'block');
         $('#charCounter').css('display', 'flex');
-        $('#commentArea').css('height', 305 - submitCB[0].offsetHeight);
+        commentArea.css('height', 305 - submitCB[0].offsetHeight);
     }).on('focusout', function () {
         if (submitCB.val().length === 0) {
             $('#controlBar, #charCounter, #controlBarButtons').hide();
@@ -129,7 +129,7 @@ function addEventHandlers() {
                 height: submitHeight,
                 paddingBottom: 0
             });
-            $('#commentArea').css('height', 265);
+            commentArea.css('height', 265);
         }
     }).on('input', () => {
         var submitCB = $('#submitCB');
@@ -138,9 +138,7 @@ function addEventHandlers() {
         }
         var value = submitCB.val().length;
         $('#charCounter').text(140 - value);
-        submitCB.height(0);
-        submitCB.height(submitCB.scrollHeight + 0);
-        $('#commentArea').css('height', 305 - submitArea.offsetHeight);
+        commentArea.css('height', 305 - submitArea.offsetHeight);
         if (submitCB.val().indexOf('\n') !== -1) {
             submitCB.val(submitCB.val().replace('\n', ' '));
         }
