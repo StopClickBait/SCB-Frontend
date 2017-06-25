@@ -14,3 +14,12 @@ Stopping clickbait one line at a time
   * check 'Developer Mode' box (Opera users: click 'Developer Mode')
   * click 'Load unpacked extension...'
   * locate unpacked location and choose `Chrome/` or `Edge/` folder
+
+### Loading User Extension in Edge
+  * download and unpack `SCB-Frontend-master.zip`
+  * navigate to `about:flags`
+  * check the 'Enable extension developer features' checkbox
+  * click the three dot button in the upper-right for the menu
+  * click extensions
+  * click "load extension"
+  * specify the `Edge/` folder in the unpacked zip file.
