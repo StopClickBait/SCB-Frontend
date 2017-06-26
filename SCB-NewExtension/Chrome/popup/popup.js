@@ -250,8 +250,7 @@ $.noConflict();
             deleteIcon = $('<div class="delete-icon"/>').text('c').appendTo(voteArea).on('click', function () {
                 $(this).parents('.comment-box').children('.delete-buttons').css({
                     pointerEvents: 'none',
-                    display: 'unset'
-                });
+                }).fadeIn('fast');
                 $(this).parents('.commentBox').addClass('blocked-comment-box');
             }),
             upvoteStar = $('<span class="upvote-star"/>').text('a').appendTo(voteArea),
@@ -259,16 +258,15 @@ $.noConflict();
             deleteButtons = $('<div/>').addClass('delete-buttons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
             deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('delete-button buttons').on('click', function () {
                 $(this).parent().css({
-                    display: 'flex',
-                    justifyContent: 'center',
-                    verticalAlign: 'middle',
-                    alignItems: 'center'
-                }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
+                    overflow: 'hidden'
+                }).html('<div style="height: ' +$(this).parent().height() +'px; display: flex; align-items: center; justify-content: center;"><span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span></div>').parent().delay(1000).slideUp('fast', function(){this.remove();});
             }).appendTo(deleteButtons),
             cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancel-button buttons').on('click', function () {
                 var t = $(this);
                 t.parents('.comment-box').css('pointerEvents', '').addClass('clicked-comment-box');
-                t.parent().hide();
+                t.parent().animate({left: '100%'}, 'fast', () => {
+                    t.parent().hide().css({left: 0});
+                });
             }).appendTo(deleteButtons)
         ;
     }
