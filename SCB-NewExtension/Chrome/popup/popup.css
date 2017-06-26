@@ -449,6 +449,7 @@ input[type=checkbox] { cursor: pointer; }
     color: white;
     justify-content: space-between;
     overflow: hidden;
+    letter-spacing: 1px;
 }
 
     .comment-box a {

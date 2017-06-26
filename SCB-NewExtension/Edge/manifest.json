@@ -50,6 +50,8 @@
   "web_accessible_resources": [
     "scb-container/SCB-Container.html",
     "scripts/jquery.js",
+    "scripts/jScrollPane.js",
+    "scripts/mouseWheel.js",
     "images/loading.gif"
   ]
 }

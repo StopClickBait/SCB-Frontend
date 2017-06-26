@@ -95,7 +95,7 @@ $.noConflict();
 
             $('.comment-box', yourPosts).sort(function (a, b) {
                 return parseInt($(b).attr('data-timestamp')) - parseInt($(a).attr('data-timestamp'));
-            }).appendTo('.inner', yourPosts);
+            }).appendTo('.jspPane', yourPosts);
 
         }else if( by == 'votes'){
             $('.selected', sorting).removeClass('selected');
@@ -103,7 +103,7 @@ $.noConflict();
 
             $('.comment-box', yourPosts).sort(function (a, b) {
                 return parseInt($('.upvotes', b).text()) - parseInt($('.upvotes', a).text());
-            }).appendTo('.inner', yourPosts);
+            }).appendTo('.jspPane', yourPosts);
         }
     }
 
@@ -184,7 +184,7 @@ $.noConflict();
 
     ////* POSTS FUNCTIONS *////
     function processUserPosts(content) {
-        var commentInner = $('.inner', yourPosts);
+        var commentInner = $('.inner', yourPosts).data('jsp', null).attr('style', '');
         // create and display user's comments
         if (typeof content.comments == 'object') if (content.comments.length) {
             for (var i in content.comments) if (content.comments.hasOwnProperty(i)) {
@@ -192,7 +192,7 @@ $.noConflict();
                 createCommentBox(comment.id, comment.timestamp, comment.commentText, comment.starCount);
             }
             sorting.show();
-            commentInner.removeClass('no-posts');
+            commentInner.removeClass('no-posts').addClass('scroll-pane').jScrollPane();
             return;
         }
 
@@ -257,15 +257,58 @@ $.noConflict();
             upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea),
             deleteButtons = $('<div/>').addClass('delete-buttons').on('click', (e) => { e.stopPropagation(); return false; }).on('mouseover', (e) => { e.stopPropagation(); return false; }).appendTo(commentBox),
             deleteButton = $('<button/>').attr('data-localize', 'delete').text('Delete').addClass('delete-button buttons').on('click', function () {
-                $(this).parent().css({
+                var t = $(this);
+
+                // if this is last comment
+                if ($('.comment-box').length < 2) {
+                    $('.inner', yourPosts).attr('style', '').removeClass('scroll-pane').addClass('no-posts').html(
+                        $('<div id="no-posts"/>').html('<span>No Posts Yet</span>')
+                    ).data('jsp', null);
+                    sorting.hide();
+                    return;
+                }
+
+                $('.scroll-pane').each(function(){
+                    var jsPane = $('.jspPane', this).attr('height', $(this).height());
+                    var api = $(this).data('jsp');
+                    var interval = setInterval(function(){
+                        if(jsPane.height() != jsPane.attr('height')){
+                            jsPane.attr('height', jsPane.height());
+                            api.reinitialise();
+                        }
+                    }, 50);
+                });
+
+                t.parent().css({
                     overflow: 'hidden'
-                }).html('<div style="height: ' +$(this).parent().height() +'px; display: flex; align-items: center; justify-content: center;"><span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span></div>').parent().delay(1000).slideUp('fast', function(){this.remove();});
+                }).html(
+                    $('<div/>').css({
+                        height: t.parent().height(),
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }).html(
+                        $('<span>').css({
+                            textAlign: 'center',
+                            fontFamily: 'DINCondBold, sans-serif',
+                            fontSize: '200%',
+                            color: '#d0d0d0',
+                            cursor: 'default'
+                        }).text(chrome.i18n.getMessage('postDeleted'))
+                    )
+                ).parent().delay(1000).slideUp('fast', function(){
+                    this.remove();
+
+                    if(typeof interval != 'undefined') clearInterval(interval);
+                });
             }).appendTo(deleteButtons),
             cancelButton = $('<button/>').attr('data-localize', 'cancel').text('Cancel').addClass('cancel-button buttons').on('click', function () {
                 var t = $(this);
+                var parent = t.parent();
+
                 t.parents('.comment-box').css('pointerEvents', '').addClass('clicked-comment-box');
-                t.parent().animate({left: '100%'}, 'fast', () => {
-                    t.parent().hide().css({left: 0});
+                parent.animate({left: '100%'}, 'fast', () => {
+                    parent.hide().css({left: 0});
                 });
             }).appendTo(deleteButtons)
         ;
@@ -319,7 +362,7 @@ $.noConflict();
 
     function setElementColors(c) {
         var styleSheet = $('style#set-element-colors').length > 0 ? $('style#set-element-colors') : $('<style id="set-element-colors"/>');
-        styleSheet.html('.buttons, #star-area, .comment-text p::selection { color: ' +c +'; } .buttons:hover, .comment-box { background-color: ' +c +'; } .buttons, #profile-image { border-color: ' +c +'; background-color: transparent; } .buttons:hover { border-color: transparent; color: #ffffff; }').appendTo('body');
+        styleSheet.html('.buttons, #star-area, .comment-text p::selection { color: ' +c +'; } .buttons:hover, .comment-box, .jspDrag { background-color: ' +c +'; } .buttons, #profile-image { border-color: ' +c +'; background-color: transparent; } .buttons:hover { border-color: transparent; color: #ffffff; }').appendTo('body');
     }
 
     function rgb2hex(rgb) {
