@@ -23,3 +23,10 @@ Stopping clickbait one line at a time
  * click extensions
  * click "load extension"
  * specify the `Edge/` folder in the unpacked zip file.
+
+## Features
+* [html5doctor CSS Reset](http://html5doctor.com/html-5-reset-stylesheet) (v1.6.1)
+* [resizeSensor](https://github.com/marcj/css-element-queries)
+* [jQuery](https://code.jquery.com)  (v3.2.1)
+  * [mouseWheel](https://github.com/jquery/jquery-mousewheel) (v3.1.12)
+  * [jScrollPane](https://github.com/vitch/jScrollPane)  (v2.0.23)
