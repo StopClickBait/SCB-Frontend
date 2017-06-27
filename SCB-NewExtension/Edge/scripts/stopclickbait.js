@@ -42,63 +42,61 @@ jQuery.fn.hasClasses = function () {
 
     const DEBUG = true;
     var
-        showDefaultExplanation = true,
-        hoverToOpen = true,
-        showConsoleMessages = true,
+        user = { // user variables
+            showDefaultExplanation: true,
+            hoverToOpen: true
+        },
         c = console,
         LinkTimeout
-        ;
+    ;
 
     c.l = function (l) {
-        if (showConsoleMessages)
-            c.log(l);
-        else
-            return;
+        if (DEBUG) c.log(l);
     };
+
+    chrome.storage.onChanged.addListener(function (changes, namespace) {
+        if (namespace !== 'local') return;
+        $.each(changes, function (index, value) {
+            if(typeof user[index] != 'undefined'){
+                user[index] = value.newValue;
+                c.l(index +': was changed from ' +value.oldValue +' to ' +value.newValue);
+            }else{
+                c.l(index +': is not being used');
+            }
+        });
+    });
 
     function prepare() {
         chrome.storage.local.get('showDefaultExplanation', (items) => {
             if (items.hasOwnProperty('showDefaultExplanation'))
-                showDefaultExplanation = items.showDefaultExplanation;
+                user.showDefaultExplanation = items.showDefaultExplanation;
         });
 
 
         chrome.storage.local.get('hoverToOpen', (items) => {
             if (items.hasOwnProperty('hoverToOpen'))
-                hoverToOpen = items.hoverToOpen;
+                user.hoverToOpen = items.hoverToOpen;
         });
 
         var css = document.createElement('style');
         css.type = 'text/css';
         css.innerHTML = `.__clickbait_text {
-display: inline-block;
-margin-left: 1em;
+    display: inline-block;
+    margin-left: 1em;
 }
 
-._42nr > span::before {
-content: "" !important;
-}
+._42nr > span::before { content: '' !important; }
 
-._4x9_, ._a7s ._524d a, ._a7s ._50u4, ._1ysv {
-padding: 0px !important;
-}
+._4x9_, ._a7s ._524d a, ._a7s ._50u4, ._1ysv { padding: 0px !important; }
 
-.__clickbait_btn {
-margin-right: 5px;
-}
+.__clickbait_btn { margin-right: 5px; }
 
-._zw3 {
-    padding: 8px 4px 4px 0 !important;
-}
+._zw3 { padding: 8px 4px 4px 0 !important; }
 
-._3m9g {
-    padding-left: 0 !important;
-}
+._3m9g { padding-left: 0 !important; }
 
 
-.st0 {
-        fill: #4B4F56;
-        }
+.st0 { fill: #4b4f56; }
 
 .SCBcards {
     width: 500px;
@@ -107,20 +105,18 @@ margin-right: 5px;
     z-index: 7;
     background-color: white;
     overflow: hidden;
-    }
+}
 
-    svg {
-        transform: translate(0, 2px);
-    }
+svg { transform: translate(0, 2px); }
 
-    .__clickbait_reveal_line {
-        padding: 4px;
-        padding-left: 8px;
+.__clickbait_reveal_line {
+    padding: 4px;
+    padding-left: 8px;
     margin-top: 11px;
     margin-bottom: 11px;
     margin-left: 1px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 4px rgba(0, 0, 0, .1);
-    }
+}
 
 `;
         document.head.appendChild(css);
@@ -130,7 +126,7 @@ margin-right: 5px;
             if (items.hasOwnProperty('selectedColor')) return;
             // If there is no setting for selectedColor - i.e. the first time popup.html is opened:
             chrome.storage.local.set({ 'selectedColor': '#3b5999' }, function () {
-                console.log('#3b5999 saved to default.');
+                c.l('#3b5999 saved to default.');
             });
         });
     }
@@ -188,25 +184,24 @@ margin-right: 5px;
                     FBPageLink = spanContainer.find('span.fwb').eq(0)[0].childNodes[0].href.split('?')[0]
                     ;
 
-                if (showDefaultExplanation)
+                if (user.showDefaultExplanation)
                     revealLine(RevealLine, realUrl(), uniqueIds); // shows the line which gives the top explanation
 
-                if (hoverToOpen) {
-                    c.l('h2open is on');
 
-                    anchor.on('mouseenter', () => {
-                        if (!anchor.hasClass('clicked')) {
-                            anchor.addClass('hovered');
-                            displaySCBContainer(anchor, true);
-                        }
-                    }).on('mouseleave', () => {
-                        LinkTimeout = setTimeout(() => {
-                            if (anchor.hasClass('hovered'))
-                                hideSCBContainer();
-                            anchor.removeClass('hovered');
-                        }, 500);
-                    });
-                }
+                anchor.on('mouseenter', () => {
+                    if (!user.hoverToOpen) return;
+                    if (!anchor.hasClass('clicked')) {
+                        anchor.addClass('hovered');
+                        displaySCBContainer(anchor, true);
+                    }
+                }).on('mouseleave', () => {
+                    if (!user.hoverToOpen) return;
+                    LinkTimeout = setTimeout(() => {
+                        if (anchor.hasClass('hovered'))
+                            hideSCBContainer();
+                        anchor.removeClass('hovered');
+                    }, 500);
+                });
 
                 uniqueIds++;
 /*
@@ -326,16 +321,12 @@ margin-right: 5px;
 
     function revealLine(element, realURL, id) {
         // var userID = chrome.storage.local.get("userID");
-        chrome.storage.sync.get(null, function (items) {
-            var allKeys = Object.keys(items);
-            // console.log(allKeys);
-        });
 
         if (element instanceof jQuery === false) element = $(element);
         realURL = realURL.substring(0, realURL.indexOf('?'));
         element.addClass('_5pbx __clickbait_reveal_line').id('__clickbait_reveal_line_' + id);
 
-        if(showDefaultExplanation){
+        if(user.showDefaultExplanation){
             if (!DEBUG) {
                 $.ajax({
                     method: 'POST',

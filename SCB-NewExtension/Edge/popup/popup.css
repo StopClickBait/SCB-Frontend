@@ -15,6 +15,15 @@
     font-style: normal;
 }
 
+::selection { background-color: transparent; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb {
+    width: 6px;
+    border-radius: 3px;
+    background-color: #828282;
+}
+
+
 html {
     height: 450px;
     overflow: hidden;
@@ -42,10 +51,8 @@ body {
     background: #f9f9f9;
     margin: 0;
     padding: 0;
-    border-bottom: solid;
-    border-bottom-width: 1px;
-    display:flex;
-    border-bottom-color: #c6c6c6;
+    border-bottom: 1px solid #c6c6c6;
+    display: flex;
     vertical-align: middle;
     justify-content: center;
     cursor: default;
@@ -60,7 +67,6 @@ body {
     margin: 0;
     margin-top: 5px;
 }
-::selection { background-color: transparent; }
 
 #profile-logged-in, #profile-logged-out {
     padding-top: 10px;
@@ -275,7 +281,6 @@ body {
 }
 
 #actions {
-    background-color: #f9f9f9;
     color: #3f3f3f;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
@@ -386,16 +391,6 @@ input[type=checkbox] { cursor: pointer; }
 #logout {
     cursor: pointer;
     display: none;
-}
-
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #828282;
-    border-radius: 3px;
-    width: 6px;
 }
 
 #logout:hover {
