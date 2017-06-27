@@ -243,6 +243,11 @@ function processingVotingResults(results) {
 
 }
 
+function linkify(text) {
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(exp, '<a href="$1">$1</a>'); 
+}
+
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
     commentArea = $('#commentArea');
     commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').on('click', function () {
@@ -258,7 +263,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     }).appendTo(commentArea);
     commentLeft = $('<div class="commentLeft"/>').appendTo(commentBox);
     commentText = $('<div class="commentText"/>').appendTo(commentLeft);
-    commentContent = $('<p/>').text(content).appendTo(commentText);
+    commentContent = $('<p/>').html(linkify(content)).appendTo(commentText);
     userArea = $('<div class="userArea"/>').appendTo(commentLeft);
     userName = $('<span class="userName"/>').text(userNameString).appendTo(userArea);
     voteArea = $('<div class="voteArea">').prependTo(commentLeft);
