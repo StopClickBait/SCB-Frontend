@@ -290,8 +290,6 @@ $.noConflict();
                     }).html(
                         $('<span>').css({
                             textAlign: 'center',
-                            fontFamily: 'DINCondBold, sans-serif',
-                            fontSize: '200%',
                             color: '#d0d0d0',
                             cursor: 'default'
                         }).text(chrome.i18n.getMessage('postDeleted'))

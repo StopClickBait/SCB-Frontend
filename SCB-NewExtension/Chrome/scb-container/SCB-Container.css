@@ -131,8 +131,9 @@ button:hover {
     flex-shrink: 0;
     flex-grow: 0;
     display: flex;
+    overflow: hidden;
 }
-
+/*
     .commentBox:hover {
         background-color: #3b5998;
         color: white;
@@ -242,39 +243,23 @@ a, .userName {
     text-align: center;
 }
 
-.deleteButton {
-    /*background-color: #3b5998;
-    border: 0;*/
-    height: 40px;
-    margin-right: 10px;
-    /*border-radius: 3px;*/
-    cursor: pointer;
-    top: 25%;
-    left: 25%;
-    position: absolute;
+.deleteButton, .cancelButton {
     width: 80px;
-    pointer-events: auto;
+    height: 40px;
+    cursor: pointer;
+    position: absolute;
     font-size: 12pt;
+    top: calc(50% - 20px);
+    pointer-events: auto;
 }
+
+.deleteButton { left: calc(50% - 90px); }
 
     .deleteButton:hover {
         /*background-color: #2a4887;*/
     }
 
-.cancelButton {
-    /*background-color: #828282;
-    color: white;
-    border: 0;*/
-    height: 40px;
-    /*border-radius: 3px;*/
-    top: 25%;
-    left: 51%;
-    cursor: pointer;
-    position: absolute;
-    width: 80px;
-    pointer-events: auto;
-    font-size: 12pt;
-}
+.cancelButton { left: calc(50% + 10px); }
 
     .cancelButton:hover {
         /*background-color: #707070;*/

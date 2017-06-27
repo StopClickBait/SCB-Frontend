@@ -5,6 +5,7 @@ if (document.location.href.indexOf('?') > -1) {
     clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
     clickBaitLink = clickBaitLink.split('?')[0];
+	if(clickBaitLink.indexOf('&') !== -1) clickBaitLink = clickBaitLink.substr(0, clickBaitLink.indexOf('&'));
 }
 //var userID = chrome.storage.local.get("userID");
 
@@ -13,7 +14,7 @@ chrome.storage.local.get('selectedColor', function (items) {
     setElementColors(items.selectedColor);
 });
 
-sortCommentsByVotes();
+sortComments('votes');
 
 if (DEBUG) {
     processingCommentList({
@@ -77,8 +78,6 @@ if (DEBUG) {
         ]
     });
     addEventHandlers();
-    
-
 } else {
     jQuery.ajax({
         method: 'POST',
@@ -102,16 +101,16 @@ function addEventHandlers() {
     });
 
     $('#topSC').on('click', function () {
-        sortCommentsByVotes();
+        sortComments('votes');
     });
 
     // Add event listener to sort by newest comment.
     $('#dateSC').on('click', function () {
-        sortCommentsByDate();
+        sortComments('date');
     });
 
     var submitCB = $('#submitCB');
-    var submitHeight = submitCB[0].offsetHeight;
+    var submitHeight = submitCB.height();
     var commentArea = $('#commentArea');
 
     submitCB.on('focusin', () => {
@@ -122,15 +121,15 @@ function addEventHandlers() {
         $('#controlBar, #controlBarButtons').css('display', 'block');
         $('#charCounter').css('display', 'flex');
         commentArea.css('height', 305 - submitCB[0].offsetHeight);
-    }).on('focusout', function () {
-        if (submitCB.val().length === 0) {
-            $('#controlBar, #charCounter, #controlBarButtons').hide();
-            submitCB.css({
-                height: submitHeight,
-                paddingBottom: 0
-            });
-            commentArea.css('height', 265);
-        }
+    }).on('focusout', () => {
+		if (submitCB.val().length > 0) return;
+
+		$('#controlBar, #charCounter, #controlBarButtons').hide();
+		submitCB.css({
+			height: submitHeight,
+			paddingBottom: 0
+		});
+		commentArea.css('height', 265);
     }).on('input', () => {
         var submitCB = $('#submitCB');
         if (submitCB.val().indexOf('\n') !== -1) {
@@ -142,68 +141,6 @@ function addEventHandlers() {
         if (submitCB.val().indexOf('\n') !== -1) {
             submitCB.val(submitCB.val().replace('\n', ' '));
         }
-    });
-
-    $('.commentBox').each((i, elem) => {
-        var t = $(elem);
-        if (!t.hasClass('ownComment')) {
-            t.on('click', () => {
-                var cb = $(elem);
-                cb.css('backgroundColor', '');
-                cb.hasClass('clickedCommentBox') ? cb.removeClass('clickedCommentBox') : cb.addClass('clickedCommentBox');
-            }).on('mousedown', (e) => {
-                $(elem).css({
-                    filter: 'brightness(80%)'
-                });
-            }).on('mouseup', (e) => {
-                $(elem).css({
-                    filter: ''
-                });
-            });
-        }
-    });
-
-    $('.deleteIcon').each((i, elem) => {
-        if ($(elem).parents('.commentBox').eq(0).hasClass('ownComment')) {
-            $(elem).on('click', () => {
-                $(elem).parents('.commentBox').children('.deleteButtons').css({
-                    pointerEvents: 'none',
-                    display: 'unset'
-                })
-                $(elem).parents('.commentBox').addClass('blockedCommentBox');
-            });
-        } else {
-            $(elem).remove();
-        }
-    });
-
-    $('.cancelButton').each((i, elem) => {
-        $(elem).on('click', () => {
-            var t = $(elem);
-            
-            t.parents('.commentBox').css('pointerEvents', '').removeClass('blockedCommentBox');
-            t.parent().hide();
-        }).on('mousedown', (e) => {
-            $(elem).css({
-                filter: 'brightness(80%)'
-            });
-        }).on('mouseup', (e) => {
-            $(elem).css({
-                filter: ''
-            });
-        });
-    });
-
-    $('.deleteButton').each((i, elem) => {
-        $(elem).on('click', () => {
-            var deleteButtons = $(elem).parent();
-            deleteButtons.css({
-                display: 'flex',
-                justifyContent: 'center',
-                verticalAlign: 'middle',
-                alignItems: 'center'
-            }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>');
-        });
     });
 
     $('#btnClose').on('click', function () {
@@ -225,7 +162,6 @@ function addEventHandlers() {
         $('#pollAnswerBar').css('justifyContent', 'space-between');
 
         if (!DEBUG) {
-
             $.ajax({
                 method: 'POST',
                 url: 'https://server.stopclickbait.com/voting.php',
@@ -309,72 +245,80 @@ function processingVotingResults(results) {
 
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
     commentArea = $('#commentArea');
-    commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').appendTo(commentArea);
+    commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').on('click', function () {
+        if (ownComment) return;
+        $('.clickedCommentBox').removeClass('clickedCommentBox')
+        $(this).css('backgroundColor', '').addClass('clickedCommentBox');
+    }).on('mousedown', function () {
+        if (ownComment) return;
+        $(this).css('filter', 'brightness(80%)');
+    }).on('mouseup', function () {
+        if (ownComment) return;
+        $(this).css('filter', '');
+    }).appendTo(commentArea);
     commentLeft = $('<div class="commentLeft"/>').appendTo(commentBox);
     commentText = $('<div class="commentText"/>').appendTo(commentLeft);
     commentContent = $('<p/>').text(content).appendTo(commentText);
     userArea = $('<div class="userArea"/>').appendTo(commentLeft);
     userName = $('<span class="userName"/>').text(userNameString).appendTo(userArea);
     voteArea = $('<div class="voteArea">').prependTo(commentLeft);
-    deleteIcon = $('<div class="deleteIcon">c</div>').appendTo(commentBox);
+    deleteIcon = $('<div class="deleteIcon">c</div>').on('click', function () {
+        $(this).parents('.commentBox').addClass('blockedCommentBox').children('.deleteButtons').css('pointerEvents', 'none').fadeIn('fast');
+    }).appendTo(commentBox);
     upvoteStar = $('<span class="upvoteStar">a</span>').appendTo(voteArea);
     upvotes = $('<span class="upvotes"/>').text(voteNumber).appendTo(voteArea);
-    deleteButtons = $('<div class="deleteButtons">').on('click', function () { return false; }).on('mouseover', function () { return false; }).appendTo(commentBox);
-    deleteButton = $('<button class="deleteButton" data-localize="delete">delete</button>').appendTo(deleteButtons);
-    cancelButton = $('<button class="cancelButton" data-localize="cancel">cancel</button>').appendTo(deleteButtons);
+    deleteButtons = $('<div class="deleteButtons"/>').appendTo(commentBox);
+    deleteButton = $('<button class="deleteButton" data-localize="delete">delete</button>').on('click', function () {
+        $(this).parent().css({
+            display: 'flex',
+            justifyContent: 'center',
+            verticalAlign: 'middle',
+            alignItems: 'center'
+        }).html('<span style="color: #828282 !important; text-align: center">' + chrome.i18n.getMessage('postDeleted') + '</span>').parents('.commentBox').delay(1000).slideUp('fast', function () {
+            this.remove();
+        });
+    }).appendTo(deleteButtons);
+    cancelButton = $('<button class="cancelButton" data-localize="cancel">cancel</button>').on('click', function () {
+        var t = $(this);
+        t.parent().animate({left: '100%'}, 'fast', function(){
+            t.parents('.commentBox').css('pointerEvents', '').removeClass('blockedCommentBox');
+            t.parent().hide().css('left', 0);
+        });
+    }).on('mousedown', function () {
+        $(this).css('filter', 'brightness(80%)');
+    }).on('mouseup', function () {
+        $(this).css('filter', '');
+    }).appendTo(deleteButtons);
 
     if (ownComment) {
         commentBox.addClass('ownComment');
-
     } else {
         separator = $('<span class="separator">|</span>').appendTo(userArea);
         reportLink = $('<span class="reportLink">').appendTo(userArea);
         reportLinkA = $('<a href="#" class="reportLinkA" data-localize="report">report</a>').appendTo(reportLink);
+        deleteIcon.remove();
     }
 }
 
-function sortCommentsByVotes() {
-    $('#topSC').css('fontWeight', 'bold');
-    $('#dateSC').css('fontWeight', 'normal');
+function sortComments(by){
+    if(typeof by == 'undefined') return;
 
-    var commentCards = $('#commentInner').children(),
-        sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
+    var top = $('#topSC').css('fontWeight', 'normal');
+    var date = $('#dateSC').css('fontWeight', 'normal');
+    var commentInner = $('#commentInner');
 
-    if (sortCards.length > 1) {
-        sortCards.sort(function (a, b) {
-            valA = parseInt($(a).find('.upvotes').eq(0).html());
-            valB = parseInt($(b).find('.upvotes').eq(0).html());
-            return valA - valB;
-        });
+    if(by == 'votes'){
+        top.css('fontWeight', 'bold');
 
-        commentParent = $('#commentInner').html('');
-        for (i = sortCards.length - 1; i >= 0; --i) {
-            commentParent.append(sortCards[i]);
-        }
-    } else {
-        return;
-    }
-}
+        commentInner.children().sort(function (a, b) {
+            return parseInt($('.upvotes', b).text()) - parseInt($('.upvotes', a).text());
+        }).appendTo(commentInner);
+    } else if (by == 'date') {
+        date.css('fontWeight', 'bold');
 
-function sortCommentsByDate() {
-    $('#topSC').css('fontWeight', 'normal');
-    $('#dateSC').css('fontWeight', 'bold');
-
-    var commentCards = $('#commentInner').children(),
-        sortCards = Array.prototype.slice.call(commentCards.toArray(), 0);
-    if (sortCards.length > 1) {
-        sortCards.sort(function (a, b) {
-            valA = parseInt(a.dataset.timestamp);
-            valB = parseInt(b.dataset.timestamp);
-            return valA - valB;
-        });
-
-        var commentParent = $('#commentInner').html('');
-        for (i = sortCards.length - 1; i >= 0; --i) {
-            commentParent.append(sortCards[i]);
-        }
-    } else {
-        return;
+        commentInner.children().sort(function (a, b) {
+            return parseInt(b.dataset.timestamp) - parseInt(a.dataset.timestamp);
+        }).appendTo(commentInner);
     }
 }
 
