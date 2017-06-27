@@ -5,6 +5,7 @@ if (document.location.href.indexOf('?') > -1) {
     clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
     clickBaitLink = clickBaitLink.split('?')[0];
+	if(clickBaitLink.indexOf('&') !== -1) clickBaitLink = clickBaitLink.substr(0, clickBaitLink.indexOf('&'));
 }
 //var userID = chrome.storage.local.get("userID");
 
@@ -109,7 +110,7 @@ function addEventHandlers() {
     });
 
     var submitCB = $('#submitCB');
-    var submitHeight = submitCB[0].offsetHeight;
+    var submitHeight = submitCB.height();
     var commentArea = $('#commentArea');
 
     submitCB.on('focusin', () => {
@@ -121,14 +122,14 @@ function addEventHandlers() {
         $('#charCounter').css('display', 'flex');
         commentArea.css('height', 305 - submitCB[0].offsetHeight);
     }).on('focusout', () => {
-        if (submitCB.val().length === 0) {
-            $('#controlBar, #charCounter, #controlBarButtons').hide();
-            submitCB.css({
-                height: submitHeight,
-                paddingBottom: 0
-            });
-            commentArea.css('height', 265);
-        }
+		if (submitCB.val().length > 0) return;
+
+		$('#controlBar, #charCounter, #controlBarButtons').hide();
+		submitCB.css({
+			height: submitHeight,
+			paddingBottom: 0
+		});
+		commentArea.css('height', 265);
     }).on('input', () => {
         var submitCB = $('#submitCB');
         if (submitCB.val().indexOf('\n') !== -1) {
