@@ -1,6 +1,17 @@
 const DEBUG = true;
 var clickBaitLink = "null";
 var $ = jQuery;
+
+$.fn.calcHeight = function () {
+    var t = $(this);
+    return t.height() +parseInt(t.css('borderTopWidth')) +parseInt(t.css('borderBottomWidth'));
+}
+$.fn.changeClass = function (c) {
+    if(typeof c != 'string') return this;
+    if(c.length < 1) return this;
+    return $(this).removeClass().addClass(c);
+}
+
 if (document.location.href.indexOf('?') > -1) {
     clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
@@ -104,29 +115,31 @@ function addEventHandlers() {
         sortComments('votes');
     });
 
-    // Add event listener to sort by newest comment.
     $('#dateSC').on('click', function () {
         sortComments('date');
     });
 
     var submitCB = $('#submitCB');
-    var submitHeight = submitCB.height();
+    var submitHeight = submitCB.calcHeight();
     var commentArea = $('#commentArea');
 
-    submitCB.on('focusin', () => {
-        submitCB.attr('style', '').css({
+    submitCB.on('focusin', function () {
+        var t = $(this);
+        t.attr('style', '').css({
             paddingBottom: 20,
-            height: submitCB[0].scrollHeight + 50
+            height: t[0].scrollHeight + 50
         });
-        $('#controlBar, #controlBarButtons').css('display', 'block');
-        $('#charCounter').css('display', 'flex');
-        commentArea.css('height', 305 - submitCB[0].offsetHeight);
+
+        $('#controlBar, #controlBarButtons').changeClass('block');
+        $('#charCounter').changeClass('flex');
+
+        commentArea.css('height', 305 - t[0].offsetHeight);
     }).on('focusout', () => {
         if (submitCB.val().length > 0) return;
 
-        $('#controlBar, #charCounter, #controlBarButtons').hide();
+        $('#controlBar, #charCounter, #controlBarButtons').changeClass('hidden');
         submitCB.css({
-            height: submitHeight,
+            height: '',
             paddingBottom: 0
         });
         commentArea.css('height', 265);
@@ -135,8 +148,8 @@ function addEventHandlers() {
         if (submitCB.val().indexOf('\n') !== -1) {
             submitCB.val(submitCB.val().replace('\n', ' '));
         }
-        var value = submitCB.val().length;
-        $('#charCounter').text(140 - value);
+
+        $('#charCounter').text(140 - submitCB.val().length);
         commentArea.css('height', 305 - submitArea.offsetHeight);
         if (submitCB.val().indexOf('\n') !== -1) {
             submitCB.val(submitCB.val().replace('\n', ' '));
@@ -146,7 +159,7 @@ function addEventHandlers() {
     $('#btnClose').on('click', function () {
         var submitArea = $('#submitCB');
         submitArea.val('');
-        $('#controlBar, #charCounter').hide();
+        $('#controlBar, #charCounter').changeClass('hidden');
         $('#commentArea').css('height', 265);
         submitArea.css({
             height: 30,
@@ -155,10 +168,9 @@ function addEventHandlers() {
     });
 
     $('#pollButtonYes').on('click', (e) => {
-        $('#pollAnswers').show();
-        $('#pollButtonArea').hide();
-        $('#pollAnswerYes').css('display', 'unset');
-        $('#pollAnswerNo').css('display', 'unset');
+        $('#pollAnswers').changeClass('block');
+        $('#pollButtonArea').changeClass('hidden');
+        $('#pollAnswerYes, #pollAnswerNo').changeClass('inline');
         $('#pollAnswerBar').css('justifyContent', 'space-between');
 
         if (!DEBUG) {
@@ -181,10 +193,9 @@ function addEventHandlers() {
     });
 
     $('#pollButtonNo').on('click', function () {
-        $('#pollAnswers').show();
-        $('#pollButtonArea').hide();
-        $('#pollAnswerYes').css('display', 'unset');
-        $('#pollAnswerNo').css('display', 'unset');
+        $('#pollAnswers').changeClass('block');
+        $('#pollButtonArea').changeClass('hidden');
+        $('#pollAnswerYes, #pollAnswerNo').changeClass('inline');
         $('#pollAnswerBar').css('justifyContent', 'space-between');
 
         if (!DEBUG) {
@@ -313,19 +324,18 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
 
 function sortComments(by){
     if(typeof by == 'undefined') return;
-
-    var top = $('#topSC').css('fontWeight', 'normal');
-    var date = $('#dateSC').css('fontWeight', 'normal');
     var commentInner = $('#commentInner');
 
+    $('#TopNew .selected').removeClass('selected');
+
     if(by == 'votes'){
-        top.css('fontWeight', 'bold');
+        $('#topSC').addClass('selected');
 
         commentInner.children().sort(function (a, b) {
             return parseInt($('.upvotes', b).text()) - parseInt($('.upvotes', a).text());
         }).appendTo(commentInner);
     } else if (by == 'date') {
-        date.css('fontWeight', 'bold');
+        $('#dateSC').addClass('selected');
 
         commentInner.children().sort(function (a, b) {
             return parseInt(b.dataset.timestamp) - parseInt(a.dataset.timestamp);
@@ -364,7 +374,6 @@ function setElementColors(color) {
                 b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
                 b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
                 b[j].selectorText === ":not([value])#pollBar") {
-                    console.log(b[j].selectorText);
                 b[j].style.backgroundColor = "#fff";
                 b[j].style.border = "1px solid";
                 b[j].style.borderColor = color;
