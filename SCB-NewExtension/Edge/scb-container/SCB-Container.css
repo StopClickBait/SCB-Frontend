@@ -15,7 +15,6 @@ body { margin: 0; padding: 0; background-color: #e9ebee; }
     font-family: 'Droid Sans Mono', monospace;
     height: 450px;
     color: #828282;
-    cursor: default;
 }
 .cardInner {
     padding-right: 10px;
@@ -174,11 +173,11 @@ button:hover {
 .commentText {  }
 
     .commentText a {
-        color: rgba(255, 255, 255, 0.85);
+        color: #cdd2d4;
     }
 
     .commentText a:hover {
-        color: rgba(255, 255, 255, 0.67);
+        color: #5e5e5e;
     }
 
     .commentText p {
