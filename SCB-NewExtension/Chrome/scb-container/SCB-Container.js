@@ -345,9 +345,59 @@ function hex2rgb(hex){
     return c.join(', ');
 }
 
-function setElementColors (c) {
-    var styleSheet = $('style#set-element-colors').length > 0 ? $('style#set-element-colors') : $('<style id="set-element-colors"/>');
-    styleSheet.html('.commentBox:not(.ownComment):hover, .clickedCommentBox { background-color: rgba(' +hex2rgb(c) +', .35); color: #ffffff; } button:hover, .ownComment { background-color: ' +c +'; } #submitCB:focus, #pollBttns button, #pollButtonArea, button { color: ' +c +' } #pollBar:not([value]), #pollBar:not([value])::-webkit-progress-bar, #pollBar:not([value])::-moz-progress-bar, :not([value])#pollBar { background-color: #ffffff; border: 1px solid ' +c +'; border-radius: 3px; } button { border: 1px solid ' +c +'; border-radius: 3px; } button:hover { color: #ffffff; }').appendTo('body');
+function setElementColors(color) {
+    var a = document.styleSheets;
+    for (var i in a) if (a.hasOwnProperty(i)) {
+        var b;
+        a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
+        for (var j in b) if (b.hasOwnProperty(j)) {
+            if (b[j].selectorText === ".commentBox:hover" || b[j].selectorText === ".clickedCommentBox") {
+                b[j].style.backgroundColor = 'rgba(' +hex2rgb(color) +', 0.35)';
+            }
+            // Change color:
+            if (b[j].selectorText === ".ownComment") {
+                b[j].style.backgroundColor = color;
+            }
+
+            // Change Pollbar color:
+            if (b[j].selectorText === "#pollBar:not([value])" ||
+                b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
+                b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
+                b[j].selectorText === ":not([value])#pollBar") {
+                    console.log(b[j].selectorText);
+                b[j].style.backgroundColor = "#fff";
+                b[j].style.border = "1px solid";
+                b[j].style.borderColor = color;
+                b[j].style.borderRadius = "3px";
+            }
+
+            // Change color for button:
+            if (b[j].selectorText === "button") {
+                b[j].style.backgroundColor = "#fff";
+                b[j].style.border = "1px solid";
+                b[j].style.borderColor = color;
+                b[j].style.color = color;
+                b[j].style.borderRadius = "3px";
+            }
+
+            // Change hover style for button:
+            if (b[j].selectorText === "button:hover") {
+                b[j].style.backgroundColor = color;
+                b[j].style.color = "#fff";
+            }
+
+            // Change text color for these areas:
+            if (b[j].selectorText === "#pollBttns button" ||
+                b[j].selectorText === "#pollButtonArea") {
+                b[j].style.color = color;
+            }
+
+            // Change the outline color of the textbox:
+            if (b[j].selectorText === "#submitCB:focus") {
+                b[j].style.outlineColor = color;
+            }
+        }
+    }
 }
 
 $(document).ready(function(){
