@@ -170,9 +170,15 @@ button:hover {
     color: white;
 }
 
-.commentText {
-    
-}
+.commentText {  }
+
+    .commentText a {
+        color: #cdd2d4;
+    }
+
+    .commentText a:hover {
+        color: #5e5e5e;
+    }
 
     .commentText p {
         margin: 0;

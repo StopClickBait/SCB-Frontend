@@ -263,7 +263,7 @@ function createCommentBox(commentId, timestamp, content, userNameString, voteNum
     }).appendTo(commentArea);
     commentLeft = $('<div class="commentLeft"/>').appendTo(commentBox);
     commentText = $('<div class="commentText"/>').appendTo(commentLeft);
-    commentContent = $('<p/>').html(linkify(content)).appendTo(commentText);
+    commentContent = $('<p class="commentContent" />').html(linkify(content)).appendTo(commentText);
     userArea = $('<div class="userArea"/>').appendTo(commentLeft);
     userName = $('<span class="userName"/>').text(userNameString).appendTo(userArea);
     voteArea = $('<div class="voteArea">').prependTo(commentLeft);
