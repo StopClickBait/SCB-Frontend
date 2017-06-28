@@ -5,7 +5,7 @@ if (document.location.href.indexOf('?') > -1) {
     clickBaitLink = document.location.href.split('?url=')[1];
     clickBaitLink = decodeURIComponent(clickBaitLink);
     clickBaitLink = clickBaitLink.split('?')[0];
-	if(clickBaitLink.indexOf('&') !== -1) clickBaitLink = clickBaitLink.substr(0, clickBaitLink.indexOf('&'));
+    if(clickBaitLink.indexOf('&') !== -1) clickBaitLink = clickBaitLink.substr(0, clickBaitLink.indexOf('&'));
 }
 //var userID = chrome.storage.local.get("userID");
 
@@ -122,14 +122,14 @@ function addEventHandlers() {
         $('#charCounter').css('display', 'flex');
         commentArea.css('height', 305 - submitCB[0].offsetHeight);
     }).on('focusout', () => {
-		if (submitCB.val().length > 0) return;
+        if (submitCB.val().length > 0) return;
 
-		$('#controlBar, #charCounter, #controlBarButtons').hide();
-		submitCB.css({
-			height: submitHeight,
-			paddingBottom: 0
-		});
-		commentArea.css('height', 265);
+        $('#controlBar, #charCounter, #controlBarButtons').hide();
+        submitCB.css({
+            height: submitHeight,
+            paddingBottom: 0
+        });
+        commentArea.css('height', 265);
     }).on('input', () => {
         var submitCB = $('#submitCB');
         if (submitCB.val().indexOf('\n') !== -1) {
@@ -251,9 +251,15 @@ function linkify(text) {
 function createCommentBox(commentId, timestamp, content, userNameString, voteNumber, ownComment) {
     commentArea = $('#commentArea');
     commentBox = $('<div class="commentBox" id="comment-' + commentId + '" data-timestamp="' + timestamp + '"/>').on('click', function () {
+        var t = $(this), clas = 'clickedCommentBox';
         if (ownComment) return;
-        $('.clickedCommentBox').removeClass('clickedCommentBox')
-        $(this).css('backgroundColor', '').addClass('clickedCommentBox');
+        if (t.hasClass(clas)) {
+            t.removeClass(clas);
+            return;
+        }
+
+        $('.' +clas).removeClass(clas)
+        t.css('backgroundColor', '').addClass(clas);
     }).on('mousedown', function () {
         if (ownComment) return;
         $(this).css('filter', 'brightness(80%)');
@@ -327,56 +333,21 @@ function sortComments(by){
     }
 }
 
-function setElementColors(color) {
-    var a = document.styleSheets;
-    for (var i in a) if (a.hasOwnProperty(i)) {
-        var b;
-        a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
-        for (var j in b) if (b.hasOwnProperty(j)) {
-            // Change color:
-            if (b[j].selectorText === ".commentBox:hover" ||
-                b[j].selectorText === ".clickedCommentBox, .ownComment") {
-                b[j].style.backgroundColor = color;
-            }
+function hex2rgb(hex){
+    if(hex.length < 6) return;
+    hex = hex.charAt(0) == '#' ? hex.substring(1, 7) : hex;
+    var c = [
+        parseInt(hex.substring(0,2),16),
+        parseInt(hex.substring(2,4),16),
+        parseInt(hex.substring(4,6),16)
+    ];
 
-            // Change Pollbar color:
-            if (b[j].selectorText === "#pollBar:not([value])" ||
-                b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
-                b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
-                b[j].selectorText === ":not([value])#pollBar") {
-                b[j].style.backgroundColor = "#fff";
-                b[j].style.border = "1px solid";
-                b[j].style.borderColor = color;
-                b[j].style.borderRadius = "3px";
-            }
+    return c.join(', ');
+}
 
-            // Change color for button:
-            if (b[j].selectorText === "button") {
-                b[j].style.backgroundColor = "#fff";
-                b[j].style.border = "1px solid";
-                b[j].style.borderColor = color;
-                b[j].style.color = color;
-                b[j].style.borderRadius = "3px";
-            }
-
-            // Change hover style for button:
-            if (b[j].selectorText === "button:hover") {
-                b[j].style.backgroundColor = color;
-                b[j].style.color = "#fff";
-            }
-
-            // Change text color for these areas:
-            if (b[j].selectorText === "#pollBttns button" ||
-                b[j].selectorText === "#pollButtonArea") {
-                b[j].style.color = color;
-            }
-
-            // Change the outline color of the textbox:
-            if (b[j].selectorText === "#submitCB:focus") {
-                b[j].style.outlineColor = color;
-            }
-        }
-    }
+function setElementColors (c) {
+    var styleSheet = $('style#set-element-colors').length > 0 ? $('style#set-element-colors') : $('<style id="set-element-colors"/>');
+    styleSheet.html('.commentBox:not(.ownComment):hover, .clickedCommentBox { background-color: rgba(' +hex2rgb(c) +', .35); color: #ffffff; } button:hover, .ownComment { background-color: ' +c +'; } #submitCB:focus, #pollBttns button, #pollButtonArea, button { color: ' +c +' } #pollBar:not([value]), #pollBar:not([value])::-webkit-progress-bar, #pollBar:not([value])::-moz-progress-bar, :not([value])#pollBar { background-color: #ffffff; border: 1px solid ' +c +'; border-radius: 3px; } button { border: 1px solid ' +c +'; border-radius: 3px; } button:hover { color: #ffffff; }').appendTo('body');
 }
 
 $(document).ready(function(){
