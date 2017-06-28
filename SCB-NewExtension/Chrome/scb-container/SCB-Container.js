@@ -351,9 +351,9 @@ function setElementColors(color) {
         var b;
         a[i].cssRules ? b = a[i].cssRules : b = a[i].rules;
         for (var j in b) if (b.hasOwnProperty(j)) {
-			if (b[j].selectorText === ".commentBox:hover" || b[j].selectorText === ".clickedCommentBox") {
-				b[j].style.backgroundColor = 'rgba(' +hex2rgb(color) +', 0.35)';
-			}
+            if (b[j].selectorText === ".commentBox:hover" || b[j].selectorText === ".clickedCommentBox") {
+                b[j].style.backgroundColor = 'rgba(' +hex2rgb(color) +', 0.35)';
+            }
             // Change color:
             if (b[j].selectorText === ".ownComment") {
                 b[j].style.backgroundColor = color;
@@ -364,7 +364,7 @@ function setElementColors(color) {
                 b[j].selectorText === "#pollBar:not([value])::-webkit-progress-bar" ||
                 b[j].selectorText === "#pollBar:not([value])::-moz-progress-bar" ||
                 b[j].selectorText === ":not([value])#pollBar") {
-					console.log(b[j].selectorText);
+                    console.log(b[j].selectorText);
                 b[j].style.backgroundColor = "#fff";
                 b[j].style.border = "1px solid";
                 b[j].style.borderColor = color;
